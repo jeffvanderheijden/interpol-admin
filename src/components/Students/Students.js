@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./students.css";
 
 const Students = ({
     groupId
@@ -17,13 +18,11 @@ const Students = ({
     }, [students])
 
     return (
-        <section>
-            <h1>Students</h1>
+        <section class="studentsSection">
             {students && students.map(student => (
-                <div key={student.id}>
-                    <h2>{student.name}</h2>
-                    <p>{student.student_number}</p>
-                </div>
+                <ul key={student.id}>
+                    <li><h3>{student.name}</h3><p>{student.student_number}</p></li>
+                </ul>
             ))}
         </section>
     );

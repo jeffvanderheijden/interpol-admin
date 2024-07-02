@@ -1,0 +1,15 @@
+.studentsSection {
+    display: flex;
+}
+
+.studentsSection li {
+    margin: 0px 10px;
+}
+
+.studentsSection li h3 {
+    font-size: 12px !important;
+}
+
+.studentsSection li p {
+    font-size: 10px !important;
+}

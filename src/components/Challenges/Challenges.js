@@ -15,7 +15,6 @@ const Challenges = ({
 
     return (
         <section>
-            <h1>Challenges</h1>
             {challenges && challenges.map(challenge => (
                 <div key={challenge.id}>
                     <h2>{challenge.id}</h2>

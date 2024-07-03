@@ -18,7 +18,7 @@ const Students = ({
     }, [students])
 
     return (
-        <section class="studentsSection">
+        <section className="studentsSection">
             {students && students.map(student => (
                 <ul key={student.id}>
                     <li><h3>{student.name}</h3><p>{student.student_number}</p></li>

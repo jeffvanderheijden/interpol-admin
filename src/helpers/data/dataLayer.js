@@ -76,7 +76,6 @@ const dataLayer = () => {
 }
 
 export const checkSession = async () => {
-    console.log('Checking session...');
     try {
         const response = await fetch('https://api.interpol.sd-lab.nl/api/check-type', {
             method: 'GET',
@@ -88,15 +87,14 @@ export const checkSession = async () => {
         }
 
         const userData = await response.json();
-        console.log(userData);
 
-        if (useData.error) {
+        if (userData.error) {
             console.error('Error checking session:', userData.error);
             return false;
         }
 
         // Check if user is logged in as DOCENT
-        return userData.ingelogdAls === 'DOCENT' ? true : false;
+        return userData === 'DOCENT' ? true : false;
 
     } catch (error) {
         console.error('Error checking session:', error);

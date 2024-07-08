@@ -55,7 +55,6 @@ const dataLayer = () => {
                 for (const challenge of challenges) {
                     await getChallenge(challenge.challenge_id)
                         .then(data => {
-                            console.log(data);
                             challenge['name'] = data[0].name;
                             challenge['minimum_points'] = data[0].minimum_points;
                             challenge['time_limit'] = data[0].time_limit;

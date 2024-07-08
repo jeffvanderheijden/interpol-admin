@@ -1,4 +1,5 @@
 import React from "react";
+import { navigate } from "@reach/router";
 import "./Login.css";
 
 const Login = () => {
@@ -13,7 +14,7 @@ const Login = () => {
             const response = await fetch('https://api.interpol.sd-lab.nl/api/create-session', {
                 method: 'POST',
                 body: formData,
-                // credentials: 'include' // Ensure cookies are included with the request
+                credentials: 'include' // Ensure cookies are included with the request
             });
 
             const responseText = await response.text(); // Read the raw response body as text
@@ -23,13 +24,13 @@ const Login = () => {
             }
 
             const login = JSON.parse(responseText); // Parse the response text as JSON
-            console.log(login);
 
             // Do something with the login response, e.g., handle login success or error
             if (login.error) {
                 console.error('Login error:', login.error);
             } else {
                 console.log('Login successful:', login.message);
+                navigate('/dashboard/');
             }
 
         } catch (error) {

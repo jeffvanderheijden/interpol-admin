@@ -72,4 +72,26 @@ const dataLayer = () => {
     return fetchAllData();
 }
 
+export const checkSession = async () => {
+    try {
+        const response = await fetch('https://api.interpol.sd-lab.nl/api/check-session', {
+            method: 'GET',
+            credentials: 'include' // Include cookies in the request
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const userData = await response.json();
+
+        // Check if user is logged in as DOCENT
+        return userData.ingelogdAls = 'DOCENT' ? true : false;
+
+    } catch (error) {
+        console.error('Error checking session:', error);
+        // Handle error, e.g., redirect to login page
+    }
+}
+
 export default dataLayer;

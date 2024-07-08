@@ -11,6 +11,15 @@ const DashboardPage = () => {
   const [filteredGroups, setFilteredGroups] = useState([]);
   const [filters, setFilters] = useState({ searchGroup: '', searchStudent: '' });
 
+  // Check if user is logged in as a teacher
+  useEffect(() => {
+    checkSession().then(isTeacher => {
+      if (!isTeacher) {
+        navigate('/');
+      }
+    });
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
         const data = await dataLayer();

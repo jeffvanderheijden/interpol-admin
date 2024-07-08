@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { navigate } from "@reach/router";
+import { checkSession } from "../helpers/data/dataLayer";
 import "./Login.css";
 
 const Login = () => {
@@ -37,6 +38,13 @@ const Login = () => {
             console.error('Error creating session:', error);
         }
     }
+
+    // Check if user is logged in as a teacher
+    useEffect(() => {
+        checkSession().then(isTeacher => {
+            isTeacher && navigate('/dashbaord');
+        });
+    }, []);
 
     return (
         <div id="loginWrapper">

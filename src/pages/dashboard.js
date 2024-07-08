@@ -1,6 +1,7 @@
 
 
 import React, { useState, useEffect } from "react";
+import { navigate } from "@reach/router";
 import dataLayer, { checkSession } from "../helpers/data/dataLayer";
 import "./../helpers/styles/reset.css";
 import Filter from "../components/Filter/Filter";
@@ -15,6 +16,7 @@ const DashboardPage = () => {
   useEffect(() => {
     checkSession().then(isTeacher => {
       if (!isTeacher) {
+        console.log('User is not logged in as a teacher.')
         navigate('/');
       }
     });

@@ -43,27 +43,30 @@ const dataLayer = () => {
 
     const fetchAllData = async () => {
         const groups = await getGroups();
+        if (groups.length > 0) {
+            for (const group of groups) {
+                let dataRow = group;
 
-        for (const group of groups) {
-            let dataRow = group;
+                const students = await getStudents(group.id);
+                dataRow.students = students;
 
-            const students = await getStudents(group.id);
-            dataRow.students = students;
+                const challenges = await getChallenges(group.id);
 
-            const challenges = await getChallenges(group.id);
+                for (const challenge of challenges) {
+                    await getChallenge(challenge.challenge_id)
+                        .then(data => {
+                            console.log(data);
+                            challenge['name'] = data[0].name;
+                            challenge['minimum_points'] = data[0].minimum_points;
+                            challenge['time_limit'] = data[0].time_limit;
+                        }).catch(error => console.error(error));
+                }
+                dataRow.challenges = challenges;
 
-            for (const challenge of challenges) {
-                await getChallenge(challenge.challenge_id)
-                    .then(data => {
-                        console.log(data);
-                        challenge['name'] = data[0].name;
-                        challenge['minimum_points'] = data[0].minimum_points;
-                        challenge['time_limit'] = data[0].time_limit;
-                    }).catch(error => console.error(error));
+                groupsData.push(dataRow);
             }
-            dataRow.challenges = challenges;
-
-            groupsData.push(dataRow);
+        } else {
+            console.warn('No groups found.');
         }
 
         return groupsData;

@@ -1,0 +1,70 @@
+/* Skewed/slanted button styles
+//==================================================
+// Straight CSS solution for slanted buttons
+// Thanks: https://codepen.io/visualcookie/pen/JeoFt
+
+// Markup:
+// <a href="#change-me" class="btn"><span>Send</span></a>
+
+// NOTE: Don't forget to add vendor prefixes where appropriate.
+// NOTE: If your skewed boxes look a little jagged on your background,
+// -- consider adding a box-shadow with the same shadow color as your background
+// -- eg: box-shadow: 0 0 1px #fff;
+*/
+.btn {
+    color: #fff;
+    background: #8fe507;
+    text-align: center;
+    position: relative;
+    text-decoration: none;
+    font-size: 16px;
+    text-transform: uppercase;
+    border: 0;
+    outline: 0;
+    padding: 5px 15px;
+    margin: 0 auto;
+    transform: skew(-21deg);
+    cursor: pointer;
+    font-family: "Quantico", sans-serif;
+    /* Un-skew the text */
+}
+
+.btn:before,
+.btn:after {
+    background: #8fe507;
+    content: "";
+    position: absolute;
+    opacity: 0;
+    width: 6px;
+    height: 100%;
+    left: 0px;
+    top: 0;
+    transform: skew(0deg);
+    transition: all .3s ease-in-out;
+}
+
+.btn:after {
+    left: auto;
+    right: 0;
+}
+
+.btn:visited {
+    color: #fff;
+}
+
+.btn:hover {
+    background: #8fe507;
+}
+.btn:hover:before {
+    left: -8px;
+    opacity: 1;
+}
+.btn:hover:after {
+    right: -8px;
+    opacity: 1;
+}
+
+.btn>span {
+    display: inline-block;
+    transform: skew(21deg);
+}

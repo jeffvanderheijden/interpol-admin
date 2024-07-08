@@ -39,11 +39,13 @@ const Login = () => {
     }
 
     return (
-        <form id="loginForm" onSubmit={(e) => { submitForm(e) }}>
-            <input type="text" id="username" placeholder="Username" />
-            <input type="password" id="password" placeholder="Password" />
-            <button type="submit" className="btn">Inloggen</button>
-        </form>
+        <div id="loginWrapper">
+            <form id="loginForm" onSubmit={(e) => { submitForm(e) }}>
+                <input type="text" id="username" placeholder="Username" />
+                <input type="password" id="password" placeholder="Password" />
+                <button type="submit" className="btn"><span>Inloggen</span></button>
+            </form>
+        </div>
     );
 }
 

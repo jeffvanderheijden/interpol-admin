@@ -13,7 +13,7 @@ const Login = () => {
             const response = await fetch('https://api.interpol.sd-lab.nl/api/create-session', {
                 method: 'POST',
                 body: formData,
-                credentials: 'include' // Ensure cookies are included with the request
+                // credentials: 'include' // Ensure cookies are included with the request
             });
 
             const responseText = await response.text(); // Read the raw response body as text

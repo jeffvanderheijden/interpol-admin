@@ -29,7 +29,7 @@ const Login = () => {
             }
 
         } catch (error) {
-            console.error('Error creating session:', error);
+            console.error('Error creating session:', error.json());
         }
     }
 

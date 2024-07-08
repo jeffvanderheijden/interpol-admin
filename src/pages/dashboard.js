@@ -12,11 +12,6 @@ const DashboardPage = () => {
   const [filteredGroups, setFilteredGroups] = useState([]);
   const [filters, setFilters] = useState({ searchGroup: '', searchStudent: '' });
 
-  // Check if user is logged in as a teacher
-  // useEffect(() => {
-    
-  // }, []);
-
   useEffect(() => {
     const fetchData = async () => {
         const data = await dataLayer();
@@ -24,7 +19,10 @@ const DashboardPage = () => {
         setFilteredGroups(data);
     };
     fetchData();
-    // Fetch data first, then do check?
+  }, []);
+
+  // Check if user is logged in as a teacher
+  useEffect(() => {
     checkSession().then(isTeacher => {
       console.log('User is logged in as a teacher:', isTeacher)
       if (!isTeacher) {
@@ -32,7 +30,7 @@ const DashboardPage = () => {
         navigate('/');
       }
     });
-  }, []);
+  }, [groups]);
 
   // Searches for groups
   useEffect(() => {

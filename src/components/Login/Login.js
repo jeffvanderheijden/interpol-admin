@@ -16,15 +16,15 @@ const Login = () => {
                 body: formData
             });
 
-            const responseText = await response.json(); // Read the raw response body as text
+            // const responseText = await response.json(); // Read the raw response body as text
 
-            console.log('Response Text:', responseText.error);
+            // console.log('Response Text:', responseText.error);
 
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            const login = JSON.parse(responseText); // Parse the response text as JSON
+            const login = JSON.parse(response.json()); // Parse the response text as JSON
             console.log(login);
 
             // Do something with the login response, e.g., handle login success or error
@@ -35,7 +35,7 @@ const Login = () => {
             }
 
         } catch (error) {
-            console.error('Error creating session:', JSON.parse(error));
+            console.error('Error creating session:', error);
         }
     }
 

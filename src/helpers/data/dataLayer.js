@@ -88,6 +88,7 @@ export const checkSession = async () => {
         }
 
         const userData = await response.json();
+        console.log(userData);
 
         // Check if user is logged in as DOCENT
         return userData.ingelogdAls = 'DOCENT' ? true : false;

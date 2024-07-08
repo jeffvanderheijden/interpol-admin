@@ -31,15 +31,14 @@ const Filter = ({
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
     
-            const data = await response;
-            console.log('Logout successful:', data);
+            const data = await response.json();
+            console.log('Logout successful:', data.message);
     
             // Redirect to login page or perform other actions
             navigate('/');
     
         } catch (error) {
-            console.log(error);
-            // console.error('Error logging out:', error);
+            console.error('Error logging out:', error);
             // Handle error, e.g., display error message
         }
     }

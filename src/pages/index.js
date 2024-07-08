@@ -12,30 +12,37 @@ const IndexPage = () => {
   useEffect(() => {
     const fetchData = async () => {
         const data = await dataLayer();
-        console.log(data);
         setGroups(data);
-        setFilteredGroups(data);        
+        setFilteredGroups(data);
     };
     fetchData();
   }, []);
 
-  // TODO Figure out why fucking filter isn't working properly.
-  // Sidenote: FUCK CHATGPT
+  // Searches for groups
   useEffect(() => {
+    setFilters({ ...filters, searchStudent: '' });
     const searchQueryGroup = filters.searchGroup.toLowerCase();
-    const searchQueryStudent = filters.searchStudent.toLowerCase();
 
     const searchedGroups = groups.filter(group => {
         const groupNameMatches = group.name.toLowerCase().includes(searchQueryGroup);
-        const studentMatches = group.students.some(student =>
-            student.name.toLowerCase().includes(searchQueryStudent)
-        );
-        return groupNameMatches || studentMatches;
+        return groupNameMatches;
     });
 
     setFilteredGroups(searchedGroups);
-  }, [filters.searchGroup, filters.searchStudent]);
+  }, [filters.searchGroup]);
 
+  // Searches for students
+  useEffect(() => {
+    setFilters({ ...filters, searchGroup: '' });
+    const searchQueryStudent = filters.searchStudent.toLowerCase();
+
+    const studentMatches = groups.filter(group => (
+        group.students.some(student =>
+          student.name.toLowerCase().includes(searchQueryStudent)
+        ))
+    );
+    setFilteredGroups(studentMatches);
+  }, [filters.searchStudent]);
 
   return (
     <main>
@@ -43,7 +50,7 @@ const IndexPage = () => {
         filters={filters}
         setFilters={setFilters}
       />
-      <Groups 
+      <Groups
         groups={filteredGroups}
       />
     </main>

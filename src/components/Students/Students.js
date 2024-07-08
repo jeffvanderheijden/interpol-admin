@@ -7,7 +7,7 @@ const Students = ({
     const [students, setStudents] = useState([]);
 
     useEffect(() => {
-        fetch(`https://api.jeffvanderheijden.nl/api/students-by-group?id=${groupId}`)
+        fetch(`https://api.interpol.sd-lab.nl/api/students-by-group?id=${groupId}`)
             .then(response => response.json())
             .then(data => setStudents(data))
             .catch(error => console.error(error));

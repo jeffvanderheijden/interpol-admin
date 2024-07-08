@@ -6,7 +6,7 @@ const SingleChallenge = ({
     const [challenge, setChallenge] = useState([]);
 
     useEffect(() => {
-        fetch(`https://api.jeffvanderheijden.nl/api/challenge-by-id?id=${challengeId}`)
+        fetch(`https://api.interpol.sd-lab.nl/api/challenge-by-id?id=${challengeId}`)
             .then(response => response.json())
             .then(data => setChallenge(data))
             .catch(error => console.error(error));

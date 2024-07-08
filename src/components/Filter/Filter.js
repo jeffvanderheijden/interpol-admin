@@ -20,8 +20,8 @@ const Filter = ({
     }
     return (
         <section id="filter">
-            <input type="text" placeholder="Zoek door groepen.." onChange={(e) => { searchGroup(e) }} />
-            <input type="text" placeholder="Zoek door studenten.." onChange={(e) => { searchStudent(e) }} />
+            <input type="text" placeholder="Zoek door groepen.." onChange={(e) => { searchGroup(e) }} value={filters.searchGroup} />
+            <input type="text" placeholder="Zoek door studenten.." onChange={(e) => { searchStudent(e) }} value={filters.searchStudent} />
         </section>
     );
 }

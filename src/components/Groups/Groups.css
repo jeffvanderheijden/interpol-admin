@@ -9,13 +9,64 @@
 #groups section {
     display: flex;
     height: 100%;
-    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: flex-start;
     border-right: 1px solid #e8e8e8;
+}
+
+#groups section.groupSection {
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
+#groups section.studentsSection ul {
+    width: calc(100% - 24px);   
+    padding: 12px;
+}
+
+#groups section.studentsSection ul li {
+    padding: 4px 0px;
+    border-bottom: 1px solid #e8e8e8;
+    width: 100%;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+#groups section.studentsSection ul li:last-child {
+    border-bottom: none;
+}
+#groups section.studentsSection ul li:empty {
+    display: none;
+}
+
+#groups section.challengesSection,
+#groups section.challengeKeys {
+    font-size: 10px;
+}
+
+#groups section.challengesSection ul,
+#groups section.challengeKeys ul {
+    padding: 0px 12px;
+    width: calc(100% - 24px);    
+}
+#groups section.challengesSection ul li,
+#groups section.challengeKeys ul li {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 2px 0px;
+}
+#groups section.challengesSection ul:last-child li,
+#groups section.challengeKeys ul:last-child li {
+    border-bottom: none;
 }
 
 #group-tabs .group {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-template-rows: 1fr;
     grid-column-gap: 0px;
     grid-row-gap: 0px;
@@ -25,6 +76,24 @@
     padding: 8px 16px;
     cursor: pointer;
     transition: background .2s;
+}
+
+.groupImage {    
+    border-radius: 999px;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #d4d4d4;
+    margin-right: 10px;
+}
+
+.groupImage img {
+   width: auto;
+   height: 100%;
 }
 
 #group-tabs .group:nth-child(2n) {
@@ -39,19 +108,11 @@
     border-bottom: none;
 }
 
-#group-tabs .group img {
-    width: 60px;
-    height: 60px;
-    border-radius: 40px;
-    margin-right: 10px;
-}
-
 #group-tabs .group h2 {
     font-weight: 400;
 }
 
 #group-tabs .group p {
     font-size: 0.8rem;
-    color: #666;
     margin-top: 2px;
 }

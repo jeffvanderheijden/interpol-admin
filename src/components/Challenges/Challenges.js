@@ -7,7 +7,7 @@ const Challenges = ({
     const [challenges, setChallenges] = useState([]);
 
     useEffect(() => {
-        fetch(`https://api.jeffvanderheijden.nl/api/challenges-by-group?id=${groupId}`)
+        fetch(`https://api.interpol.sd-lab.nl/api/challenges-by-group?id=${groupId}`)
             .then(response => response.json())
             .then(data => setChallenges(data))
             .catch(error => console.error(error));

@@ -31,7 +31,7 @@ const Filter = ({
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
     
-            const data = await response.json();
+            const data = await response;
             console.log('Logout successful:', data);
     
             // Redirect to login page or perform other actions

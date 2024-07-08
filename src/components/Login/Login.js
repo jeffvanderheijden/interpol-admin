@@ -37,8 +37,6 @@ const Login = () => {
         }
     }
 
-
-
     return (
         <form id="loginForm" onSubmit={(e) => { submitForm(e) }}>
             <input type="text" id="username" placeholder="Username" />

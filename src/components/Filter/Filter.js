@@ -38,7 +38,8 @@ const Filter = ({
             navigate('/');
     
         } catch (error) {
-            console.error('Error logging out:', error.json());
+            console.log(error);
+            // console.error('Error logging out:', error);
             // Handle error, e.g., display error message
         }
     }

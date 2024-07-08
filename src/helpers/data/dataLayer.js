@@ -73,6 +73,7 @@ const dataLayer = () => {
 }
 
 export const checkSession = async () => {
+    console.log('Checking session...');
     try {
         const response = await fetch('https://api.interpol.sd-lab.nl/api/check-session', {
             method: 'GET',

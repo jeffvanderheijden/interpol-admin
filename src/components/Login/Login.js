@@ -4,20 +4,28 @@ import "./Login.css";
 const Login = () => {
     // LDAP login form
     async function submitForm(e) {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('username', e.target.elements.username.value);
-        formData.append('password', e.target.elements.password.value);
-        
         try {
             const response = await fetch('https://api.interpol.sd-lab.nl/api/create-session', {
                 method: 'POST',
                 body: formData
             });
-            const login = response.body;
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const login = await response.json();
             console.log(login);
+
+            // Do something with the login response, e.g., handle login success or error
+            if (login.error) {
+                console.error('Login error:', login.error);
+            } else {
+                console.log('Login successful:', login.message);
+            }
+
         } catch (error) {
-            console.error('Error creating team:', error);
+            console.error('Error creating session:', error);
         }
     }
 

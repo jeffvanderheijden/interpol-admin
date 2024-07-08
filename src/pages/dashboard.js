@@ -15,6 +15,7 @@ const DashboardPage = () => {
   // Check if user is logged in as a teacher
   useEffect(() => {
     checkSession().then(isTeacher => {
+      console.log('User is logged in as a teacher:', isTeacher)
       if (!isTeacher) {
         console.log('User is not logged in as a teacher.')
         navigate('/');

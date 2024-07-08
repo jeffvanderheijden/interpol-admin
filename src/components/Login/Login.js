@@ -35,7 +35,7 @@ const Login = () => {
             }
 
         } catch (error) {
-            console.error('Error creating session:', JSON.parse(error.json()));
+            console.error('Error creating session:', JSON.parse(error));
         }
     }
 

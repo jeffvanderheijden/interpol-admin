@@ -22,7 +22,7 @@ const Filter = ({
 
     const logout = async () => {
         try {
-            const response = await fetch('https://api.interpol.sd-lab.nl/api/logout.php', {
+            const response = await fetch('https://api.interpol.sd-lab.nl/api/logout', {
                 method: 'POST',
                 credentials: 'include' // Include cookies in the request
             });

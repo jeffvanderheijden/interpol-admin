@@ -4,63 +4,81 @@ import "./Groups.css";
 const Groups = ({
     groups
 }) => {
-
-    // Change on deployment
     const apiUrl = "https://api.interpol.sd-lab.nl/";
 
     return (
-        <section id="groups">
-            <ul id="group-tabs">
-                {groups && groups.map((group, idx) => (
-                    <li className="group" key={idx}>
-                        <section className="groupSection">
-                            <div className="groupImage">
-                                <img src={`${apiUrl + group.image_url}`} alt={group.name} />
-                            </div>
-                            <div>
-                                <h2>{group.name}</h2>
-                                <p>{group.class}</p>
-                            </div>
-                        </section>
-                        {/* Todo add student compontent here. */}
-                        <section className="studentsSection">
-                            <ul>
-                                {group.students.map((student, idx) => (
-                                    <li key={idx}>
-                                        <p>{student.student_number}</p>
-                                        <p>{student.name}</p>                                        
-                                    </li>
+        <>
+            <section id="groupHeaders">
+                <div className="groupsHeader">
+                    <h1>Groepen</h1>
+                </div>
+                <div className="studentsHeader">
+                    <h1>Studentnummer</h1>
+                    <h1>Naam</h1>
+                </div>
+                <div className="challengesHeader">
+                    <h1>Uitdagingen</h1>
+                </div>
+                <div className="challengeKeysHeader">
+                    <h1>Code</h1>
+                </div>
+            </section>
+            <section id="groups">
+                <ul id="group-tabs">
+                    {/* Groups */}
+                    {groups && groups.map((group, idx) => (
+                        <li className="group" key={idx}>
+                            <section className="groupSection">
+                                <div className="groupImage">
+                                    <img src={`${apiUrl + group.image_url}`} alt={group.name} />
+                                </div>
+                                <div>
+                                    <h2>{group.name}</h2>
+                                    <p>{group.class}</p>
+                                </div>
+                            </section>
+                            {/* Students */}
+                            <section className="studentsSection">
+                                <ul>
+                                    {group.students.map((student, idx) => (
+                                        <li key={idx}>
+                                            <p>{student.student_number}</p>
+                                            <p>{student.name}</p>                                        
+                                        </li>
+                                    ))}
+                                </ul>
+                            </section>
+                            {/* Challenges */}
+                            <section className="challengesSection">
+                                {group.challenges.map((challenge, idx) => (
+                                    <ul key={idx}>
+                                        <li>
+                                            <h3>{challenge.name}</h3>
+                                            <div>
+                                                {challenge.completed ? 
+                                                    <span>V</span> : 
+                                                    <span>X</span>
+                                                }
+                                            </div>
+                                        </li>
+                                    </ul>
                                 ))}
-                            </ul>
-                        </section>
-                        <section className="challengesSection">
-                            {group.challenges.map((challenge, idx) => (
-                                <ul key={idx}>
-                                    <li>
-                                        <h3>{challenge.name}</h3>
-                                        <div>
-                                            {challenge.completed ? 
-                                                <span>V</span> : 
-                                                <span>X</span>
-                                            }
-                                        </div>
-                                    </li>
-                                </ul>
-                            ))}
-                        </section>
-                        <section className="challengeKeys">
-                            {group.challenges.map((challenge, idx) => (
-                                <ul key={idx}>
-                                    <li>
-                                        <h3>{challenge.keycode}</h3>
-                                    </li>
-                                </ul>
-                            ))}
-                        </section>
-                    </li>
-                ))}
-            </ul>
-        </section>
+                            </section>
+                            {/* Challenge keys */}
+                            <section className="challengeKeys">
+                                {group.challenges.map((challenge, idx) => (
+                                    <ul key={idx}>
+                                        <li>
+                                            <h3>{challenge.keycode}</h3>
+                                        </li>
+                                    </ul>
+                                ))}
+                            </section>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+        </>
     );
 }
 

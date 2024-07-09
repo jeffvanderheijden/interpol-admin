@@ -13,24 +13,26 @@ const DashboardPage = () => {
   const [filters, setFilters] = useState({ searchGroup: '', searchStudent: '' });
   const [isTeacher, setIsTeacher] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-        const data = await dataLayer();
-        setGroups(data);
-        setFilteredGroups(data);
-    };
-    fetchData();
-  }, []);
-
   // Check if user is logged in as a teacher
   useEffect(() => {
     checkSession().then(isTeacher => {
       setIsTeacher(isTeacher);
-      if (!isTeacher) {
-        navigate('/');
-      }
     });
-  }, [groups]);
+  }, []);
+
+  // Fetch all data
+  useEffect(() => {
+    if (isTeacher) {
+      const fetchData = async () => {
+          const data = await dataLayer();
+          setGroups(data);
+          setFilteredGroups(data);
+      };
+      fetchData();
+    } else {
+      navigate('/');
+    }
+  }, [isTeacher]);
 
   // Searches for groups
   useEffect(() => {

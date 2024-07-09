@@ -11,6 +11,7 @@ const DashboardPage = () => {
   const [groups, setGroups] = useState([]); 
   const [filteredGroups, setFilteredGroups] = useState([]);
   const [filters, setFilters] = useState({ searchGroup: '', searchStudent: '' });
+  const [isTeacher, setIsTeacher] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,9 +25,8 @@ const DashboardPage = () => {
   // Check if user is logged in as a teacher
   useEffect(() => {
     checkSession().then(isTeacher => {
-      console.log('User is logged in as a teacher:', isTeacher)
+      setIsTeacher(isTeacher);
       if (!isTeacher) {
-        console.log('User is not logged in as a teacher.')
         navigate('/');
       }
     });
@@ -58,16 +58,20 @@ const DashboardPage = () => {
     setFilteredGroups(studentMatches);
   }, [filters.searchStudent]);
 
-  return (
-    <main>
-      <Filter 
-        filters={filters}
-        setFilters={setFilters}
-      />
-      <Groups
-        groups={filteredGroups}
-      />
-    </main>
+  return (    
+    <>
+      {isTeacher && (
+        <main>
+          <Filter 
+            filters={filters}
+            setFilters={setFilters}
+          />
+          <Groups
+            groups={filteredGroups}
+          />
+        </main>
+      )}    
+    </>
   )
 }
 

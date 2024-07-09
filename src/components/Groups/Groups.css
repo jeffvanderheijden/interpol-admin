@@ -1,3 +1,27 @@
+#groupHeaders {
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    border: 1px solid #e8e8e8;
+    font-size: 12px;
+    border-bottom: none;
+    display: grid;
+    grid-auto-rows: 1fr;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 1fr;
+    padding: 8px 16px;
+    font-weight: 500;
+    background-color: #f4f4f4;
+    color: #666;
+}
+#groupHeaders div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#groupHeaders .studentsHeader {
+    justify-content: space-between;
+}
+
 #groups {
     border: 1px solid #e8e8e8;
     border-radius: 10px;

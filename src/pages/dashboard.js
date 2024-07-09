@@ -17,10 +17,13 @@ const DashboardPage = () => {
   useEffect(() => {
     checkSession().then(isTeacher => {
       setIsTeacher(isTeacher);
+      if (!isTeacher) {
+        navigate('/');
+      }
     });
   }, []);
 
-  // Fetch all data
+  // Fetch groups and students
   useEffect(() => {
     if (isTeacher) {
       const fetchData = async () => {
@@ -29,8 +32,6 @@ const DashboardPage = () => {
           setFilteredGroups(data);
       };
       fetchData();
-    } else {
-      navigate('/');
     }
   }, [isTeacher]);
 

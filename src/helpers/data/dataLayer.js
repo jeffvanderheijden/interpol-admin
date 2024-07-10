@@ -1,9 +1,11 @@
+const api = "https://api.jeffvanderheijden.nl/api";
+
 const dataLayer = () => {
     let groupsData = [];
 
     const getGroups = async () => {
         try {
-            const response = await fetch("https://api.interpol.sd-lab.nl/api/groups");
+            const response = await fetch(`${api}/groups`);
             return await response.json();
         } catch (error) {
             console.error(error);
@@ -13,7 +15,7 @@ const dataLayer = () => {
 
     const getStudents = async (groupId) => {
         try {
-            const response = await fetch(`https://api.interpol.sd-lab.nl/api/students-by-group?id=${groupId}`);
+            const response = await fetch(`${api}/students-by-group?id=${groupId}`);
             return await response.json();
         } catch (error) {
             console.error(error);
@@ -23,7 +25,7 @@ const dataLayer = () => {
 
     const getChallenges = async (groupId) => {
         try {
-            const response = await fetch(`https://api.interpol.sd-lab.nl/api/challenges-by-group?id=${groupId}`);
+            const response = await fetch(`${api}/challenges-by-group?id=${groupId}`);
             return await response.json();
         } catch (error) {
             console.error(error);
@@ -33,7 +35,7 @@ const dataLayer = () => {
 
     const getChallenge = async (challengeId) => {
         try {
-            const response = await fetch(`https://api.interpol.sd-lab.nl/api/challenge-by-id?id=${challengeId}`);
+            const response = await fetch(`${api}/challenge-by-id?id=${challengeId}`);
             return await response.json();
         } catch (error) {
             console.error(error);
@@ -76,7 +78,7 @@ const dataLayer = () => {
 
 export const checkSession = async () => {
     try {
-        const response = await fetch('https://api.interpol.sd-lab.nl/api/check-type', {
+        const response = await fetch(`${api}/check-type`, {
             method: 'GET',
             credentials: 'include' // Include cookies in the request
         });

@@ -4,7 +4,7 @@ import "./Groups.css";
 const Groups = ({
     groups
 }) => {
-    const apiUrl = "https://api.interpol.sd-lab.nl/";
+    const apiUrl = "https://api.jeffvanderheijden.nl/";
 
     return (
         <>

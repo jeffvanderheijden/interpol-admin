@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { navigate } from "@reach/router";
-import { checkSession } from "./../../helpers/data/dataLayer";
+// import { checkSession } from "./../../helpers/data/dataLayer";
 import "./Login.css";
 
 const Login = () => {
@@ -45,11 +45,11 @@ const Login = () => {
     }
 
     // Check if user is logged in as a teacher
-    useEffect(() => {
-        checkSession().then(isTeacher => {
-            isTeacher && navigate('/dashboard');
-        });
-    }, []);
+    // useEffect(() => {
+    //     checkSession().then(isTeacher => {
+    //         isTeacher && navigate('/dashboard');
+    //     });
+    // }, []);
 
     return (
         <div id="loginWrapper">

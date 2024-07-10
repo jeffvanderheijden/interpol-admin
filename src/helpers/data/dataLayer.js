@@ -1,47 +1,47 @@
 const api = "https://api.jeffvanderheijden.nl/api";
 
+export const getStudents = async (groupId) => {
+    try {
+        const response = await fetch(`${api}/students-by-group?id=${groupId}`);
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+};
+
+export const getGroups = async () => {
+    try {
+        const response = await fetch(`${api}/groups`);
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+};
+
+export const getChallenges = async (groupId) => {
+    try {
+        const response = await fetch(`${api}/challenges-by-group?id=${groupId}`);
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+};
+
+export const getChallenge = async (challengeId) => {
+    try {
+        const response = await fetch(`${api}/challenge-by-id?id=${challengeId}`);
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+};
+
 const dataLayer = () => {
     let groupsData = [];
-
-    const getGroups = async () => {
-        try {
-            const response = await fetch(`${api}/groups`);
-            return await response.json();
-        } catch (error) {
-            console.error(error);
-            return [];
-        }
-    };
-
-    const getStudents = async (groupId) => {
-        try {
-            const response = await fetch(`${api}/students-by-group?id=${groupId}`);
-            return await response.json();
-        } catch (error) {
-            console.error(error);
-            return [];
-        }
-    };
-
-    const getChallenges = async (groupId) => {
-        try {
-            const response = await fetch(`${api}/challenges-by-group?id=${groupId}`);
-            return await response.json();
-        } catch (error) {
-            console.error(error);
-            return [];
-        }
-    };
-
-    const getChallenge = async (challengeId) => {
-        try {
-            const response = await fetch(`${api}/challenge-by-id?id=${challengeId}`);
-            return await response.json();
-        } catch (error) {
-            console.error(error);
-            return [];
-        }
-    }
 
     const fetchAllData = async () => {
         const groups = await getGroups();

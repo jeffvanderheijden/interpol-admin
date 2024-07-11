@@ -93,13 +93,11 @@ const Groups = ({
             </section>
             <ModalComponent 
                 modalIsOpen={modalIsOpen}
-                afterOpenModal={() => {}}
+                afterOpenModal={null}
                 closeModal={closeModal}
                 customStyles={null}
                 contentLabel="Edit group"
-            >
-                <h1>Modal</h1>
-            </ModalComponent>
+            />
         </>
     );
 }

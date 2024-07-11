@@ -6,7 +6,15 @@ const Groups = ({
     groups
 }) => {
     const apiUrl = "https://api.jeffvanderheijden.nl/";
-    const [modalIsOpen, setIsOpen] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const openModal = () => {
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false); 
+    };
 
     return (
         <>
@@ -77,7 +85,7 @@ const Groups = ({
                                 ))}
                             </section>
                             <section className="editGroup">
-                                <button onClick={() => setIsOpen(true)}>Edit</button>
+                                <button onClick={openModal}>Edit</button>
                             </section>
                         </li>
                     ))}
@@ -86,7 +94,7 @@ const Groups = ({
             <ModalComponent 
                 modalIsOpen={modalIsOpen}
                 afterOpenModal={() => {}}
-                closeModal={() => { setIsOpen(false) }}
+                closeModal={closeModal}
                 customStyles={null}
                 contentLabel="Edit group"
             >

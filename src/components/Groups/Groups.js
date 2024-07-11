@@ -7,7 +7,7 @@ const Groups = ({
 }) => {
     const apiUrl = "https://api.jeffvanderheijden.nl/";
     const [openModal, setOpenModal] = useState(null);
-    const [newStudents, setNewStudents] = useState(groups.students);
+    const [newStudents, setNewStudents] = useState([]);
 
     const openSpecificModal = (modalName) => setOpenModal(modalName);
     const closeModal = () => setOpenModal(null);
@@ -27,6 +27,10 @@ const Groups = ({
     useEffect(() => {
         setNewStudents([]);
     },[openModal]);
+
+    const removeStudent = (studentNumber, groupId) => {
+        console.log(studentNumber, groupId);
+    }
 
     return (
         <>
@@ -116,6 +120,13 @@ const Groups = ({
                                         </div>
                                     </section>   
                                     <ul className="editStudents">
+                                        {group.students.map((student, idx) => (
+                                            <li key={idx}>
+                                                <input type="number" placeholder={student.student_number} />   
+                                                <input type="text" placeholder={student.name} />
+                                                <button onClick={() => { removeStudent(student.student_number, group.id) }}>X</button>
+                                            </li>
+                                        ))}
                                         {newStudents.map((student, idx) => (
                                             <li key={idx}>
                                                 <input type="number" placeholder={student.student_number} />   

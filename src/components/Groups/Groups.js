@@ -107,23 +107,25 @@ const Groups = ({
                                 customStyles={customStyles}
                                 contentLabel="Edit group"
                             >
-                                <ul className="editStudents">
-                                    {group.students.map((student, idx) => (
-                                        <li key={idx}>
-                                            <section className="groupSection">
-                                                <div className="groupImage">
-                                                    <img src={`${apiUrl + group.image_url}`} alt={group.name} />
-                                                </div>
-                                                <div>
-                                                    <h2>{group.name}</h2>
-                                                    <p>{group.class}</p>
-                                                </div>
-                                            </section>                                        
-                                            <input type="number" key={idx} placeholder={student.student_number} />   
-                                            <input type="text" key={idx} placeholder={student.name} />
-                                        </li>
-                                    ))}
-                                </ul>
+                                <div className="editGroup">
+                                    <section className="groupSection">
+                                        <div className="groupImage">
+                                            <img src={`${apiUrl + group.image_url}`} alt={group.name} />
+                                        </div>
+                                        <div>
+                                            <h2>{group.name}</h2>
+                                            <p>{group.class}</p>
+                                        </div>
+                                    </section>   
+                                    <ul className="editStudents">
+                                        {group.students.map((student, idx) => (
+                                            <li key={idx}>                                     
+                                                <input type="number" key={idx} placeholder={student.student_number} />   
+                                                <input type="text" key={idx} placeholder={student.name} />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
                             </ModalComponent>
                         </>
                     ))}

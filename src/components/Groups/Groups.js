@@ -92,7 +92,7 @@ const Groups = ({
                                     ))}
                                 </section>
                                 <section className="editGroup">
-                                    <button onClick={openSpecificModal(group.id)}>Edit</button>
+                                    <button onClick={() => { openSpecificModal(group.id) }}>Edit</button>
                                 </section>
                             </li>
                             <ModalComponent 

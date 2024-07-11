@@ -120,16 +120,18 @@ const Groups = ({
                                             <li key={idx}>
                                                 <input type="number" placeholder={student.student_number} />   
                                                 <input type="text" placeholder={student.name} />
+                                                <button onClick={() => { console.log('Update student') }}>X</button>
                                             </li>
                                         ))}
                                         {newStudents.map((student, idx) => (
                                             <li key={idx}>
                                                 <input type="number" placeholder={student.student_number} />   
                                                 <input type="text" placeholder={student.name} />
+                                                <button onClick={() => { setNewStudents(newStudents.filter((_, i) => i !== idx)) }}>X</button>
                                             </li>
                                         ))}
                                     </ul>
-                                    <button onClick={() => { setNewStudents([ ...newStudents, { name: '', student_number: '' }]) }} className="btn">Student toevoegen</button>
+                                    <button onClick={() => { setNewStudents([ ...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
                                 </div>
                             </ModalComponent>
                         </>

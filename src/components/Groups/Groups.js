@@ -7,7 +7,7 @@ const Groups = ({
 }) => {
     const apiUrl = "https://api.jeffvanderheijden.nl/";
     const [openModal, setOpenModal] = useState(null);
-    const [newStudents, setNewStudents] = useState(0);
+    const [newStudents, setNewStudents] = useState([]);
 
     const openSpecificModal = (modalName) => setOpenModal(modalName);
     const closeModal = () => setOpenModal(null);
@@ -117,8 +117,14 @@ const Groups = ({
                                                 <input type="text" placeholder={student.name} />
                                             </li>
                                         ))}
+                                        {newStudents.map((student, idx) => (
+                                            <li key={idx}>
+                                                <input type="number" placeholder={student.student_number} />   
+                                                <input type="text" placeholder={student.name} />
+                                            </li>
+                                        ))}
                                     </ul>
-                                    <button onClick={() => { group.students.push({ name: '', student_number: '' }) }} className="btn">Student toevoegen</button>
+                                    <button onClick={() => { setNewStudents([ ...newStudents, { name: '', student_number: '' }]) }} className="btn">Student toevoegen</button>
                                 </div>
                             </ModalComponent>
                         </>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Groups.css";
 import ModalComponent from "../Modal/Modal";
 
@@ -22,6 +22,11 @@ const Groups = ({
             transform: 'translate(-50%, -50%)',
         },
     };
+
+    // Reset new students when modal closes or they the extra input fields are always shown
+    useEffect(() => {
+        setNewStudents([]);
+    },[openModal]);
 
     return (
         <>

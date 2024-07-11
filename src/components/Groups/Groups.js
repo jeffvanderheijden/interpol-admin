@@ -108,7 +108,9 @@ const Groups = ({
                 closeModal={closeModal}
                 customStyles={customStyles}
                 contentLabel="Edit group"
-            />
+            >
+                <h1>Test children</h1>
+            </ModalComponent>
         </>
     );
 }

@@ -6,7 +6,8 @@ const ModalComponent = ({
     afterOpenModal,
     closeModal,
     customStyles,
-    contentLabel
+    contentLabel,
+    children
 }) => {
     const [isClient, setIsClient] = useState(false);
 
@@ -26,7 +27,7 @@ const ModalComponent = ({
             style={customStyles}
             contentLabel={contentLabel}
         >
-            <div>test</div>
+            {children}
         </Modal>
     )
 }

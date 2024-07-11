@@ -48,69 +48,78 @@ const Groups = ({
                 <ul id="group-tabs">
                     {/* Groups */}
                     {groups && groups.map((group, idx) => (
-                        <li className="group" key={idx}>
-                            <section className="groupSection">
-                                <div className="groupImage">
-                                    <img src={`${apiUrl + group.image_url}`} alt={group.name} />
-                                </div>
-                                <div>
-                                    <h2>{group.name}</h2>
-                                    <p>{group.class}</p>
-                                </div>
-                            </section>
-                            {/* Students */}
-                            <section className="studentsSection">
-                                <ul>
+                        <>
+                            <li className="group" key={idx}>
+                                <section className="groupSection">
+                                    <div className="groupImage">
+                                        <img src={`${apiUrl + group.image_url}`} alt={group.name} />
+                                    </div>
+                                    <div>
+                                        <h2>{group.name}</h2>
+                                        <p>{group.class}</p>
+                                    </div>
+                                </section>
+                                {/* Students */}
+                                <section className="studentsSection">
+                                    <ul>
+                                        {group.students.map((student, idx) => (
+                                            <li key={idx}>
+                                                <p>{student.student_number}</p>
+                                                <p>{student.name}</p>                                        
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </section>
+                                {/* Challenges */}
+                                <section className="challengesSection">
+                                    {group.challenges.map((challenge, idx) => (
+                                        <ul key={idx}>
+                                            <li>
+                                                <h3>{challenge.name}</h3>
+                                                <div>
+                                                    {challenge.completed ? 
+                                                        <span>V</span> : 
+                                                        <span>X</span>
+                                                    }
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    ))}
+                                </section>
+                                {/* Challenge keys */}
+                                <section className="challengeKeys">
+                                    {group.challenges.map((challenge, idx) => (
+                                        <ul key={idx}>
+                                            <li>
+                                                <h3>{challenge.keycode}</h3>
+                                            </li>
+                                        </ul>
+                                    ))}
+                                </section>
+                                <section className="editGroup">
+                                    <button onClick={openModal}>Edit</button>
+                                </section>
+                            </li>
+                            <ModalComponent 
+                                modalIsOpen={modalIsOpen}
+                                afterOpenModal={null}
+                                closeModal={closeModal}
+                                customStyles={customStyles}
+                                contentLabel="Edit group"
+                            >
+                                <ul className="editStudents">
                                     {group.students.map((student, idx) => (
-                                        <li key={idx}>
-                                            <p>{student.student_number}</p>
-                                            <p>{student.name}</p>                                        
+                                        <li>
+                                            <input type="number" key={idx} placeholder={student.student_number} />   
+                                            <input type="text" key={idx} placeholder={student.name} />
                                         </li>
                                     ))}
                                 </ul>
-                            </section>
-                            {/* Challenges */}
-                            <section className="challengesSection">
-                                {group.challenges.map((challenge, idx) => (
-                                    <ul key={idx}>
-                                        <li>
-                                            <h3>{challenge.name}</h3>
-                                            <div>
-                                                {challenge.completed ? 
-                                                    <span>V</span> : 
-                                                    <span>X</span>
-                                                }
-                                            </div>
-                                        </li>
-                                    </ul>
-                                ))}
-                            </section>
-                            {/* Challenge keys */}
-                            <section className="challengeKeys">
-                                {group.challenges.map((challenge, idx) => (
-                                    <ul key={idx}>
-                                        <li>
-                                            <h3>{challenge.keycode}</h3>
-                                        </li>
-                                    </ul>
-                                ))}
-                            </section>
-                            <section className="editGroup">
-                                <button onClick={openModal}>Edit</button>
-                            </section>
-                        </li>
+                            </ModalComponent>
+                        </>
                     ))}
                 </ul>                
             </section>
-            <ModalComponent 
-                modalIsOpen={modalIsOpen}
-                afterOpenModal={null}
-                closeModal={closeModal}
-                customStyles={customStyles}
-                contentLabel="Edit group"
-            >
-                <h1>Test children</h1>
-            </ModalComponent>
         </>
     );
 }

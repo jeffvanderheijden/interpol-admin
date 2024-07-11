@@ -44,7 +44,7 @@ const Groups = ({
                     {/* Groups */}
                     {groups && groups.map((group, idx) => (
                         <>
-                            <li className="group" key={idx}>
+                            <li className="group" key={idx} onClick={() => { openSpecificModal(group.id) }}>
                                 <section className="groupSection">
                                     <div className="groupImage">
                                         <img src={`${apiUrl + group.image_url}`} alt={group.name} />
@@ -90,9 +90,6 @@ const Groups = ({
                                             </li>
                                         </ul>
                                     ))}
-                                </section>
-                                <section className="editGroup">
-                                    <button onClick={() => { openSpecificModal(group.id) }}>Edit</button>
                                 </section>
                             </li>
                             <ModalComponent 

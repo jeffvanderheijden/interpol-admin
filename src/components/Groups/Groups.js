@@ -16,6 +16,17 @@ const Groups = ({
         setModalIsOpen(false); 
     };
 
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+        },
+    };
+
     return (
         <>
             <section id="groupHeaders">
@@ -95,7 +106,7 @@ const Groups = ({
                 modalIsOpen={modalIsOpen}
                 afterOpenModal={null}
                 closeModal={closeModal}
-                customStyles={null}
+                customStyles={customStyles}
                 contentLabel="Edit group"
             />
         </>

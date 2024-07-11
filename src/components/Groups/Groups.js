@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Groups.css";
+import ModalComponent from "../Modal/Modal";
 
 const Groups = ({
     groups
 }) => {
     const apiUrl = "https://api.jeffvanderheijden.nl/";
+    const [modalIsOpen, setIsOpen] = useState(false);
 
     return (
         <>
@@ -74,10 +76,22 @@ const Groups = ({
                                     </ul>
                                 ))}
                             </section>
+                            <section className="editGroup">
+                                <button onClick={() => setIsOpen(true)}>Edit</button>
+                            </section>
                         </li>
                     ))}
-                </ul>
+                </ul>                
             </section>
+            <ModalComponent 
+                modalIsOpen={modalIsOpen}
+                afterOpenModal={null}
+                closeModal={setIsOpen(false)}
+                customStyles={null}
+                contentLabel="Edit group"
+            >
+                <h1>Modal</h1>
+            </ModalComponent>
         </>
     );
 }

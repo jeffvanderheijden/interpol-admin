@@ -85,7 +85,7 @@ const Groups = ({
             </section>
             <ModalComponent 
                 modalIsOpen={modalIsOpen}
-                afterOpenModal={null}
+                afterOpenModal={() => {}}
                 closeModal={() => { setIsOpen(false) }}
                 customStyles={null}
                 contentLabel="Edit group"

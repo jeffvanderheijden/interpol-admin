@@ -6,15 +6,10 @@ const Groups = ({
     groups
 }) => {
     const apiUrl = "https://api.jeffvanderheijden.nl/";
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [openModal, setOpenModal] = useState(null);
 
-    const openModal = () => {
-        setModalIsOpen(true);
-    };
-
-    const closeModal = () => {
-        setModalIsOpen(false); 
-    };
+    const openSpecificModal = (modalName) => setOpenModal(modalName);
+    const closeModal = () => setOpenModal(null);
 
     const customStyles = {
         content: {
@@ -97,11 +92,11 @@ const Groups = ({
                                     ))}
                                 </section>
                                 <section className="editGroup">
-                                    <button onClick={openModal}>Edit</button>
+                                    <button onClick={openSpecificModal(group.id)}>Edit</button>
                                 </section>
                             </li>
                             <ModalComponent 
-                                modalIsOpen={modalIsOpen}
+                                modalIsOpen={openModal === group.id}
                                 afterOpenModal={null}
                                 closeModal={closeModal}
                                 customStyles={customStyles}

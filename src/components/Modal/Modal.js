@@ -20,17 +20,15 @@ const ModalComponent = ({
     }
 
     return (
-        <div>
-            <Modal
-                isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel={contentLabel}
-            >
-                {children}
-            </Modal>
-        </div>
+        <Modal
+            isOpen={modalIsOpen}
+            onAfterOpen={afterOpenModal}
+            onRequestClose={closeModal}
+            style={customStyles}
+            contentLabel={contentLabel}
+        >
+            {children}
+        </Modal>
     )
 }
 

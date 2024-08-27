@@ -5,7 +5,7 @@ import ModalComponent from "../Modal/Modal";
 const Groups = ({
     groups
 }) => {
-    const apiUrl = "https://api.jeffvanderheijden.nl/";
+    const apiUrl = "https://api.interpol.sd-lab.nl/";
     const [openModal, setOpenModal] = useState(null);
     const [newStudents, setNewStudents] = useState([]);
 
@@ -115,8 +115,8 @@ const Groups = ({
                                             <img src={`${apiUrl + group.image_url}`} alt={group.name} />
                                         </div>
                                         <div>
-                                            <h2>{group.name}</h2>
-                                            <p>{group.class}</p>
+                                            <input type="text" placeholder={group.name} />
+                                            <input type="text" placeholder={group.class} />
                                         </div>
                                     </section>   
                                     <ul className="editStudents">

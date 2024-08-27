@@ -40,6 +40,24 @@ export const getChallenge = async (challengeId) => {
     }
 };
 
+export const removeStudent = async (studentId) => {
+    try {
+        const response = await fetch(`${api}/remove-student?id=${studentId}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
 const dataLayer = () => {
     let groupsData = [];
 

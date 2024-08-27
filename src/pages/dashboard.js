@@ -11,26 +11,25 @@ const DashboardPage = () => {
   const [groups, setGroups] = useState([]); 
   const [filteredGroups, setFilteredGroups] = useState([]);
   const [filters, setFilters] = useState({ searchGroup: '', searchStudent: '' });
-  // const [isTeacher, setIsTeacher] = useState(false);
-  const [isTeacher, setIsTeacher] = useState(true);
+  const [isTeacher, setIsTeacher] = useState(false);
 
   // Check if user is logged in as a teacher
-  // useEffect(() => {
-  //   checkSession().then(isTeacher => {
-  //     setIsTeacher(isTeacher);
-  //     if (!isTeacher) {
-  //       navigate('/');
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    checkSession().then(isTeacher => {
+      setIsTeacher(isTeacher);
+      if (!isTeacher) {
+        navigate('/');
+      }
+    });
+  }, []);
 
   // Fetch groups and students
   useEffect(() => {
     if (isTeacher) {
       const fetchData = async () => {
-          const data = await dataLayer();
-          setGroups(data);
-          setFilteredGroups(data);
+        const data = await dataLayer();
+        setGroups(data);
+        setFilteredGroups(data);
       };
       fetchData();
     }
@@ -55,9 +54,9 @@ const DashboardPage = () => {
     const searchQueryStudent = filters.searchStudent.toLowerCase();
 
     const studentMatches = groups.filter(group => (
-        group.students.some(student =>
-          student.name.toLowerCase().includes(searchQueryStudent)
-        ))
+      group.students.some(student =>
+        student.name.toLowerCase().includes(searchQueryStudent)
+      ))
     );
     setFilteredGroups(studentMatches);
   }, [filters.searchStudent]);

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { navigate } from "@reach/router";
-// import { checkSession } from "./../../helpers/data/dataLayer";
+import { checkSession } from "./../../helpers/data/dataLayer";
 import "./Login.css";
 
 const Login = () => {
@@ -12,24 +12,19 @@ const Login = () => {
         formData.append('password', e.target.elements.password.value);
 
         try {
-            // const response = await fetch('https://api.interpol.sd-lab.nl/api/create-session', {
-            //     method: 'POST',
-            //     body: formData,
-            //     credentials: 'include' // Ensure cookies are included with the request
-            // });
+            const response = await fetch('https://api.interpol.sd-lab.nl/api/create-session', {
+                method: 'POST',
+                body: formData,
+                credentials: 'include' // Ensure cookies are included with the request
+            });
 
-            // const responseText = await response.text(); // Read the raw response body as text
+            const responseText = await response.text(); // Read the raw response body as text
 
-            // if (!response.ok) {
-            //     throw new Error(`HTTP error! status: ${response.status}`);
-            // }
-
-            // const login = JSON.parse(responseText); // Parse the response text as JSON
-
-            // DEBUGGGING!
-            const login = {
-                message: 'Teacher logged in',
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
+
+            const login = JSON.parse(responseText); // Parse the response text as JSON
 
             // Do something with the login response, e.g., handle login success or error
             if (login.error) {
@@ -45,11 +40,11 @@ const Login = () => {
     }
 
     // Check if user is logged in as a teacher
-    // useEffect(() => {
-    //     checkSession().then(isTeacher => {
-    //         isTeacher && navigate('/dashboard');
-    //     });
-    // }, []);
+    useEffect(() => {
+        checkSession().then(isTeacher => {
+            isTeacher && navigate('/dashboard');
+        });
+    }, []);
 
     return (
         <div id="loginWrapper">

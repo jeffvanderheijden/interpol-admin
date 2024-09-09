@@ -1,5 +1,34 @@
 const api = "https://api.interpol.sd-lab.nl/api";
 
+export const login = async (formData) => {
+    try {
+        const response = await fetch('https://api.interpol.sd-lab.nl/api/create-session', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include' // Ensure cookies are included with the request
+        });
+
+        const responseText = await response.text(); // Read the raw response body as text
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const loginResponse = JSON.parse(responseText); // Parse the response text as JSON
+
+        // Do something with the login response, e.g., handle login success or error
+        if (loginResponse.error) {
+            console.error('Login error:', loginResponse.error);
+        } else {
+            console.log('Login successful:', loginResponse.message);
+            navigate('/dashboard/');
+        }
+
+    } catch (error) {
+        console.error('Error creating session:', error);
+    }
+}
+
 export const getStudents = async (groupId) => {
     try {
         const response = await fetch(`${api}/students-by-group?id=${groupId}`);

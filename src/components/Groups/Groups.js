@@ -8,6 +8,7 @@ const Groups = ({
     const apiUrl = "https://api.interpol.sd-lab.nl/";
     const [openModal, setOpenModal] = useState(null);
     const [newStudents, setNewStudents] = useState([]);
+    const [visibleCodes, setVisibleCodes] = useState([]);
 
     const openSpecificModal = (modalName) => setOpenModal(modalName);
     const closeModal = () => setOpenModal(null);
@@ -27,6 +28,14 @@ const Groups = ({
     useEffect(() => {
         setNewStudents([]);
     },[openModal]);
+
+    const toggleCode = (code) => {
+        if (visibleCodes.includes(code)) {
+            setVisibleCodes(visibleCodes.filter((c) => c !== code));
+        } else {
+            setVisibleCodes([...visibleCodes, code]);
+        }
+    }
 
     const removeStudent = (studentNumber, groupId) => {
         console.log(studentNumber, groupId);
@@ -52,7 +61,7 @@ const Groups = ({
             <section id="groups">
                 <ul id="group-tabs">
                     {/* Groups */}
-                    {groups && groups.map((group, idx) => (
+                    {groups && grops.map((group, idx) => (
                         <>
                             <li className="group" key={idx} onClick={() => { openSpecificModal(group.id) }}>
                                 <section className="groupSection">
@@ -96,7 +105,8 @@ const Groups = ({
                                     {group.challenges.map((challenge, idx) => (
                                         <ul key={idx}>
                                             <li>
-                                                <h3>{challenge.keycode}</h3>
+                                                <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'}>{challenge.keycode}</h3>
+                                                <button onClick={() => { toggleCode(challenge.keycode) }}>EYE</button>
                                             </li>
                                         </ul>
                                     ))}

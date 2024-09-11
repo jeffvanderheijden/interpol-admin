@@ -84,6 +84,13 @@
     border-bottom: 1px solid #e8e8e8;
     padding: 2px 0px;
 }
+#groups section.challengeKeys ul li h3.invisible {
+    background-color: black;
+}
+#groups section.challengeKeys ul li h3.visible {
+    background-color: transparent;
+}
+
 #groups section.challengesSection ul:last-child li,
 #groups section.challengeKeys ul:last-child li {
     border-bottom: none;

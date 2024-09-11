@@ -19,9 +19,10 @@ export const login = async (formData) => {
         // Do something with the login response, e.g., handle login success or error
         if (loginResponse.error) {
             console.error('Login error:', loginResponse.error);
+            return loginResponse.error;
         } else {
             console.log('Login successful:', loginResponse.message);
-            navigate('/dashboard/');
+            return true;
         }
 
     } catch (error) {

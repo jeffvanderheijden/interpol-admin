@@ -63,8 +63,8 @@ const Groups = ({
                     {/* Groups */}
                     {groups && groups.map((group, idx) => (
                         <>
-                            <li className="group" key={idx} onClick={() => { openSpecificModal(group.id) }}>
-                                <section className="groupSection">
+                            <li className="group" key={idx}>
+                                <section className="groupSection" onClick={() => { openSpecificModal(group.id) }}>
                                     <div className="groupImage">
                                         <img src={`${apiUrl + group.image_url}`} alt={group.name} />
                                     </div>
@@ -74,7 +74,7 @@ const Groups = ({
                                     </div>
                                 </section>
                                 {/* Students */}
-                                <section className="studentsSection">
+                                <section className="studentsSection" onClick={() => { openSpecificModal(group.id) }}>
                                     <ul>
                                         {group.students.map((student, idx) => (
                                             <li key={idx}>
@@ -85,7 +85,7 @@ const Groups = ({
                                     </ul>
                                 </section>
                                 {/* Challenges */}
-                                <section className="challengesSection">
+                                <section className="challengesSection" onClick={() => { openSpecificModal(group.id) }}>
                                     {group.challenges.map((challenge, idx) => (
                                         <ul key={idx}>
                                             <li>

@@ -96,9 +96,9 @@ const Groups = ({
                                 </section>
                                 {/* Challenges */}
                                 <section className="challengesSection" >
-                                    {group.challenges.map((challenge, idx) => (
-                                        <ul key={idx}>
-                                            <li>
+                                    <ul>
+                                        {group.challenges.map((challenge, idx) => (
+                                            <li key={idx}>
                                                 <h3>{challenge.name}</h3>
                                                 <div>
                                                     {challenge.completed ? 
@@ -107,8 +107,8 @@ const Groups = ({
                                                     }
                                                 </div>
                                             </li>
-                                        </ul>
-                                    ))}
+                                        ))}
+                                    </ul>
                                 </section>
                                 {/* Challenge keys */}
                                 <section className="challengeKeys">

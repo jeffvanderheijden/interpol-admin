@@ -83,6 +83,7 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #e8e8e8;
+    height: 21px;
 }
 #groups section.challengeKeys ul li h3.invisible {
     background-color: black;
@@ -91,8 +92,8 @@
     background-color: transparent;
 }
 
-#groups section.challengesSection ul:last-child li,
-#groups section.challengeKeys ul:last-child li {
+#groups section.challengesSection ul li:last-child,
+#groups section.challengeKeys ul li:last-child {
     border-bottom: none;
 }
 

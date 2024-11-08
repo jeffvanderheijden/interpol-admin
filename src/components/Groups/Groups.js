@@ -4,6 +4,7 @@ import ModalComponent from "../Modal/Modal";
 import Eye from "./../../helpers/icons/Eye";
 import Close from "./../../helpers/icons/Close";
 import Check from "./../../helpers/icons/Check";
+import Copy from  "./../../helpers/icons/Copy";
 
 const Groups = ({
     groups
@@ -38,6 +39,11 @@ const Groups = ({
         } else {
             setVisibleCodes([...visibleCodes, code]);
         }
+        event.stopPropagation();
+    }
+
+    const copyCode = (event, code) => {
+        navigator.clipboard.writeText(code);
         event.stopPropagation();
     }
 
@@ -110,8 +116,7 @@ const Groups = ({
                                         <ul key={idx}>
                                             <li>
                                                 <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'} onClick={(e) => { toggleCode(e, challenge.keycode)}}>{challenge.keycode}</h3>
-                                                <Eye className={visibleCodes.includes(challenge.keycode) ? 'hide' : 'show'} onClick={(e) => { toggleCode(e, challenge.keycode) }} />
-                                                <Close className={visibleCodes.includes(challenge.keycode) ? 'show' : 'hide'} onClick={(e) => { toggleCode(e, challenge.keycode) }} />
+                                                <Copy onClick={(e) => { copyCode(e, challenge.keycode)} } />
                                             </li>
                                         </ul>
                                     ))}

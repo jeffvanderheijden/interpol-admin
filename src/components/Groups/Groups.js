@@ -109,7 +109,7 @@ const Groups = ({
                                         <ul key={idx}>
                                             <li>
                                                 <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'}>{challenge.keycode}</h3>
-                                                <Eye onClick={(e) => { toggleCode(e, challenge.keycode) }} />
+                                                <button ><Eye onClick={(e) => { toggleCode(e, challenge.keycode) }} /></button>
                                             </li>
                                         </ul>
                                     ))}

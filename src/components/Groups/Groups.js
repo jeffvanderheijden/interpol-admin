@@ -109,7 +109,7 @@ const Groups = ({
                                     {group.challenges.map((challenge, idx) => (
                                         <ul key={idx}>
                                             <li>
-                                                <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'}>{challenge.keycode}</h3>
+                                                <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'} onClick={(e) => { toggleCode(e, challenge.keycode)}}>{challenge.keycode}</h3>
                                                 <Eye className={visibleCodes.includes(challenge.keycode) ? 'hide' : 'show'} onClick={(e) => { toggleCode(e, challenge.keycode) }} />
                                                 <Close className={visibleCodes.includes(challenge.keycode) ? 'show' : 'hide'} onClick={(e) => { toggleCode(e, challenge.keycode) }} />
                                             </li>

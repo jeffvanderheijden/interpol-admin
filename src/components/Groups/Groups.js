@@ -31,7 +31,8 @@ const Groups = ({
         setNewStudents([]);
     },[openModal]);
 
-    const toggleCode = (code) => {
+    const toggleCode = (event, code) => {
+        event.stopPropagation();
         if (visibleCodes.includes(code)) {
             setVisibleCodes(visibleCodes.filter((c) => c !== code));
         } else {
@@ -108,7 +109,7 @@ const Groups = ({
                                         <ul key={idx}>
                                             <li>
                                                 <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'}>{challenge.keycode}</h3>
-                                                <button onClick={() => { toggleCode(challenge.keycode) }}><Eye /></button>
+                                                <Eye onClick={(e) => { toggleCode(e, challenge.keycode) }} />
                                             </li>
                                         </ul>
                                     ))}

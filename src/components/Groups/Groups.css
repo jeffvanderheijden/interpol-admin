@@ -158,8 +158,8 @@ svg.show {
 }
 
 svg.red path {
-    stroke: red;
+    fill: red;
 }
 svg.green path {
-    stroke: green;
+    fill: green;
 }

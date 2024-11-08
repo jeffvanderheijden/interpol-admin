@@ -153,7 +153,13 @@
 svg.hide {
     display: none;
 }
-
 svg.show {
     display: block;
+}
+
+svg.red path {
+    stroke: red;
+}
+svg.green path {
+    stroke: green;
 }

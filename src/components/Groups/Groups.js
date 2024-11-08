@@ -96,8 +96,8 @@ const Groups = ({
                                                 <h3>{challenge.name}</h3>
                                                 <div>
                                                     {challenge.completed ? 
-                                                        <span><Check className={'show'} /></span> : 
-                                                        <span><Close className={'show'} /></span>
+                                                        <span><Check className={'green'} /></span> : 
+                                                        <span><Close className={'red'} /></span>
                                                     }
                                                 </div>
                                             </li>

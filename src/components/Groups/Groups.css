@@ -148,3 +148,11 @@
     font-size: 0.8rem;
     margin-top: 2px;
 }
+
+svg.hide {
+    display: none;
+}
+
+svg.show {
+    display: block;
+}

@@ -3,6 +3,7 @@ import "./Groups.css";
 import ModalComponent from "../Modal/Modal";
 import Eye from "./../../helpers/icons/Eye";
 import Close from "./../../helpers/icons/Close";
+import Check from "./../../helpers/icons/Check";
 
 const Groups = ({
     groups
@@ -66,8 +67,8 @@ const Groups = ({
                     {/* Groups */}
                     {groups && groups.map((group, idx) => (
                         <>
-                            <li className="group" key={idx}>
-                                <section className="groupSection" onClick={() => { openSpecificModal(group.id) }}>
+                            <li className="group" key={idx} onClick={() => { openSpecificModal(group.id) }}>
+                                <section className="groupSection">
                                     <div className="groupImage">
                                         <img src={`${apiUrl + group.image_url}`} alt={group.name} />
                                     </div>
@@ -77,7 +78,7 @@ const Groups = ({
                                     </div>
                                 </section>
                                 {/* Students */}
-                                <section className="studentsSection" onClick={() => { openSpecificModal(group.id) }}>
+                                <section className="studentsSection">
                                     <ul>
                                         {group.students.map((student, idx) => (
                                             <li key={idx}>
@@ -88,15 +89,15 @@ const Groups = ({
                                     </ul>
                                 </section>
                                 {/* Challenges */}
-                                <section className="challengesSection" onClick={() => { openSpecificModal(group.id) }}>
+                                <section className="challengesSection" >
                                     {group.challenges.map((challenge, idx) => (
                                         <ul key={idx}>
                                             <li>
                                                 <h3>{challenge.name}</h3>
                                                 <div>
                                                     {challenge.completed ? 
-                                                        <span>V</span> : 
-                                                        <span>X</span>
+                                                        <span><Check className={'show'} /></span> : 
+                                                        <span><Close className={'show'} /></span>
                                                     }
                                                 </div>
                                             </li>

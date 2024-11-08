@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./Groups.css";
 import ModalComponent from "../Modal/Modal";
+import Eye from "./../../helpers/icons/Eye";
+import Close from "./../../helpers/icons/Close";
 
 const Groups = ({
     groups
@@ -106,7 +108,7 @@ const Groups = ({
                                         <ul key={idx}>
                                             <li>
                                                 <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'}>{challenge.keycode}</h3>
-                                                <button onClick={() => { toggleCode(challenge.keycode) }}>EYE</button>
+                                                <button onClick={() => { toggleCode(challenge.keycode) }}><Eye /></button>
                                             </li>
                                         </ul>
                                     ))}

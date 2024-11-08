@@ -2,7 +2,7 @@ import React from "react";
 
 const Eye = () => {
     return (        
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 442.04 442.04">
             <g>
                 <g>
                     <path d="M221.02,341.304c-49.708,0-103.206-19.44-154.71-56.22C27.808,257.59,4.044,230.351,3.051,229.203

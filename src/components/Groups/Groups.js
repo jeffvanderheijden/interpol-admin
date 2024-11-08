@@ -112,14 +112,14 @@ const Groups = ({
                                 </section>
                                 {/* Challenge keys */}
                                 <section className="challengeKeys">
-                                    {group.challenges.map((challenge, idx) => (
-                                        <ul key={idx}>
-                                            <li>
+                                    <ul key={idx}>
+                                        {group.challenges.map((challenge, idx) => (                                        
+                                            <li key={idx}>
                                                 <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'} onClick={(e) => { toggleCode(e, challenge.keycode)}}>{challenge.keycode}</h3>
                                                 <Copy onClick={(e) => { copyCode(e, challenge.keycode)} } />
-                                            </li>
-                                        </ul>
-                                    ))}
+                                            </li>                                        
+                                        ))}
+                                    </ul>
                                 </section>
                             </li>
                             <ModalComponent 

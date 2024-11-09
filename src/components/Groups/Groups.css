@@ -184,6 +184,7 @@ svg.green path {
 
 .editStudents li {
     display: flex;
+    margin-bottom: 4px;
 }
 
 .editStudents input {
@@ -193,4 +194,9 @@ svg.green path {
     padding: 10px 6px;
     width: calc(50% - 12.5px);
     margin-right: 7px;
+}
+
+.editGroup .editButtons {
+    margin-top: 12px;
+    display: flex;
 }

@@ -44,7 +44,7 @@ const Groups = ({
     const copyCode = (event, code) => {
         navigator.clipboard.writeText(code);
         event.stopPropagation();
-        console.log(event.target);
+        console.log(event.target.closest("svg"));
     }
 
     const removeStudent = (studentNumber, groupId) => {

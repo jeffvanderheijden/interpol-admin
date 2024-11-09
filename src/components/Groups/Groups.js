@@ -53,6 +53,7 @@ const Groups = ({
     }
 
     const removeStudent = (studentNumber, groupId) => {
+        //TODO fix removal of student
         console.log(studentNumber, groupId);
     }
 

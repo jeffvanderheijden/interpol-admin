@@ -163,3 +163,14 @@ svg.red path {
 svg.green path {
     stroke: green;
 }
+
+/* Edit modal */
+
+#groups .groupSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    width: 100%;
+    height: 100%;
+}

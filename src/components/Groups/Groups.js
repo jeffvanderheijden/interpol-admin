@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Groups.css";
+import { removeStudent } from "../../helpers/data/dataLayer";
 import ModalComponent from "../Modal/Modal";
 import Close from "./../../helpers/icons/Close";
 import Check from "./../../helpers/icons/Check";
@@ -52,9 +53,10 @@ const Groups = ({
         }, 2000);
     }
 
-    const removeStudent = (studentNumber, groupId) => {
+    const removeExistingStudent = (studentNumber, groupId) => {
         //TODO fix removal of student
         alert("Weet je zeker dat je deze student wilt verwijderen?");
+        removeStudent(studentNumber);
         console.log(studentNumber, groupId);
     }
 
@@ -152,7 +154,7 @@ const Groups = ({
                                             <li key={idx}>
                                                 <input type="number" placeholder={student.student_number} />   
                                                 <input type="text" placeholder={student.name} />
-                                                <button onClick={() => { removeStudent(student.student_number, group.id) }}>X</button>
+                                                <button onClick={() => { removeExistingStudent(student.student_number, group.id) }}>X</button>
                                             </li>
                                         ))}
                                         {newStudents.map((student, idx) => (

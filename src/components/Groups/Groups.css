@@ -181,3 +181,9 @@ svg.green path {
     border-radius: 6px;
     border: 1px solid #e8e8e8;
 }
+
+.editStudents input {
+    width: calc(50% - 12.5px);
+    padding: 10px 6px;
+    border: 1px solid #e8e8e8;
+}

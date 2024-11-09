@@ -166,7 +166,7 @@ svg.green path {
 
 /* Edit modal */
 
-#groups .groupSection {
+.editGroup .groupSection {
     display: flex;
     justify-content: space-between;
     align-items: center;

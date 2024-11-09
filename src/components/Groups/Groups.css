@@ -203,3 +203,11 @@ svg.green path {
     align-items: center;
     justify-content: space-between;
 }
+.editGroup .editButtons button {
+    border: none;
+    border-radius: 10px;
+    color: #333;
+    cursor: pointer;
+    float: right;
+    padding: 9px 16px;
+}

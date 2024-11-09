@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Groups.css";
 import ModalComponent from "../Modal/Modal";
-import Eye from "./../../helpers/icons/Eye";
 import Close from "./../../helpers/icons/Close";
 import Check from "./../../helpers/icons/Check";
 import Copy from  "./../../helpers/icons/Copy";
@@ -45,6 +44,7 @@ const Groups = ({
     const copyCode = (event, code) => {
         navigator.clipboard.writeText(code);
         event.stopPropagation();
+        console.log(event.target);
     }
 
     const removeStudent = (studentNumber, groupId) => {
@@ -70,7 +70,6 @@ const Groups = ({
             </section>
             <section id="groups">
                 <ul id="group-tabs">
-                    {/* Groups */}
                     {groups && groups.map((group, idx) => (
                         <>
                             <li className="group" key={idx} onClick={() => { openSpecificModal(group.id) }}>
@@ -116,8 +115,9 @@ const Groups = ({
                                         {group.challenges.map((challenge, idx) => (                                        
                                             <li key={idx}>
                                                 <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'} onClick={(e) => { toggleCode(e, challenge.keycode)}}>{challenge.keycode}</h3>
+                                                {/* Copy icon, animated when clicked: visual feedback that copy is successful */}
                                                 <Copy onClick={(e) => { copyCode(e, challenge.keycode)} } />
-                                            </li>                                        
+                                            </li>
                                         ))}
                                     </ul>
                                 </section>

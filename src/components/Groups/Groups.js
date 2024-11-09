@@ -163,6 +163,7 @@ const Groups = ({
                                         ))}
                                     </ul>
                                     <button onClick={() => { setNewStudents([ ...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
+                                    <button onClick={() => { console.log('opslaan' )}}>Opslaan</button>
                                 </div>
                             </ModalComponent>
                         </>

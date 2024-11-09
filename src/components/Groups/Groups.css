@@ -199,5 +199,7 @@ svg.green path {
 .editGroup .editButtons {
     width: 100%;
     margin-top: 12px;
-    display: flex;  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

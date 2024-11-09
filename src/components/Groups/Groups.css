@@ -182,6 +182,10 @@ svg.green path {
     border: 1px solid #e8e8e8;
 }
 
+.editStudents li {
+    display: flex;
+}
+
 .editStudents input {
     width: calc(50% - 12.5px);
     padding: 10px 6px;

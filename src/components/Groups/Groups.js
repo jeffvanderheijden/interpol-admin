@@ -44,8 +44,12 @@ const Groups = ({
     const copyCode = (event, code) => {
         navigator.clipboard.writeText(code);
         event.stopPropagation();
-        console.log(event.target.closest("li").querySelector('.checkmark').classList.add('show'));
-        console.log(event.target.closest("li").querySelector('.copy').classList.add('hide'));
+        event.target.closest("li").querySelector('.checkmark').classList.add('show');
+        event.target.closest("li").querySelector('.copy').classList.add('hide');
+        setTimeout(() => {
+            event.target.closest("li").querySelector('.checkmark').classList.remove('show');
+            event.target.closest("li").querySelector('.copy').classList.remove('hide');
+        }, 2000);
     }
 
     const removeStudent = (studentNumber, groupId) => {

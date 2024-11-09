@@ -44,8 +44,8 @@ const Groups = ({
     const copyCode = (event, code) => {
         navigator.clipboard.writeText(code);
         event.stopPropagation();
-        console.log(event.target.closest("li").querySelector('.checkmark'));
-        console.log(event.target.closest("li").querySelector('.copy'));
+        console.log(event.target.closest("li").querySelector('.checkmark').classList.add('show'));
+        console.log(event.target.closest("li").querySelector('.copy').classList.add('hide'));
     }
 
     const removeStudent = (studentNumber, groupId) => {
@@ -118,7 +118,7 @@ const Groups = ({
                                                 <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'} onClick={(e) => { toggleCode(e, challenge.keycode)}}>{challenge.keycode}</h3>
                                                 {/* Copy icon, animated when clicked: visual feedback that copy is successful */}
                                                 <Copy className={'copy'} onClick={(e) => { copyCode(e, challenge.keycode)} } />
-                                                <Check className={'checkmark'} onClick={(e) => { copyCode(e, challenge.keycode)} } />
+                                                <Check className={'checkmark hide'} onClick={(e) => { copyCode(e, challenge.keycode)} } />
                                             </li>
                                         ))}
                                     </ul>

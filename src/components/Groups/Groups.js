@@ -54,6 +54,7 @@ const Groups = ({
 
     const removeStudent = (studentNumber, groupId) => {
         //TODO fix removal of student
+        alert("Weet je zeker dat je deze student wilt verwijderen?");
         console.log(studentNumber, groupId);
     }
 

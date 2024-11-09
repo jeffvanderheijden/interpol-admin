@@ -118,7 +118,7 @@ const Groups = ({
                                                 <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'} onClick={(e) => { toggleCode(e, challenge.keycode)}}>{challenge.keycode}</h3>
                                                 {/* Copy icon, animated when clicked: visual feedback that copy is successful */}
                                                 <Copy className={'copy'} onClick={(e) => { copyCode(e, challenge.keycode)} } />
-                                                <Check className={'checkmark'} />
+                                                <Check className={'checkmark'} onClick={(e) => { copyCode(e, challenge.keycode)} } />
                                             </li>
                                         ))}
                                     </ul>

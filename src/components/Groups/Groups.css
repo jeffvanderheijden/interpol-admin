@@ -186,4 +186,7 @@ svg.green path {
     width: calc(50% - 12.5px);
     padding: 10px 6px;
     border: 1px solid #e8e8e8;
+    padding: 10px 6px;
+    width: calc(50% - 12.5px);
+    margin-right: 7px;
 }

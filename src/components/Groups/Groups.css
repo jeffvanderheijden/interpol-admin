@@ -188,6 +188,10 @@ svg.green path {
     margin-bottom: 4px;
 }
 
+.editStudents li .trashcan {
+    cursor: pointer;
+}
+
 .editStudents input {
     width: calc(50% - 12.5px);
     padding: 10px 6px;

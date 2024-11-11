@@ -154,14 +154,14 @@ const Groups = ({
                                             <li key={idx}>
                                                 <input type="number" placeholder={student.student_number} />   
                                                 <input type="text" placeholder={student.name} />
-                                                <Trashcan onClick={() => { removeExistingStudent(student.student_number, group.id, student.name) }} />
+                                                <Trashcan className={'trashcan'} onClick={() => { removeExistingStudent(student.student_number, group.id, student.name) }} />
                                             </li>
                                         ))}
                                         {newStudents.map((student, idx) => (
                                             <li key={idx}>
                                                 <input type="number" placeholder={student.student_number} />   
                                                 <input type="text" placeholder={student.name} />
-                                                <Trashcan onClick={() => { setNewStudents(newStudents.filter((_, i) => i !== idx)) }} />
+                                                <Trashcan className={'trashcan'} onClick={() => { setNewStudents(newStudents.filter((_, i) => i !== idx)) }} />
                                             </li>
                                         ))}
                                     </ul>

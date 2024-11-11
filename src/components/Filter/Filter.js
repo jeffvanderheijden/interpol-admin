@@ -20,6 +20,10 @@ const Filter = ({
         })
     }
 
+    const addGroup = () => {
+        console.log('add group');
+    }
+
     const logout = async () => {
         try {
             const response = await fetch('https://api.interpol.sd-lab.nl/api/logout.php', {
@@ -47,6 +51,7 @@ const Filter = ({
         <section id="filter">
             <input type="text" placeholder="Zoek door groepen.." onChange={(e) => { searchGroup(e) }} value={filters.searchGroup} />
             <input type="text" placeholder="Zoek door studenten.." onChange={(e) => { searchStudent(e) }} value={filters.searchStudent} />
+            <button onClick={() => { addGroup() }}>Groep toevoegen</button>
             <button onClick={() => { logout() }}>Uitloggen</button>
         </section>
     );

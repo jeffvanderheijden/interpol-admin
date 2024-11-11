@@ -17,6 +17,17 @@ const DashboardPage = () => {
 
   const closeModal = () => setOpenModal(false);
 
+  const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+    },
+};
+
   // Check if user is logged in as a teacher
   useEffect(() => {
     checkSession().then(isTeacher => {
@@ -81,7 +92,7 @@ const DashboardPage = () => {
               modalIsOpen={openModal}
               afterOpenModal={null}
               closeModal={closeModal}
-              customStyles={null}
+              customStyles={customStyles}
               contentLabel="New group"
           >
               <div className="newGroup">

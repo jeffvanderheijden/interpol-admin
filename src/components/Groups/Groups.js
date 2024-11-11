@@ -5,6 +5,7 @@ import ModalComponent from "../Modal/Modal";
 import Close from "./../../helpers/icons/Close";
 import Check from "./../../helpers/icons/Check";
 import Copy from  "./../../helpers/icons/Copy";
+import Trashcan from "../../helpers/icons/Trashcan";
 
 const Groups = ({
     groups
@@ -53,9 +54,8 @@ const Groups = ({
         }, 2000);
     }
 
-    const removeExistingStudent = (studentNumber, groupId) => {
-        //TODO fix removal of student
-        alert("Weet je zeker dat je deze student wilt verwijderen?");
+    const removeExistingStudent = (studentNumber, groupId, studentName) => {
+        alert(`Weet je zeker dat je ${studentName} wilt verwijderen uit deze groep?`);
         removeStudent(studentNumber);
         console.log(studentNumber, groupId);
     }
@@ -154,14 +154,16 @@ const Groups = ({
                                             <li key={idx}>
                                                 <input type="number" placeholder={student.student_number} />   
                                                 <input type="text" placeholder={student.name} />
-                                                <button onClick={() => { removeExistingStudent(student.student_number, group.id) }}>X</button>
+                                                <button onClick={() => { removeExistingStudent(student.student_number, group.id, student.name) }}>X</button>
                                             </li>
                                         ))}
                                         {newStudents.map((student, idx) => (
                                             <li key={idx}>
                                                 <input type="number" placeholder={student.student_number} />   
                                                 <input type="text" placeholder={student.name} />
-                                                <button onClick={() => { setNewStudents(newStudents.filter((_, i) => i !== idx)) }}>X</button>
+                                                <button onClick={() => { setNewStudents(newStudents.filter((_, i) => i !== idx)) }}>
+                                                    <Trashcan />
+                                                </button>
                                             </li>
                                         ))}
                                     </ul>

@@ -95,7 +95,7 @@ const DashboardPage = () => {
                       </div>
                   </section>   
                   <ul className="editStudents">
-                    <li key={idx}>
+                    <li>
                         <input type="number" placeholder={"Studentnummer"} />   
                         <input type="text" placeholder={"Student naam"} />
                     </li>

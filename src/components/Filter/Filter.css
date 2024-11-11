@@ -21,13 +21,16 @@
     cursor: pointer;
     transition: all .2s;
 }
+#filter button:hover {
+    background: green;
+    color: #FFF;
+}
+
 #filter button.logout {
-    background: red;
-    color: #333;
     float: right;
 }
 
-#filter button:hover {
+#filter button.logout:hover {
     background: red;
     color: #FFF;
 }

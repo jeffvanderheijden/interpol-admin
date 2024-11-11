@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { navigate } from "@reach/router";
 import dataLayer, { checkSession } from "../helpers/data/dataLayer";
+import ModalComponent from "../components/Modal/Modal";
 import "./../helpers/styles/reset.css";
 import Filter from "../components/Filter/Filter";
 import Groups from "../components/Groups/Groups";
@@ -72,6 +73,35 @@ const DashboardPage = () => {
           <Groups
             groups={filteredGroups}
           />
+          <ModalComponent 
+              modalIsOpen={true}
+              afterOpenModal={null}
+              closeModal={closeModal}
+              customStyles={null}
+              contentLabel="New group"
+          >
+              <div className="newGroup">
+                  <section className="groupSection">
+                      <div className="groupImage">
+                          <img src="" alt="Group image" />
+                      </div>
+                      <div>
+                          <input type="text" placeholder={"Groep naam"} />
+                          <input type="text" placeholder={"Klas"} />
+                      </div>
+                  </section>   
+                  <ul className="editStudents">
+                    <li key={idx}>
+                        <input type="number" placeholder={"Studentnummer"} />   
+                        <input type="text" placeholder={"Student naam"} />
+                    </li>
+                  </ul>
+                  <div className="editButtons">
+                    <button onClick={() => { setNewStudents([ ...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
+                    <button onClick={() => { console.log('opslaan' )}}>Opslaan</button>
+                  </div>
+              </div>
+          </ModalComponent>
         </main>
       )}    
     </>

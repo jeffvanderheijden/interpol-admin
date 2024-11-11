@@ -4,7 +4,8 @@ import "./Filter.css";
 
 const Filter = ({
     filters,
-    setFilters
+    setFilters,
+    setOpenModal
 }) => {
     const searchGroup = (e) => {
         setFilters({
@@ -51,7 +52,7 @@ const Filter = ({
         <section id="filter">
             <input type="text" placeholder="Zoek door groepen.." onChange={(e) => { searchGroup(e) }} value={filters.searchGroup} />
             <input type="text" placeholder="Zoek door studenten.." onChange={(e) => { searchStudent(e) }} value={filters.searchStudent} />
-            <button onClick={() => { addGroup() }}>Groep toevoegen</button>
+            <button onClick={() => { setOpenModal(true) }}>Groep toevoegen</button>
             <button className={"logout"} onClick={() => { logout() }}>Uitloggen</button>
         </section>
     );

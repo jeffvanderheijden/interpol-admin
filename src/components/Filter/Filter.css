@@ -14,13 +14,17 @@
 }
 
 #filter button {
-    float: right;
     padding: 9px 16px;
     border: none;
     color: #333;
     border-radius: 10px;
     cursor: pointer;
     transition: all .2s;
+}
+#filter button.logout {
+    background: red;
+    color: #333;
+    float: right;
 }
 
 #filter button:hover {

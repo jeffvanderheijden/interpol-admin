@@ -52,7 +52,7 @@ const Filter = ({
             <input type="text" placeholder="Zoek door groepen.." onChange={(e) => { searchGroup(e) }} value={filters.searchGroup} />
             <input type="text" placeholder="Zoek door studenten.." onChange={(e) => { searchStudent(e) }} value={filters.searchStudent} />
             <button onClick={() => { addGroup() }}>Groep toevoegen</button>
-            <button onClick={() => { logout() }}>Uitloggen</button>
+            <button className={"logout"} onClick={() => { logout() }}>Uitloggen</button>
         </section>
     );
 }

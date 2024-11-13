@@ -37,7 +37,7 @@ const Groups = ({
 
     const removeGroup = (e, group, classTitle) => {
         e.stopPropagation();
-        alert(`Weet je zeker dat je groep ${group} uit klas ${classTitle} wilt verwijderen?`);
+        confirm(`Weet je zeker dat je groep ${group} uit klas ${classTitle} wilt verwijderen?`);
     }
 
     return (

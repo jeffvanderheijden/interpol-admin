@@ -14,6 +14,7 @@ const NewGroup = ({
     const [width, setWidth] = useState(null);
     const [height, setHeight] = useState(null);
     const [image, setImage] = useState(null);
+    const [teamSuccessfullyCreated, setTeamSuccessfullyCreated] = useState(false);
 
     const cameraRef = useRef(null);
     const canvasRef = useRef(null);
@@ -122,6 +123,12 @@ const NewGroup = ({
     useEffect(() => {
         setWidth(200);
     }, []);
+
+    useEffect(() => {
+        if (teamSuccessfullyCreated) {
+            closeModal();
+        }
+    }, [teamSuccessfullyCreated])
 
     const customStyles = {
         content: {

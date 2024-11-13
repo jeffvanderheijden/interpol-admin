@@ -35,9 +35,9 @@ const Groups = ({
         }, 2000);
     }
 
-    const removeGroup = (e) => {
+    const removeGroup = (e, group, classTitle) => {
         e.stopPropagation();
-        console.log('Group removed');
+        alert(`Weet je zeker dat je groep ${group} uit klas ${classTitle} wilt verwijderen?`);
     }
 
     return (
@@ -69,7 +69,7 @@ const Groups = ({
                                     <div>
                                         <h2>{group.name}</h2>
                                         <p>{group.class}</p>
-                                        <button className="deleteGroup" onClick={(e) => { removeGroup(e) }}>Verwijder groep</button>
+                                        <button className="deleteGroup" onClick={(e) => { removeGroup(e, group.name, group.class) }}>Verwijder groep</button>
                                     </div>                                    
                                 </section>
                                 {/* Students */}

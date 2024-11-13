@@ -9,6 +9,9 @@ const NewGroup = ({
     const [camera, setCamera] = useState(false);
     const [streaming, setStreaming] = useState(false);
     const [newStudents, setNewStudents] = useState([]);
+    const [width, setWidth] = useState(null);
+    const [height, setHeight] = useState(null);
+    const [image, setImage] = useState(null);
 
     const cameraRef = useRef(null);
     const canvasRef = useRef(null);

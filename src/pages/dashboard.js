@@ -6,6 +6,7 @@ import dataLayer, { checkSession } from "../helpers/data/dataLayer";
 import "./../helpers/styles/reset.css";
 import Filter from "../components/Filter/Filter";
 import Groups from "../components/Groups/Groups";
+import NewGroup from "../components/Modal/NewGroup";
 
 const DashboardPage = () => {
   const [groups, setGroups] = useState([]);

@@ -134,7 +134,7 @@ const NewGroup = ({
                     <>
                         <section className="groupSection">
                             <div className="groupImage" onClick={() => { setCamera(true) }} onKeyDown={() => { setCamera(true) }}>
-                                <img src={TakePhoto} ref={finalImageRef} alt="Team" />
+                                <img src={''} ref={finalImageRef} alt="Team" />
                             </div>
                             <div>
                                 <input type="text" placeholder={"Groep naam"} />

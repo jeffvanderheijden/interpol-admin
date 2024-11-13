@@ -36,7 +36,7 @@ const Groups = ({
     }
 
     const removeGroup = (e) => {
-        e.preventDefault();
+        e.stopPropagation();
         console.log('Group removed');
     }
 

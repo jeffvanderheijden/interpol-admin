@@ -94,8 +94,10 @@ const NewGroup = ({
         formData.append('image', image);
         formData.append('name', e.target.elements.teamName.value);
         formData.append('class', e.target.elements.klas.value);
-        const students = studentsRef.current.children;
-        console.log(students);
+        let students = studentsRef.current.children;
+        students = Array.from(students).map(student => {
+            console.log(student);
+        });
         formData.append('students', JSON.stringify(students));
         
         // do fetch request

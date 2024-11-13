@@ -181,7 +181,7 @@ const NewGroup = ({
                                 <li key={idx}>
                                     <input type="number" placeholder={"Studentnummer"} />
                                     <input type="text" placeholder={"Student naam"} />
-                                    <Trashcan className={'trashcan'} onClick={() => { setNewStudents(newStudents.filter((_, i) => student !== idx)) }} />
+                                    <Trashcan className={'trashcan'} onClick={() => { setNewStudents(newStudents.filter((_, i) => _ !== idx)) }} />
                                 </li>
                             ))}
                         </ul>

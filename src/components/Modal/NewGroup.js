@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import ModalComponent from "../Modal/Modal";
 import "./NewGroup.css";
 
-const NewGroup = () => {
-    const [openModal, setOpenModal] = useState(false);
+const NewGroup = ({
+    openModal,
+    closeModal
+}) => {    
     const [newStudents, setNewStudents] = useState([]);
-
-    const closeModal = () => setOpenModal(false);
 
     const customStyles = {
         content: {

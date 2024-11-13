@@ -12,6 +12,9 @@ const DashboardPage = () => {
   const [filteredGroups, setFilteredGroups] = useState([]);
   const [filters, setFilters] = useState({ searchGroup: '', searchStudent: '' });
   const [isTeacher, setIsTeacher] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+  
+  const closeModal = () => setOpenModal(false);
 
   // Check if user is logged in as a teacher
   useEffect(() => {
@@ -70,8 +73,13 @@ const DashboardPage = () => {
             setFilters={setFilters}
             setOpenModal={setOpenModal}
           />
-          <Groups groups={filteredGroups} />
-          <NewGroup />
+          <Groups 
+            groups={filteredGroups} 
+          />
+          <NewGroup 
+            openModal={openModal}
+            closeModal={closeModal}
+          />
         </main>
       )}
     </>

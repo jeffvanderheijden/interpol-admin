@@ -184,14 +184,14 @@ const NewGroup = ({
                             </li>
                             {newStudents.map((student, idx) => (
                                 <li key={idx}>
-                                    <input type="number" placeholder={student.student_number} />
-                                    <input type="text" placeholder={student.name} />
+                                    <input type="number" placeholder={"Studentnummer"} />
+                                    <input type="text" placeholder={"Student naam"} />
                                     <Trashcan className={'trashcan'} onClick={() => { setNewStudents(newStudents.filter((_, i) => i !== idx)) }} />
                                 </li>
                             ))}
                         </ul>
                         <div className="addButtons">
-                            <button onClick={() => { setNewStudents([...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
+                            <button onClick={(e) => { e.preventDefault(); setNewStudents([...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
                             <button type={'submit'}>Opslaan</button>
                         </div>
                     </form>

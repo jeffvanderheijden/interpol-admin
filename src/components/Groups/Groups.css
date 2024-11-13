@@ -49,15 +49,14 @@
 
 #groups section.groupSection .deleteGroup {
     border: none;
-    border-radius: 10px;
     color: #333;
     cursor: pointer;
-    padding: 9px 16px;
     transition: all .2s;
+    background-color: transparent;
+    margin-top: 10px;
 }
 #groups section.groupSection .deleteGroup:hover {
-    background: red;
-    color: #fff;
+    color: red;
 }
 
 #groups section.studentsSection ul {

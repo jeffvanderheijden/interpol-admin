@@ -88,6 +88,21 @@ export const removeStudent = async (studentId) => {
     }
 }
 
+export const createTeam = async (formData, setTeamSuccessfullyCreated) => {
+    try {
+        const response = await fetch(`${api}/create-team`, {
+            method: 'POST',
+            body: formData,
+        });
+        const newTeam = await response.text();
+        if (JSON.parse(newTeam).message) {
+            setTeamSuccessfullyCreated(true);
+        }
+    } catch (error) {
+        console.error('Error creating team:', error);
+    }
+}
+
 const dataLayer = () => {
     let groupsData = [];
 

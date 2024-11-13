@@ -74,7 +74,7 @@ const NewGroup = ({
         console.log(photoRef && photoRef.current);
         console.log(videoRef && videoRef.current);
         console.log(finalImageRef && finalImageRef.current);
-        if (canvasRef && canvasRef.current && photoRef && photoRef.current && videoRef && videoRef.current && finalImageRef && finalImageRef.current) {
+        if (canvasRef && canvasRef.current && photoRef && photoRef.current && videoRef && videoRef.current) {
             console.log('taking picture...');
             const context = canvasRef.current.getContext("2d");
             if (width && height) {
@@ -131,7 +131,6 @@ const NewGroup = ({
                         <div className="output">
                             <div className="imgWrapper">
                                 <img ref={photoRef} id="photo" alt="Team image" />
-                                <img ref={finalImageRef} alt="Team" />
                             </div>
                             <canvas id="canvas" ref={canvasRef} />
                         </div>
@@ -140,7 +139,7 @@ const NewGroup = ({
                     <>
                         <section className="groupSection">
                             <div className="groupImage" onClick={() => { setCamera(true) }} onKeyDown={() => { setCamera(true) }}>
-                                <img ref={finalImageRef} alt="Team" />
+                                <img src={image} alt="Team" />
                             </div>
                             <div>
                                 <input type="text" placeholder={"Groep naam"} />

@@ -9,7 +9,7 @@ const NewGroup = ({
 }) => {    
     const [camera, setCamera] = useState(false);
     const [streaming, setStreaming] = useState(false);
-    const [newStudents, setNewStudents] = useState([]);
+    const [newStudents, setNewStudents] = useState([0]);
     const [width, setWidth] = useState(null);
     const [height, setHeight] = useState(null);
     const [image, setImage] = useState(null);
@@ -178,10 +178,6 @@ const NewGroup = ({
                             </div>
                         </section>
                         <ul className="addStudents">
-                            <li>
-                                <input type="number" placeholder={"Studentnummer"} />
-                                <input type="text" placeholder={"Student naam"} />
-                            </li>
                             {newStudents.map((student, idx) => (
                                 <li key={idx}>
                                     <input type="number" placeholder={"Studentnummer"} />

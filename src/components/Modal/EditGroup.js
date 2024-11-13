@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { removeStudent } from "../../helpers/data/dataLayer";
 import ModalComponent from "../Modal/Modal";
 import Trashcan from "../../helpers/icons/Trashcan";
 

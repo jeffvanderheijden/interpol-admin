@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./Groups.css";
-import { removeStudent } from "../../helpers/data/dataLayer";
 import EditGroup from "./../Modal/EditGroup";
 import Close from "./../../helpers/icons/Close";
 import Check from "./../../helpers/icons/Check";

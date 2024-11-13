@@ -102,11 +102,6 @@ const NewGroup = ({
             contentLabel="New group"
         >
             <div className="newGroup">
-                {photo ? (
-                    <>
-                        photo
-                    </>
-                ) : (
                     <>
                         <section className="groupSection">
                             <div className="groupImage">
@@ -128,7 +123,6 @@ const NewGroup = ({
                             <button onClick={() => { console.log('opslaan') }}>Opslaan</button>
                         </div>
                     </>
-                )}
             </div>
         </ModalComponent>
     );

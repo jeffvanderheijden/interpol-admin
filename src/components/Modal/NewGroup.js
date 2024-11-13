@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import ModalComponent from "../Modal/Modal";
+import Trashcan from "../../helpers/icons/Trashcan";
 import "./NewGroup.css";
 
 const NewGroup = ({

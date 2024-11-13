@@ -152,13 +152,14 @@ const NewGroup = ({
                     </div>
                 ) : (
                     <form onSubmit={(e) => { createTeamInComp(e) }}>
+                        <input type="hidden" id="image" name="image" value={image} required />
                         <section className="groupSection">
                             <div className="groupImage" onClick={() => { setCamera(true) }} onKeyDown={() => { setCamera(true) }}>
                                 <img src={image} alt="Team" />
                             </div>
                             <div>
-                                <input type="text" placeholder={"Groep naam"} />
-                                <input type="text" placeholder={"Klas"} />
+                                <input type="text" id="teamName" name="teamName" placeholder="Team naam" required />
+                                <input type="text" id="klas" name="klas" placeholder="Klas" required />
                             </div>
                         </section>
                         <ul className="addStudents" ref={studentsRef}>

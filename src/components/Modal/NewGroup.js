@@ -71,7 +71,6 @@ const NewGroup = ({
 
     const takePicture = (e) => {
         if (canvasRef && canvasRef.current && photoRef && photoRef.current && videoRef && videoRef.current) {
-            console.log('taking picture...');
             const context = canvasRef.current.getContext("2d");
             if (width && height) {
                 canvasRef.current.width = width;

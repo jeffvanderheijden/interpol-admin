@@ -51,3 +51,7 @@
     float: right;
     padding: 9px 16px;
 }
+
+.camera canvas {
+    display: none;
+}

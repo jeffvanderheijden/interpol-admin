@@ -18,7 +18,6 @@ const NewGroup = ({
     const videoRef = useRef(null);
     const photoRef = useRef(null);
     const takePhotoRef = useRef(null);
-    const finalImageRef = useRef(null);
 
     const getVideoStream = async () => {
         try {
@@ -70,10 +69,6 @@ const NewGroup = ({
     }
 
     const takePicture = (e) => {
-        console.log(canvasRef && canvasRef.current);
-        console.log(photoRef && photoRef.current);
-        console.log(videoRef && videoRef.current);
-        console.log(finalImageRef && finalImageRef.current);
         if (canvasRef && canvasRef.current && photoRef && photoRef.current && videoRef && videoRef.current) {
             console.log('taking picture...');
             const context = canvasRef.current.getContext("2d");
@@ -85,13 +80,48 @@ const NewGroup = ({
                 const data = canvasRef.current.toDataURL("image/png");
                 setImage(data);
                 photoRef.current.setAttribute("src", data);
-                finalImageRef.current.setAttribute("src", data);
             } else {
                 clearPicture();
             }
         }
         e.preventDefault();
     }
+
+    const createTeamInComp = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('image', image);
+        formData.append('name', e.target.elements.teamName.value);
+        formData.append('class', e.target.elements.klas.value);
+        const students = [
+            {
+                name: e.target.elements.student1.value,
+                number: e.target.elements.student1_number.value
+            },
+            {
+                name: e.target.elements.student2.value,
+                number: e.target.elements.student2_number.value
+            },
+            {
+                name: e.target.elements.student3.value,
+                number: e.target.elements.student3_number.value
+            },
+            {
+                name: e.target.elements.student4.value,
+                number: e.target.elements.student4_number.value
+            }
+        ];
+        formData.append('students', JSON.stringify(students));
+        
+        // do fetch request
+        createTeam(formData, setTeamSuccessfullyCreated).then(newTeam => {
+            console.log(newTeam);
+            // Reload the page to show the new team
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        });
+    };
 
     useEffect(() => {
         camera && getVideoStream();
@@ -136,7 +166,7 @@ const NewGroup = ({
                         </div>
                     </div>
                 ) : (
-                    <>
+                    <form onSubmit={(e) => { createTeamInComp(e) }}>
                         <section className="groupSection">
                             <div className="groupImage" onClick={() => { setCamera(true) }} onKeyDown={() => { setCamera(true) }}>
                                 <img src={image} alt="Team" />
@@ -146,17 +176,24 @@ const NewGroup = ({
                                 <input type="text" placeholder={"Klas"} />
                             </div>
                         </section>
-                        <ul className="editStudents">
+                        <ul className="addStudents">
                             <li>
                                 <input type="number" placeholder={"Studentnummer"} />
                                 <input type="text" placeholder={"Student naam"} />
                             </li>
+                            {newStudents.map((student, idx) => (
+                                <li key={idx}>
+                                    <input type="number" placeholder={student.student_number} />
+                                    <input type="text" placeholder={student.name} />
+                                    <Trashcan className={'trashcan'} onClick={() => { setNewStudents(newStudents.filter((_, i) => i !== idx)) }} />
+                                </li>
+                            ))}
                         </ul>
-                        <div className="editButtons">
+                        <div className="addButtons">
                             <button onClick={() => { setNewStudents([...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
-                            <button onClick={() => { console.log('opslaan') }}>Opslaan</button>
+                            <button type={'submit'}>Opslaan</button>
                         </div>
-                    </>
+                    </form>
                 )}
             </div>
         </ModalComponent>

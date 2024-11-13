@@ -131,6 +131,7 @@ const NewGroup = ({
                         <div className="output">
                             <div className="imgWrapper">
                                 <img ref={photoRef} id="photo" alt="Team image" />
+                                <img ref={finalImageRef} alt="Team" />
                             </div>
                             <canvas id="canvas" ref={canvasRef} />
                         </div>

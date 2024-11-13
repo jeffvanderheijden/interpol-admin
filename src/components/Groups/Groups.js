@@ -90,6 +90,7 @@ const Groups = ({
                                         <h2>{group.name}</h2>
                                         <p>{group.class}</p>
                                     </div>
+                                    <button className="deleteGroup">Verwijder groep</button>
                                 </section>
                                 {/* Students */}
                                 <section className="studentsSection">

@@ -70,6 +70,10 @@ const NewGroup = ({
     }
 
     const takePicture = (e) => {
+        console.log(canvasRef && canvasRef.current);
+        console.log(photoRef && photoRef.current);
+        console.log(videoRef && videoRef.current);
+        console.log(finalImageRef && finalImageRef.current);
         if (canvasRef && canvasRef.current && photoRef && photoRef.current && videoRef && videoRef.current && finalImageRef && finalImageRef.current) {
             console.log('taking picture...');
             const context = canvasRef.current.getContext("2d");

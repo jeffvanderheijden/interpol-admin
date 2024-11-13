@@ -42,7 +42,7 @@
     align-items: center;
     justify-content: space-between;
 }
-.newGroup .editButtons button {
+.newGroup .addButtons button {
     border: none;
     border-radius: 10px;
     color: #333;

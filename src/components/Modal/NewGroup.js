@@ -96,9 +96,12 @@ const NewGroup = ({
         formData.append('class', e.target.elements.klas.value);
         let students = studentsRef.current.children;
         students = Array.from(students).map(student => {
-            console.log(student.querySelector('input[type="number"]').value);
-            console.log(student.querySelector('input[type="text"]').value);
+            return {
+                name: student.querySelector('input[type="text"]').value,
+                number: student.querySelector('input[type="number"]').value
+            }
         });
+        console.log(students);
         formData.append('students', JSON.stringify(students));
         
         // do fetch request

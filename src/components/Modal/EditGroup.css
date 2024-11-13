@@ -1,0 +1,52 @@
+/* Edit modal */
+
+.editGroup .groupSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.editGroup .groupSection input {
+    width: calc(100% - 10px);
+    padding: 10px 6px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    border: 1px solid #e8e8e8;
+}
+
+.editStudents li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.editStudents li .trashcan {
+    cursor: pointer;
+}
+
+.editStudents input {
+    width: calc(50% - 12.5px);
+    padding: 10px 6px;
+    border: 1px solid #e8e8e8;
+    padding: 10px 6px;
+    width: calc(50% - 12.5px);
+    margin-right: 7px;
+}
+
+.editGroup .editButtons {
+    width: 100%;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.editGroup .editButtons button {
+    border: none;
+    border-radius: 10px;
+    color: #333;
+    cursor: pointer;
+    float: right;
+    padding: 9px 16px;
+}

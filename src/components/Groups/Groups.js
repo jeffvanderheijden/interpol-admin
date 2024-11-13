@@ -64,8 +64,8 @@ const Groups = ({
                                     <div>
                                         <h2>{group.name}</h2>
                                         <p>{group.class}</p>
-                                    </div>
-                                    <button className="deleteGroup">Verwijder groep</button>
+                                        <button className="deleteGroup">Verwijder groep</button>
+                                    </div>                                    
                                 </section>
                                 {/* Students */}
                                 <section className="studentsSection">

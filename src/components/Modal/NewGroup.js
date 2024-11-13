@@ -19,6 +19,7 @@ const NewGroup = ({
     const videoRef = useRef(null);
     const photoRef = useRef(null);
     const takePhotoRef = useRef(null);
+    const studentsRef = useRef(null);
 
     const getVideoStream = async () => {
         try {
@@ -93,24 +94,8 @@ const NewGroup = ({
         formData.append('image', image);
         formData.append('name', e.target.elements.teamName.value);
         formData.append('class', e.target.elements.klas.value);
-        const students = [
-            {
-                name: e.target.elements.student1.value,
-                number: e.target.elements.student1_number.value
-            },
-            {
-                name: e.target.elements.student2.value,
-                number: e.target.elements.student2_number.value
-            },
-            {
-                name: e.target.elements.student3.value,
-                number: e.target.elements.student3_number.value
-            },
-            {
-                name: e.target.elements.student4.value,
-                number: e.target.elements.student4_number.value
-            }
-        ];
+        const students = studentsRef.current.children;
+        console.log(students);
         formData.append('students', JSON.stringify(students));
         
         // do fetch request
@@ -176,7 +161,7 @@ const NewGroup = ({
                                 <input type="text" placeholder={"Klas"} />
                             </div>
                         </section>
-                        <ul className="addStudents">
+                        <ul className="addStudents" ref={studentsRef}>
                             {newStudents.map((student, idx) => (
                                 <li key={idx}>
                                     <input type="number" placeholder={"Studentnummer"} />

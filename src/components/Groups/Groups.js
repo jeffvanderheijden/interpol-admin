@@ -113,9 +113,7 @@ const Groups = ({
                                 group={group} 
                                 openModal={openModal} 
                                 closeModal={closeModal} 
-                                visibleCodes={visibleCodes} 
-                                toggleCode={toggleCode} 
-                                copyCode={copyCode}
+                                apiUrl={apiUrl}
                             />
                         </>
                     ))}

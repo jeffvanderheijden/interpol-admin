@@ -4,6 +4,7 @@ import ModalComponent from "../Modal/Modal";
 import Trashcan from "../../helpers/icons/Trashcan";
 
 const EditGroup = ({
+    apiUrl,
     group,
     openModal,
     closeModal

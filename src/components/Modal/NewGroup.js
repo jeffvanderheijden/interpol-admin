@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import ModalComponent from "../Modal/Modal";
 import "./NewGroup.css";
 
@@ -9,6 +9,13 @@ const NewGroup = ({
     const [camera, setCamera] = useState(false);
     const [streaming, setStreaming] = useState(false);
     const [newStudents, setNewStudents] = useState([]);
+
+    const cameraRef = useRef(null);
+    const canvasRef = useRef(null);
+    const videoRef = useRef(null);
+    const photoRef = useRef(null);
+    const takePhotoRef = useRef(null);
+    const finalImageRef = useRef(null);
 
     const getVideoStream = async () => {
         try {
@@ -102,6 +109,21 @@ const NewGroup = ({
             contentLabel="New group"
         >
             <div className="newGroup">
+                {camera ? (
+                    <div className="camera" ref={cameraRef}>
+                        <video ref={videoRef} id="video">Video stream not available.</video>
+                        <div className="buttonWrapper">
+                            <button onClick={(e) => { takePicture(e) }} ref={takePhotoRef} type="button" id="startbutton" className="btn"><span>Take photo</span></button>
+                            <button onClick={() => { setCamera(false) }} type="button" id="savebutton" className="btn"><span>Save photo</span></button>
+                        </div>
+                        <div className="output">
+                            <div className="imgWrapper">
+                                <img ref={photoRef} id="photo" alt="Team image" />
+                            </div>
+                            <canvas id="canvas" ref={canvasRef} />
+                        </div>
+                    </div>
+                ) : (
                     <>
                         <section className="groupSection">
                             <div className="groupImage">
@@ -123,6 +145,7 @@ const NewGroup = ({
                             <button onClick={() => { console.log('opslaan') }}>Opslaan</button>
                         </div>
                     </>
+                )}
             </div>
         </ModalComponent>
     );

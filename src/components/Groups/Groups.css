@@ -47,6 +47,19 @@
     flex-direction: row;
 }
 
+#groups section.groupSection .deleteGroup {
+    border: none;
+    border-radius: 10px;
+    color: #333;
+    cursor: pointer;
+    padding: 9px 16px;
+    transition: all .2s;
+}
+#groups section.groupSection .deleteGroup:hover {
+    background: red;
+    color: #fff;
+}
+
 #groups section.studentsSection ul {
     width: calc(100% - 24px);   
     padding: 12px;

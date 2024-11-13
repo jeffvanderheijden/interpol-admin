@@ -35,6 +35,11 @@ const Groups = ({
         }, 2000);
     }
 
+    const removeGroup = (e) => {
+        e.preventDefault();
+        console.log('Group removed');
+    }
+
     return (
         <>
             <section id="groupHeaders">
@@ -64,7 +69,7 @@ const Groups = ({
                                     <div>
                                         <h2>{group.name}</h2>
                                         <p>{group.class}</p>
-                                        <button className="deleteGroup">Verwijder groep</button>
+                                        <button className="deleteGroup" onClick={(e) => { removeGroup(e) }}>Verwijder groep</button>
                                     </div>                                    
                                 </section>
                                 {/* Students */}

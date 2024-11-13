@@ -1,24 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
-import ModalComponent from "../Modal/Modal";
-import "./NewGroup.css";
+import { createTeam } from "./../../helpers/data/dataLayer";
+import "./CreateTeam.css";
 
-const NewGroup = ({
-    openModal,
-    closeModal
-}) => {    
+const CreateTeam = ({
+    windows,
+    setWindows,
+    studentData
+}) => {
     const [camera, setCamera] = useState(false);
     const [streaming, setStreaming] = useState(false);
-    const [newStudents, setNewStudents] = useState([]);
     const [width, setWidth] = useState(null);
     const [height, setHeight] = useState(null);
     const [image, setImage] = useState(null);
-
+    const [teamSuccessfullyCreated, setTeamSuccessfullyCreated] = useState(false);
     const cameraRef = useRef(null);
     const canvasRef = useRef(null);
     const videoRef = useRef(null);
     const photoRef = useRef(null);
     const takePhotoRef = useRef(null);
     const finalImageRef = useRef(null);
+
+    const api = "https://api.interpol.sd-lab.nl/api";
 
     const getVideoStream = async () => {
         try {
@@ -88,6 +90,63 @@ const NewGroup = ({
         e.preventDefault();
     }
 
+    const createTeamInComp = async (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('image', image);
+        formData.append('name', e.target.elements.teamName.value);
+        formData.append('class', e.target.elements.klas.value);
+        const students = [
+            {
+                name: e.target.elements.student1.value,
+                number: e.target.elements.student1_number.value
+            },
+            {
+                name: e.target.elements.student2.value,
+                number: e.target.elements.student2_number.value
+            },
+            {
+                name: e.target.elements.student3.value,
+                number: e.target.elements.student3_number.value
+            },
+            {
+                name: e.target.elements.student4.value,
+                number: e.target.elements.student4_number.value
+            }
+        ];
+        formData.append('students', JSON.stringify(students));
+        
+        // do fetch request
+        createTeam(formData, setTeamSuccessfullyCreated).then(newTeam => {
+            console.log(newTeam);
+            // Reload the page to show the new team
+            setTimeout(() => {
+                window.location.reload();
+            }, 1500);
+        });
+    };
+
+    useEffect(() => {
+        if (windows && teamSuccessfullyCreated) {
+            const hideCreateTeam = setTimeout(() => {
+                // Close the team creation window
+                Object.assign(
+                    // target object which will be mutated and also is the return value.
+                    windows.find((mutate) => mutate.name === "CreateTeam"),
+                    // the source objects which properties will be assigned to the target object.
+                    {
+                        open: false,
+                        invisible: true,
+                        selected: false
+                    }
+                );
+                const newWindows = [...windows]; // Because we return a mutated object, we need to create a new array
+                setWindows(newWindows);
+            }, 4000);
+            return () => { clearTimeout(hideCreateTeam) };
+        }        
+    }, [teamSuccessfullyCreated]);
+
     useEffect(() => {
         camera && getVideoStream();
     }, [camera]);
@@ -96,66 +155,71 @@ const NewGroup = ({
         setWidth(200);
     }, []);
 
-    const customStyles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-        },
-    };
-
     return (
-        <ModalComponent
-            modalIsOpen={openModal}
-            afterOpenModal={null}
-            closeModal={closeModal}
-            customStyles={customStyles}
-            contentLabel="New group"
-        >
-            <div className="newGroup">
-                {camera ? (
-                    <div className="camera" ref={cameraRef}>
-                        <video ref={videoRef} id="video">Video stream not available.</video>
-                        <div className="buttonWrapper">
-                            <button onClick={(e) => { takePicture(e) }} ref={takePhotoRef} type="button" id="startbutton" className="btn"><span>Take photo</span></button>
-                            <button onClick={() => { setCamera(false) }} type="button" id="savebutton" className="btn"><span>Save photo</span></button>
-                        </div>
-                        <div className="output">
-                            <div className="imgWrapper">
-                                <img ref={photoRef} id="photo" alt="Team image" />
-                            </div>
-                            <canvas id="canvas" ref={canvasRef} />
-                        </div>
-                    </div>
-                ) : (
-                    <>
-                        <section className="groupSection">
-                            <div className="groupImage" onClick={() => { setCamera(true) }} onKeyDown={() => { setCamera(true) }}>
-                                <img src={''} ref={finalImageRef} alt="Team" />
-                            </div>
-                            <div>
-                                <input type="text" placeholder={"Groep naam"} />
-                                <input type="text" placeholder={"Klas"} />
-                            </div>
-                        </section>
-                        <ul className="editStudents">
-                            <li>
-                                <input type="number" placeholder={"Studentnummer"} />
-                                <input type="text" placeholder={"Student naam"} />
-                            </li>
-                        </ul>
-                        <div className="editButtons">
-                            <button onClick={() => { setNewStudents([...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
-                            <button onClick={() => { console.log('opslaan') }}>Opslaan</button>
-                        </div>
-                    </>
-                )}
+        <div id="createTeam">
+            <h1>Create Team</h1>
+            <p>
+                You are now going to work in a group of 4 students to unmask the hacker. 
+            </p>
+            <div className="teamImage" onClick={() => { setCamera(true) }} onKeyDown={() => { setCamera(true) }}>
+                <img ref={finalImageRef} alt="Team" />
             </div>
-        </ModalComponent>
-    );
+            <form onSubmit={(e) => { createTeamInComp(e) }}>
+                <input type="hidden" id="image" name="image" value={image} required />
+                <input type="text" id="teamName" name="teamName" placeholder="Team naam" required />
+                <input type="text" id="klas" name="klas" placeholder="Klas" value={studentData.class} disabled required />
+                <div>
+                    <label>
+                        <span>Student 1</span>
+                        <input className="half" type="text" id="student1" name="student1" placeholder="Student voornaam" value={studentData.name} disabled required />
+                    </label>
+                    <input className="half" id="student1_number" name="student1_number" type="number" pattern="\d*" value={studentData.studentNumber} disabled minLength="6" maxLength="6" placeholder="Student nummer" required />
+                </div>
+                <div>
+                    <label>
+                        <span>Student 2</span>
+                        <input className="half" type="text" id="student2" name="student2" placeholder="Student voornaam" required />
+                    </label>
+                    <input className="half" type="number" id="student2_number" name="student2_number" placeholder="Student nummer" pattern="\d*" minLength="6" maxLength="6" required />
+                </div>
+                <div>
+                    <label>
+                        <span>Student 3</span>
+                        <input className="half" type="text" id="student3" name="student3" placeholder="Student voornaam" required />
+                    </label>
+                    <input className="half" type="number" id="student3_number" name="student3_number" placeholder="Student nummer" pattern="\d*" minLength="6" maxLength="6" required />
+                </div>
+                <div>
+                    <label>
+                        <span>Student 4</span>
+                        <input className="half" type="text" id="student4" name="student4" placeholder="Student voornaam" required />
+                    </label>
+                    <input className="half" type="number" id="student4_number" name="student4_number" placeholder="Student nummer" pattern="\d*" minLength="6" maxLength="6" required />
+                </div>
+                <div className="buttonWrapper">
+                    {!teamSuccessfullyCreated && (
+                        <button type="submit" className="btn"><span>Create team</span></button>
+                    )}
+                </div>
+            </form>
+            {camera && (
+                <div className="camera" ref={cameraRef}>
+                    <video ref={videoRef} id="video">Video stream not available.</video>
+                    <div className="buttonWrapper">
+                        <button onClick={(e) => { takePicture(e) }} ref={takePhotoRef} type="button" id="startbutton" className="btn"><span>Take photo</span></button>
+                        <button onClick={() => { setCamera(false) }} type="button" id="savebutton" className="btn"><span>Save photo</span></button>
+                    </div>
+                    <div className="output">
+                        <div className="imgWrapper">
+                            <img ref={photoRef} id="photo" alt="Team image" />
+                        </div>
+                        <canvas id="canvas" ref={canvasRef} />
+                    </div>
+                </div>
+            )}
+            {teamSuccessfullyCreated && <>Team successfully created!</>}
+        </div>
+    )
 }
 
-export default NewGroup;
+export default CreateTeam;

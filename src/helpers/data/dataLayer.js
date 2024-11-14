@@ -175,8 +175,10 @@ export const checkSession = async () => {
             return false;
         }
 
+        console.log(response);
+
         // Check if user is logged in as DOCENT
-        return response === 'DOCENT' ? true : false;
+        return response=== 'DOCENT' ? true : false;
 
     } catch (error) {
         console.error('Error checking session:', error);

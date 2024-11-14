@@ -166,19 +166,23 @@ export const checkSession = async () => {
             credentials: 'include' // Include cookies in the request
         });
 
+        const responseText = await response.text();
+        console.log(responseText);
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        if (response && response.error) {
-            console.error('Error checking session:', response.error);
+        const userData = await response.json();
+        console.log(userData);
+
+        if (userData && userData.error) {
+            console.error('Error checking session:', userData.error);
             return false;
         }
 
-        console.log(response);
-
         // Check if user is logged in as DOCENT
-        return response=== 'DOCENT' ? true : false;
+        return userData.logged_in_as === 'DOCENT' ? true : false;
 
     } catch (error) {
         console.error('Error checking session:', error);

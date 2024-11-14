@@ -166,6 +166,9 @@ export const checkSession = async () => {
             credentials: 'include' // Include cookies in the request
         });
 
+        const responseText = await response.text();
+        console.log(responseText);
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }

@@ -166,8 +166,8 @@ export const checkSession = async () => {
             credentials: 'include' // Include cookies in the request
         });
 
-        const responseText = await response.text().replace('"', '');
-        console.log(responseText === "DOCENT")
+        const responseText = await response.text();
+        console.log(responseText.replace('"', '') === "DOCENT")
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

@@ -171,6 +171,7 @@ export const checkSession = async () => {
         }
 
         const userData = await response.json();
+        console.log(userData)
 
         if (userData && userData.error) {
             console.error('Error checking session:', userData.error);

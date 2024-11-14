@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./Groups.css";
 import EditGroup from "./../Modal/EditGroup";
 import Close from "./../../helpers/icons/Close";
@@ -37,7 +37,11 @@ const Groups = ({
 
     const removeGroup = (e, group, classTitle) => {
         e.stopPropagation();
-        confirm(`Weet je zeker dat je groep ${group} uit klas ${classTitle} wilt verwijderen?`);
+        if(confirm(`Weet je zeker dat je groep ${group} uit klas ${classTitle} wilt verwijderen?`)) {
+            console.log(`Groep ${group} uit klas ${classTitle} verwijderd`);
+        } else {
+            // Do nothing
+        }
     }
 
     return (
@@ -70,7 +74,7 @@ const Groups = ({
                                         <h2>{group.name}</h2>
                                         <p>{group.class}</p>
                                         <button className="deleteGroup" onClick={(e) => { removeGroup(e, group.name, group.class) }}>Verwijder groep</button>
-                                    </div>                                    
+                                    </div>
                                 </section>
                                 {/* Students */}
                                 <section className="studentsSection">

@@ -103,6 +103,25 @@ export const createTeam = async (formData, setTeamSuccessfullyCreated) => {
     }
 }
 
+export const removeTeam = async (groupId) => {
+    try {
+        const response = await fetch(`${api}/remove-group?id=${groupId}`, {
+            method: 'DELETE',
+            credentials: 'include'
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
+
+
 const dataLayer = () => {
     let groupsData = [];
 

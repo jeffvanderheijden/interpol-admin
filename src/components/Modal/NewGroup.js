@@ -103,7 +103,6 @@ const NewGroup = ({
                 number: student.querySelector('input[type="number"]').value
             }
         });
-        console.log(students);
         formData.append('students', JSON.stringify(students));
         
         // do fetch request

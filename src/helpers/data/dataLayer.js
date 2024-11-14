@@ -176,7 +176,7 @@ export const checkSession = async () => {
         }
 
         // Check if user is logged in as DOCENT
-        console.log(response.logged_in_as);
+        console.log(JSON.parse(response));
         return response.logged_in_as === 'DOCENT' ? true : false;
 
     } catch (error) {

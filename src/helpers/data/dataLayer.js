@@ -105,7 +105,7 @@ export const createTeam = async (formData, setTeamSuccessfullyCreated) => {
 
 export const removeTeam = async (groupId) => {
     try {
-        const response = await fetch(`${api}/remove-group?id=${groupId}`, {
+        const response = await fetch(`${api}/remove-group?group_id=${groupId}`, {
             method: 'DELETE',
             credentials: 'include'
         });

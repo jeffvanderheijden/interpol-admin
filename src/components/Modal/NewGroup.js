@@ -106,12 +106,11 @@ const NewGroup = ({
         formData.append('students', JSON.stringify(students));
         
         // do fetch request
-        createTeam(formData, setTeamSuccessfullyCreated).then(newTeam => {
-            console.log(newTeam);
+        createTeam(formData, setTeamSuccessfullyCreated).then(() => {
             // Reload the page to show the new team
             setTimeout(() => {
                 window.location.reload();
-            }, 1500);
+            }, 0);
         });
     };
 

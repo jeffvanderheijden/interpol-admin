@@ -43,7 +43,7 @@ const Groups = ({
                 // Reload the page to show the updated group list
                 setTimeout(() => {
                     window.location.reload();
-                }, 1500);
+                }, 0);
             });
         } else {
             // Do nothing

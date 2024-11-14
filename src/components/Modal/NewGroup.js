@@ -95,7 +95,7 @@ const NewGroup = ({
         const formData = new FormData();
         formData.append('image', image);
         formData.append('name', e.target.elements.teamName.value);
-        formData.append('class', e.target.elements.klas.value);
+        formData.append('class', e.target.elements.klas.value.toLowerCase());
         let students = studentsRef.current.children;
         students = Array.from(students).map(student => {
             return {

@@ -179,7 +179,7 @@ export const checkSession = async () => {
         }
 
         // Check if user is logged in as DOCENT
-        return userData === 'DOCENT' ? true : false;
+        return userData.logged_in_as === 'DOCENT' ? true : false;
 
     } catch (error) {
         console.error('Error checking session:', error);

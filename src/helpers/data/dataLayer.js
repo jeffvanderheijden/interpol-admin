@@ -173,16 +173,13 @@ export const checkSession = async () => {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const userData = await response.json();
-        console.log(userData)
-
-        if (userData && userData.error) {
-            console.error('Error checking session:', userData.error);
+        if (response && response.error) {
+            console.error('Error checking session:', response.error);
             return false;
         }
 
         // Check if user is logged in as DOCENT
-        return userData.logged_in_as === 'DOCENT' ? true : false;
+        return response.logged_in_as === 'DOCENT' ? true : false;
 
     } catch (error) {
         console.error('Error checking session:', error);

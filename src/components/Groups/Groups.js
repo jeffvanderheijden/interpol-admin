@@ -40,11 +40,10 @@ const Groups = ({
         e.stopPropagation();
         if(confirm(`Weet je zeker dat je groep ${group} uit klas ${classTitle} wilt verwijderen?`)) {
             removeTeam(groupId).then(res => {
-                console.log(res);
                 // Reload the page to show the updated group list
-                // setTimeout(() => {
-                //     window.location.reload();
-                // }, 1500);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
             });
         } else {
             // Do nothing

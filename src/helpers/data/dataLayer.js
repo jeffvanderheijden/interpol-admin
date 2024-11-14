@@ -167,7 +167,8 @@ export const checkSession = async () => {
         });
 
         const responseText = await response.text();
-        console.log(responseText);
+        console.log(typeof(responseText));
+        console.log(responseText === "DOCENT")
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

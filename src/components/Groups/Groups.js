@@ -4,6 +4,7 @@ import EditGroup from "./../Modal/EditGroup";
 import Close from "./../../helpers/icons/Close";
 import Check from "./../../helpers/icons/Check";
 import Copy from  "./../../helpers/icons/Copy";
+import { removeTeam } from "./../../helpers/data/dataLayer";
 
 const Groups = ({
     groups
@@ -35,10 +36,15 @@ const Groups = ({
         }, 2000);
     }
 
-    const removeGroup = (e, group, classTitle) => {
+    const removeGroup = (e, group, classTitle, groupId) => {
         e.stopPropagation();
         if(confirm(`Weet je zeker dat je groep ${group} uit klas ${classTitle} wilt verwijderen?`)) {
-            console.log(`Groep ${group} uit klas ${classTitle} verwijderd`);
+            removeTeam(groupId).then(() => {
+                // Reload the page to show the updated group list
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1500);
+            });
         } else {
             // Do nothing
         }
@@ -73,7 +79,7 @@ const Groups = ({
                                     <div>
                                         <h2>{group.name}</h2>
                                         <p>{group.class}</p>
-                                        <button className="deleteGroup" onClick={(e) => { removeGroup(e, group.name, group.class) }}>Verwijder groep</button>
+                                        <button className="deleteGroup" onClick={(e) => { removeGroup(e, group.name, group.class, group.id) }}>Verwijder groep</button>
                                     </div>
                                 </section>
                                 {/* Students */}

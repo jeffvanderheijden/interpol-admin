@@ -177,8 +177,8 @@ const NewGroup = ({
                         <ul className="addStudents" ref={studentsRef}>
                             {newStudents.map((student, idx) => (
                                 <li key={idx}>
-                                    <input type="number" placeholder={"Studentnummer"} />
-                                    <input type="text" placeholder={"Student naam"} />
+                                    <input type="number" placeholder={"Studentnummer"} required />
+                                    <input type="text" placeholder={"Student naam"} required />
                                     <Trashcan className={'trashcan'} onClick={() => { setNewStudents(newStudents.filter((_, i) => i !== idx)) }} />
                                 </li>
                             ))}

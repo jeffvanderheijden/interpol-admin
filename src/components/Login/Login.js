@@ -20,6 +20,7 @@ const Login = () => {
     // Check if user is logged in as a teacher
     useEffect(() => {
         checkSession().then(isTeacher => {
+            console.log('isTeacher:', isTeacher);
             isTeacher && navigate('/dashboard');
         });
     }, []);

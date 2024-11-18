@@ -167,22 +167,19 @@ export const checkSession = async () => {
         });
 
         const responseText = await response.text();
-        console.log(responseText.replaceAll('"', ''));
+        const loggedInType = responseText.replaceAll('"', '');
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
-        const userData = await response.json();
-        console.log(userData);
-
-        if (userData && userData.error) {
+        if (response && response.error) {
             console.error('Error checking session:', userData.error);
             return false;
         }
 
         // Check if user is logged in as DOCENT
-        return userData === 'DOCENT' ? true : false;
+        return loggedInType === 'DOCENT' ? true : false;
 
     } catch (error) {
         console.error('Error checking session:', error);

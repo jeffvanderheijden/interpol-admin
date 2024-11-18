@@ -167,8 +167,8 @@ export const checkSession = async () => {
         });
 
         const responseText = await response.text();
-        console.log(responseText.replace('"', '') === "DOCENT")
-
+        console.log(responseText.replace('"', ''));
+        
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -182,7 +182,7 @@ export const checkSession = async () => {
         }
 
         // Check if user is logged in as DOCENT
-        return userData.logged_in_as === 'DOCENT' ? true : false;
+        return userData === 'DOCENT' ? true : false;
 
     } catch (error) {
         console.error('Error checking session:', error);

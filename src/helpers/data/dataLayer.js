@@ -52,7 +52,7 @@ export const getGroups = async () => {
 
 export const getChallenges = async (groupId) => {
     try {
-        const response = await fetch(`${api}/challenges-by-group?id=${groupId}`);
+        const response = await fetch(`${api}/challenges-by-group?group_id=${groupId}`);
         return await response.json();
     } catch (error) {
         console.error(error);

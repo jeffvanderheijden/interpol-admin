@@ -136,6 +136,7 @@ const dataLayer = () => {
                 dataRow.students = students;
 
                 const challenges = await getChallenges(group.id);
+                console.log(challenges);
 
                 for (const challenge of challenges) {
                     await getChallenge(challenge.challenge_id)

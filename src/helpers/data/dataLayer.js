@@ -167,7 +167,7 @@ export const checkSession = async () => {
         });
 
         const responseText = await response.text();
-        console.log(responseText.replace('"', ''));
+        console.log(responseText.replaceAll('"', ''));
         
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SingleChallenge from "./SingleChallenge";
+import { getChallenges } from "../../helpers/data/dataLayer";
 
 const Challenges = ({
     groupId
@@ -7,7 +8,7 @@ const Challenges = ({
     const [challenges, setChallenges] = useState([]);
 
     useEffect(() => {
-        fetch(`https://api.interpol.sd-lab.nl/api/challenges-by-group?id=${groupId}`)
+        getChallenges(groupId)
             .then(response => response.json())
             .then(data => setChallenges(data))
             .catch(error => console.error(error));

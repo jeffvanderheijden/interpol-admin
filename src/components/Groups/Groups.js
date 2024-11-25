@@ -41,9 +41,9 @@ const Groups = ({
         if(confirm(`Weet je zeker dat je groep ${group} uit klas ${classTitle} wilt verwijderen?`)) {
             removeTeam(groupId).then(res => {
                 // Reload the page to show the updated group list
-                // setTimeout(() => {
-                //     window.location.reload();
-                // }, 0);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 0);
             });
         } else {
             // Do nothing

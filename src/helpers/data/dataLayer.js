@@ -131,6 +131,7 @@ const dataLayer = () => {
         if (groups.length > 0) {
             for (const group of groups) {
                 let dataRow = group;
+                console.log(group);
 
                 const students = await getStudents(group.id);
                 dataRow.students = students;

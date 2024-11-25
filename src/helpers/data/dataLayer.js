@@ -105,7 +105,6 @@ export const createTeam = async (formData, setTeamSuccessfullyCreated) => {
 
 export const removeTeam = async (groupId) => {
     try {
-        console.log(groupId);
         const response = await fetch(`${api}/remove-group?group_id=${groupId}`, {
             method: 'DELETE',
             credentials: 'include'
@@ -131,14 +130,11 @@ const dataLayer = () => {
         if (groups.length > 0) {
             for (const group of groups) {
                 let dataRow = group;
-                console.log(group);
 
                 const students = await getStudents(group.id);
                 dataRow.students = students;
-                console.log(students);
 
                 const challenges = await getChallenges(group.id);
-                console.log(challenges);
 
                 for (const challenge of challenges) {
                     await getChallenge(challenge.challenge_id)

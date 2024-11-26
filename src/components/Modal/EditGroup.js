@@ -31,7 +31,6 @@ const EditGroup = ({
     const removeExistingStudent = (studentNumber, groupId, studentName) => {
         alert(`Weet je zeker dat je ${studentName} wilt verwijderen uit deze groep?`);
         removeStudent(studentNumber);
-        console.log(studentNumber, groupId);
     }
 
     return (

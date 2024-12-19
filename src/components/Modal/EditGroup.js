@@ -70,7 +70,7 @@ const EditGroup = ({
                         <li key={idx}>
                             <input type="number" placeholder={student.student_number} />
                             <input type="text" placeholder={student.name} />
-                            <Trashcan className={'trashcan'} onClick={() => { removeExistingStudent(student.student_number, group.id, student.name) }} />
+                            <Trashcan className={'trashcan'} onClick={() => { removeExistingStudent(student.student_number, student.name) }} />
                         </li>
                     ))}
                     {newStudents.map((student, idx) => (

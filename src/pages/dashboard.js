@@ -74,11 +74,17 @@ const DashboardPage = () => {
             setFilters={setFilters}
             setOpenModal={setOpenModal}
           />
-          <Groups 
-            groups={filteredGroups} 
-            setGroups={setGroups}
-            setFilteredGroups={setFilteredGroups}
-          />
+          {filteredGroups.length > 0 ? (
+            <Groups 
+              groups={filteredGroups} 
+              setGroups={setGroups}
+              setFilteredGroups={setFilteredGroups}
+            />
+          ) : (
+            <div className="nothingFound">
+              Geen groepen gevonden.
+            </div>
+          )}
           <NewGroup 
             openModal={openModal}
             closeModal={closeModal}

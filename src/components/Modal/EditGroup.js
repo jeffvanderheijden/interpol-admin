@@ -31,20 +31,21 @@ const EditGroup = ({
     };
 
     const removeExistingStudent = (studentNumber, studentName) => {
-        alert(`Weet je zeker dat je ${studentName} wilt verwijderen uit deze groep?`);
-        removeStudent(studentNumber)
-            .then(() => {
-                // Remove student from group, refresh data
-                const fetchData = async () => {
-                    const data = await dataLayer();
-                    setGroups(data);
-                    setFilteredGroups(data);
-                };
-                fetchData();
-            })
-            .catch((error) => {
-                console.error('Error removing student:', error);
-            });
+        if(confirm(`Weet je zeker dat je ${studentName} wilt verwijderen uit deze groep?`)) {
+            removeStudent(studentNumber)
+                .then(() => {
+                    // Remove student from group, refresh data
+                    const fetchData = async () => {
+                        const data = await dataLayer();
+                        setGroups(data);
+                        setFilteredGroups(data);
+                    };
+                    fetchData();
+                })
+                .catch((error) => {
+                    console.error('Error removing student:', error);
+                });
+        }
     }
 
     return (

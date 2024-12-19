@@ -4,6 +4,7 @@
     border: 1px solid #e8e8e8;
     font-size: 12px;
     border-bottom: none;
+    border-top: none;
     display: grid;
     grid-auto-rows: 1fr;
     grid-template-columns: repeat(5, 1fr);

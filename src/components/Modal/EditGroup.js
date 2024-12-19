@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { removeStudent } from "../../helpers/data/dataLayer";
+import dataLayer, { removeStudent } from "../../helpers/data/dataLayer";
 import ModalComponent from "../Modal/Modal";
 import Trashcan from "../../helpers/icons/Trashcan";
 import "./EditGroup.css";
@@ -8,7 +8,9 @@ const EditGroup = ({
     apiUrl,
     group,
     openModal,
-    closeModal
+    closeModal,
+    setGroups,
+    setFilteredGroups
 }) => {
     const [newStudents, setNewStudents] = useState([]);    
 
@@ -24,13 +26,25 @@ const EditGroup = ({
             right: 'auto',
             bottom: 'auto',
             marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-        },
+            transform: 'translate(-50%, -50%)'
+        }
     };
 
-    const removeExistingStudent = (studentNumber, groupId, studentName) => {
+    const removeExistingStudent = (studentNumber, studentName) => {
         alert(`Weet je zeker dat je ${studentName} wilt verwijderen uit deze groep?`);
-        removeStudent(studentNumber);
+        removeStudent(studentNumber)
+            .then(() => {
+                // Remove student from group, refresh data
+                const fetchData = async () => {
+                    const data = await dataLayer();
+                    setGroups(data);
+                    setFilteredGroups(data);
+                };
+                fetchData();
+            })
+            .catch((error) => {
+                console.error('Error removing student:', error);
+            });
     }
 
     return (

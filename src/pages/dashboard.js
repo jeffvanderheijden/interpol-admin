@@ -76,6 +76,8 @@ const DashboardPage = () => {
           />
           <Groups 
             groups={filteredGroups} 
+            setGroups={setGroups}
+            setFilteredGroups={setFilteredGroups}
           />
           <NewGroup 
             openModal={openModal}

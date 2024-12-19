@@ -7,7 +7,9 @@ import Copy from  "./../../helpers/icons/Copy";
 import { removeTeam } from "./../../helpers/data/dataLayer";
 
 const Groups = ({
-    groups
+    groups,
+    setGroups,
+    setFilteredGroups
 }) => {
     const apiUrl = "https://api.interpol.sd-lab.nl/";
     const [openModal, setOpenModal] = useState(null);
@@ -128,6 +130,8 @@ const Groups = ({
                                 openModal={openModal} 
                                 closeModal={closeModal} 
                                 apiUrl={apiUrl}
+                                setGroups={setGroups}
+                                setFilteredGroups={setFilteredGroups}
                             />
                         </>
                     ))}

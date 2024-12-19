@@ -60,4 +60,7 @@ main {
 	color: #333;
 	text-align: center;
 	margin-top: 20px;
+	position: absolute;
+	width: 100%;
+	top: 50%;
 }

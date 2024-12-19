@@ -21,10 +21,6 @@ const Filter = ({
         })
     }
 
-    const addGroup = () => {
-        console.log('add group');
-    }
-
     const logout = async () => {
         try {
             const response = await fetch('https://api.interpol.sd-lab.nl/api/logout.php', {

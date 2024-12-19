@@ -15,7 +15,7 @@ const Groups = ({
     const [openModal, setOpenModal] = useState(null);
     const [visibleCodes, setVisibleCodes] = useState([]);
 
-    const closeModal = () => setOpenModal(null);
+    const closeModal = () => setOpenModal(null)
     const openSpecificModal = (modalName) => setOpenModal(modalName);
 
     const toggleCode = (event, code) => {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import ModalComponent from "../Modal/Modal";
 import Trashcan from "../../helpers/icons/Trashcan";
+import Camera from "../../helpers/icons/Camera";
 import { createTeam } from "./../../helpers/data/dataLayer";
 import "./NewGroup.css";
 
@@ -167,7 +168,11 @@ const NewGroup = ({
                         <input type="hidden" id="image" name="image" value={image} required />
                         <section className="groupSection">
                             <div className="groupImage" onClick={() => { setCamera(true) }} onKeyDown={() => { setCamera(true) }}>
-                                <img src={image} alt="Team" />
+                                {image ? (
+                                    <img src={image} alt="Team" />
+                                ) : (
+                                    <Camera />
+                                )}
                             </div>
                             <div>
                                 <input type="text" id="teamName" name="teamName" placeholder="Team naam" required />

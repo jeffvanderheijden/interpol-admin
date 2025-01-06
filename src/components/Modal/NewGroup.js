@@ -120,7 +120,7 @@ const NewGroup = ({
     }, [camera]);
 
     useEffect(() => {
-        setWidth(200);
+        setWidth(600);
     }, []);
 
     useEffect(() => {

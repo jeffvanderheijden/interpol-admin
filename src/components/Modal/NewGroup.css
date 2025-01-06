@@ -56,3 +56,9 @@
 .camera canvas {
     display: none;
 }
+
+.newGroup .output {
+    position: absolute;
+    top: 0;
+    left: 0;
+}

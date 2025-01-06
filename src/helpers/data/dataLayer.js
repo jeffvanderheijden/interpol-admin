@@ -122,41 +122,51 @@ export const removeTeam = async (groupId) => {
 }
 
 
-const dataLayer = () => {
+const dataLayer = async () => {
     let groupsData = [];
 
     const fetchAllData = async () => {
-        const groups = await getGroups();
-        if (groups.length > 0) {
-            for (const group of groups) {
-                let dataRow = group;
+        try {
+            const groups = await getGroups();
+            if (groups.length > 0) {
+                groupsData = await Promise.all(groups.map(async (group) => {
+                    const students = await getStudents(group.id);
+                    const challenges = await getChallenges(group.id);
 
-                const students = await getStudents(group.id);
-                dataRow.students = students;
+                    // Fetch challenge details concurrently
+                    const detailedChallenges = await Promise.all(challenges.map(async (challenge) => {
+                        try {
+                            const [data] = await getChallenge(challenge.challenge_id);
+                            return {
+                                ...challenge,
+                                name: data.name,
+                                minimum_points: data.minimum_points,
+                                time_limit: data.time_limit,
+                            };
+                        } catch (error) {
+                            console.error(`Error fetching challenge ${challenge.challenge_id}:`, error);
+                            return challenge; // Return the challenge without additional details if an error occurs
+                        }
+                    }));
 
-                const challenges = await getChallenges(group.id);
-
-                for (const challenge of challenges) {
-                    await getChallenge(challenge.challenge_id)
-                        .then(data => {
-                            challenge['name'] = data[0].name;
-                            challenge['minimum_points'] = data[0].minimum_points;
-                            challenge['time_limit'] = data[0].time_limit;
-                        }).catch(error => console.error(error));
-                }
-                dataRow.challenges = challenges;
-
-                groupsData.push(dataRow);
+                    return {
+                        ...group,
+                        students,
+                        challenges: detailedChallenges,
+                    };
+                }));
+            } else {
+                console.warn('No groups found.');
             }
-        } else {
-            console.warn('No groups found.');
+        } catch (error) {
+            console.error('Error fetching data:', error);
         }
 
         return groupsData;
     };
 
     return fetchAllData();
-}
+};
 
 export const checkSession = async () => {
     try {

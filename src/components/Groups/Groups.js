@@ -71,6 +71,7 @@ const Groups = ({
             </section>
             <section id="groups">
                 <ul id="group-tabs">
+                    {console.log(groups)}
                     {groups && groups.length > 0 && groups.map((group, idx) => (
                         <>
                             <li className="group" key={idx} onClick={() => { openSpecificModal(group.id) }}>

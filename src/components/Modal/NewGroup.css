@@ -63,3 +63,7 @@
     left: 20px;
     width: calc(100% - 40px);
 }
+
+.newGroup .output img {
+    width: 100%;
+}

@@ -128,11 +128,12 @@ const dataLayer = async () => {
     const fetchAllData = async () => {
         try {
             const groups = await getGroups();
-            console.log(groups);
             if (groups.length > 0) {
                 groupsData = await Promise.all(groups.map(async (group) => {
                     const students = await getStudents(group.id);
                     const challenges = await getChallenges(group.id);
+
+                    console.log(challenges);
 
                     // Fetch challenge details concurrently
                     const detailedChallenges = await Promise.all(challenges.map(async (challenge) => {

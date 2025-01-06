@@ -133,29 +133,29 @@ const dataLayer = async () => {
                     const students = await getStudents(group.id);
                     const challenges = await getChallenges(group.id);
 
-                    console.log(challenges);
+                    if (challenges.length > 0) {
+                        // Fetch challenge details concurrently
+                        const detailedChallenges = await Promise.all(challenges.map(async (challenge) => {
+                            try {
+                                const [data] = await getChallenge(challenge.challenge_id);
+                                return {
+                                    ...challenge,
+                                    name: data.name,
+                                    minimum_points: data.minimum_points,
+                                    time_limit: data.time_limit,
+                                };
+                            } catch (error) {
+                                console.error(`Error fetching challenge ${challenge.challenge_id}:`, error);
+                                return challenge; // Return the challenge without additional details if an error occurs
+                            }
+                        }));
 
-                    // Fetch challenge details concurrently
-                    const detailedChallenges = await Promise.all(challenges.map(async (challenge) => {
-                        try {
-                            const [data] = await getChallenge(challenge.challenge_id);
-                            return {
-                                ...challenge,
-                                name: data.name,
-                                minimum_points: data.minimum_points,
-                                time_limit: data.time_limit,
-                            };
-                        } catch (error) {
-                            console.error(`Error fetching challenge ${challenge.challenge_id}:`, error);
-                            return challenge; // Return the challenge without additional details if an error occurs
-                        }
-                    }));
-
-                    return {
-                        ...group,
-                        students,
-                        challenges: detailedChallenges,
-                    };
+                        return {
+                            ...group,
+                            students,
+                            challenges: detailedChallenges,
+                        };
+                    }
                 }));
             } else {
                 console.warn('No groups found.');

@@ -134,21 +134,23 @@ const EditGroup = ({
 
         formData.append('students', JSON.stringify(students));
 
+        console.log('FormData 2:', formData);
+
         // Updates the group
-        await editGroup(group.id, formData)
-            .then(() => {
-                // Update UI instead of reloading the page
-                const fetchData = async () => {
-                    const data = await dataLayer();
-                    setGroups(data);
-                    setFilteredGroups(data);
-                };
-                fetchData();
-                closeModal();
-            })
-            .catch((error) => {
-                console.error('Error updating group:', error);
-            });
+        // await editGroup(group.id, formData)
+        //     .then(() => {
+        //         // Update UI instead of reloading the page
+        //         const fetchData = async () => {
+        //             const data = await dataLayer();
+        //             setGroups(data);
+        //             setFilteredGroups(data);
+        //         };
+        //         fetchData();
+        //         closeModal();
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error updating group:', error);
+        //     });
     };
 
     const customStyles = {

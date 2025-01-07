@@ -114,6 +114,12 @@ const EditGroup = ({
         }
     }
 
+    const logFormData = (formData) => {
+        formData.forEach((value, key) => {
+            console.log(`${key}: ${value}`);
+        });
+    };
+
     const saveGroupChanges = async (e) => {
         console.log(e.target);
         e.preventDefault();
@@ -123,8 +129,6 @@ const EditGroup = ({
         formData.append('class', e.target.elements.klas.value.toLowerCase());
         formData.append('group_id', e.target.elements.group_id.value);
 
-        // Log form data to ensure group_id is included
-        console.log('FormData:', formData);
         console.log(image);
         console.log(e.target.elements.teamName.value);
         console.log(e.target.elements.klas.value.toLowerCase());
@@ -138,7 +142,7 @@ const EditGroup = ({
 
         formData.append('students', JSON.stringify(students));
 
-        console.log('FormData 2:', formData);
+        logFormData(formData);
 
         // Updates the group
         // await editGroup(group.id, formData)

@@ -6,7 +6,6 @@ import { editGroup } from "./../../helpers/data/dataLayer"; // Assuming editGrou
 import "./EditGroup.css";
 
 const EditGroup = ({
-    apiUrl,
     group,
     openModal,
     closeModal,
@@ -30,6 +29,7 @@ const EditGroup = ({
         setNewStudents([]);
     }, [openModal]);
 
+    // Function to initialize the video stream
     const getVideoStream = async () => {
         try {
             clearPicture();
@@ -156,6 +156,13 @@ const EditGroup = ({
             transform: 'translate(-50%, -50%)'
         }
     };
+
+    // Call getVideoStream when camera is enabled
+    useEffect(() => {
+        if (camera) {
+            getVideoStream();
+        }
+    }, [camera]);
 
     return (
         <ModalComponent

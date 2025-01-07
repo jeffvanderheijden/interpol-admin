@@ -76,7 +76,7 @@ const Groups = ({
                             <li className="group" key={idx} onClick={() => { openSpecificModal(group.id) }}>
                                 <section className="groupSection">
                                     <div className="groupImage">
-                                        <img src={`${apiUrl + group.image_url}`} alt={group.name} />
+                                        {group.image_url && group.name && ( <img src={`${apiUrl + group.image_url}`} alt={group.name} /> )}
                                     </div>
                                     <div>
                                         <h2>{group.name}</h2>
@@ -85,45 +85,51 @@ const Groups = ({
                                     </div>
                                 </section>
                                 {/* Students */}
-                                <section className="studentsSection">
-                                    <ul>
-                                        {group.students.map((student, idx) => (
-                                            <li key={idx}>
-                                                <p>{student.student_number}</p>
-                                                <p>{student.name}</p>                                        
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </section>
+                                {group.students.length > 0 && (
+                                    <section className="studentsSection">
+                                        <ul>
+                                            {group.students.map((student, idx) => (
+                                                <li key={idx}>
+                                                    <p>{student.student_number}</p>
+                                                    <p>{student.name}</p>                                        
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </section>
+                                )}
                                 {/* Challenges */}
-                                <section className="challengesSection" >
-                                    <ul>
-                                        {group.challenges.map((challenge, idx) => (
-                                            <li key={idx}>
-                                                <h3>{challenge.name}</h3>
-                                                <div>
-                                                    {challenge.completed ? 
-                                                        <span><Check className={'green'} /></span> : 
-                                                        <span><Close className={'red'} /></span>
-                                                    }
-                                                </div>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </section>
-                                {/* Challenge keys */}
-                                <section className="challengeKeys">
-                                    <ul key={idx}>
-                                        {group.challenges.map((challenge, idx) => (                                        
-                                            <li key={idx}>
-                                                <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'} onClick={(e) => { toggleCode(e, challenge.keycode)}}>{challenge.keycode}</h3>
-                                                {/* Copy icon, animated when clicked: visual feedback that copy is successful */}
-                                                <Copy className={'copy'} onClick={(e) => { copyCode(e, challenge.keycode)} } />
-                                                <Check className={'checkmark green hide'} onClick={(e) => { copyCode(e, challenge.keycode)} } />
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </section>
+                                {group.challenges.length > 0 && (
+                                    <>
+                                        <section className="challengesSection" >
+                                            <ul>
+                                                {group.challenges.map((challenge, idx) => (
+                                                    <li key={idx}>
+                                                        <h3>{challenge.name}</h3>
+                                                        <div>
+                                                            {challenge.completed ? 
+                                                                <span><Check className={'green'} /></span> : 
+                                                                <span><Close className={'red'} /></span>
+                                                            }
+                                                        </div>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </section>
+
+                                        <section className="challengeKeys">
+                                            <ul key={idx}>
+                                                {group.challenges.map((challenge, idx) => (                                        
+                                                    <li key={idx}>
+                                                        <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'} onClick={(e) => { toggleCode(e, challenge.keycode)}}>{challenge.keycode}</h3>
+                                                        {/* Copy icon, animated when clicked: visual feedback that copy is successful */}
+                                                        <Copy className={'copy'} onClick={(e) => { copyCode(e, challenge.keycode)} } />
+                                                        <Check className={'checkmark green hide'} onClick={(e) => { copyCode(e, challenge.keycode)} } />
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </section>
+                                    </>
+                                )}
                             </li>
                             <EditGroup 
                                 group={group} 

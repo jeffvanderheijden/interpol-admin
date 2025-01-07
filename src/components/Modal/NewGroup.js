@@ -110,11 +110,11 @@ const NewGroup = ({
             await createTeam(formData, setTeamSuccessfullyCreated)
                 .then(() => {
                     // Update the UI instead of reloading the page
-                    console.log('Team created successfully!');
+                    window.location.reload();
                 })
                 .catch((error) => {
-                    console.error('Failed to create team:', error);
                     // Optionally, show an error notification to the user
+                    console.error('Failed to create team:', error);                    
                 });
         };
 

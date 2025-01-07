@@ -1,224 +1,169 @@
 const api = "https://api.interpol.sd-lab.nl/api";
 
-export const login = async (formData) => {
-    try {
-        const response = await fetch('https://api.interpol.sd-lab.nl/api/create-session', {
-            method: 'POST',
-            body: formData,
-            credentials: 'include' // Ensure cookies are included with the request
-        });
-
-        const responseText = await response.text(); // Read the raw response body as text
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const loginResponse = JSON.parse(responseText); // Parse the response text as JSON
-
-        // Do something with the login response, e.g., handle login success or error
-        if (loginResponse.error) {
-            console.error('Login error:', loginResponse.error);
-            return loginResponse.error;
-        } else {
-            console.log('Login successful:', loginResponse.message);
-            return true;
-        }
-
-    } catch (error) {
-        console.error('Error creating session:', error);
-    }
-}
-
-export const getStudents = async (groupId) => {
-    try {
-        const response = await fetch(`${api}/students-by-group?id=${groupId}`);
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-};
-
-export const getGroups = async () => {
-    try {
-        const response = await fetch(`${api}/groups`);
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-};
-
-export const getChallenges = async (groupId) => {
-    try {
-        const response = await fetch(`${api}/challenges-by-group?id=${groupId}`);
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-};
-
-export const getChallenge = async (challengeId) => {
-    try {
-        const response = await fetch(`${api}/challenge-by-id?id=${challengeId}`);
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-};
-
-export const removeStudent = async (studentId) => {
-    try {
-        const response = await fetch(`${api}/remove-student?id=${studentId}`, {
-            method: 'DELETE',
-            credentials: 'include'
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-}
-
 /**
- * Creates a new team by sending form data to the server.
- * @param {FormData} formData - The form data containing team information.
- * @param {Function} setTeamSuccessfullyCreated - Callback to update the team creation status.
+ * Wrapper for fetch with consistent error handling.
+ * @param {string} url - The API endpoint.
+ * @param {object} options - Fetch options (method, headers, body, etc.).
+ * @returns {Promise<any>} - Parsed JSON response or error.
  */
-export const createTeam = async (formData, setTeamSuccessfullyCreated) => {
+const fetchWrapper = async (url, options = {}) => {
     try {
-        const response = await fetch(`${api}/create-team`, {
-            method: 'POST',
-            body: formData,
-        });
-
-        // Check if the response status is OK
-        if (!response.ok) {
-            throw new Error(`Server error: ${response.status} ${response.statusText}`);
-        }
-
+        const response = await fetch(url, options);
         const responseText = await response.text();
 
-        // Safely parse JSON
-        let parsedData;
-        try {
-            parsedData = JSON.parse(responseText);
-        } catch (parseError) {
-            throw new Error('Failed to parse server response as JSON');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
         }
 
-        // Check if the message exists in the response
-        if (parsedData.message) {
+        try {
+            return JSON.parse(responseText);
+        } catch (error) {
+            throw new Error('Failed to parse response as JSON');
+        }
+    } catch (error) {
+        console.error(`Error in fetchWrapper: ${error.message}`);
+        throw error; // Rethrow the error for higher-level handling
+    }
+};
+
+// Example: Login function
+export const login = async (formData) => {
+    const url = `${api}/create-session`;
+    const options = {
+        method: 'POST',
+        body: formData,
+        credentials: 'include',
+    };
+
+    return await fetchWrapper(url, options);
+};
+
+// Example: Get students by group
+export const getStudents = async (groupId) => {
+    return await fetchWrapper(`${api}/students-by-group?id=${groupId}`);
+};
+
+// Example: Get groups
+export const getGroups = async () => {
+    return await fetchWrapper(`${api}/groups`);
+};
+
+// Example: Get challenges by group
+export const getChallenges = async (groupId) => {
+    return await fetchWrapper(`${api}/challenges-by-group?id=${groupId}`);
+};
+
+// Example: Get a specific challenge
+export const getChallenge = async (challengeId) => {
+    return await fetchWrapper(`${api}/challenge-by-id?id=${challengeId}`);
+};
+
+// Example: Remove a student
+export const removeStudent = async (studentId) => {
+    const url = `${api}/remove-student?id=${studentId}`;
+    const options = {
+        method: 'DELETE',
+        credentials: 'include',
+    };
+
+    return await fetchWrapper(url, options);
+};
+
+// Example: Create a team
+export const createTeam = async (formData, setTeamSuccessfullyCreated) => {
+    try {
+        const url = `${api}/create-team`;
+        const options = {
+            method: 'POST',
+            body: formData,
+        };
+
+        const response = await fetchWrapper(url, options);
+        if (response.message) {
             setTeamSuccessfullyCreated(true);
         } else {
-            throw new Error('Unexpected response format from the server');
+            throw new Error('Unexpected response format');
         }
     } catch (error) {
         console.error('Error creating team:', error);
-        setTeamSuccessfullyCreated(false); // Optional: Notify the user about the failure
+        setTeamSuccessfullyCreated(false);
     }
 };
 
+// Example: Remove a team
 export const removeTeam = async (groupId) => {
-    try {
-        const response = await fetch(`${api}/remove-group?group_id=${groupId}`, {
-            method: 'DELETE',
-            credentials: 'include'
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        return [];
-    }
-}
-
-const dataLayer = async () => {
-    let groupsData = [];
-
-    const fetchAllData = async () => {
-        try {
-            const groups = await getGroups();
-            if (groups.length > 0) {
-                groupsData = await Promise.all(groups.map(async (group) => {
-                    const students = await getStudents(group.id);
-                    const challenges = await getChallenges(group.id);
-
-                    if (challenges.length > 0) {
-                        // Fetch challenge details concurrently
-                        const detailedChallenges = await Promise.all(challenges.map(async (challenge) => {
-                            try {
-                                const [data] = await getChallenge(challenge.challenge_id);
-                                return {
-                                    ...challenge,
-                                    name: data.name,
-                                    minimum_points: data.minimum_points,
-                                    time_limit: data.time_limit,
-                                };
-                            } catch (error) {
-                                console.error(`Error fetching challenge ${challenge.challenge_id}:`, error);
-                                return challenge; // Return the challenge without additional details if an error occurs
-                            }
-                        }));
-
-                        return {
-                            ...group,
-                            students,
-                            challenges: detailedChallenges,
-                        };
-                    }
-                }));
-            } else {
-                console.warn('No groups found.');
-            }
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-
-        return groupsData;
+    const url = `${api}/remove-group?group_id=${groupId}`;
+    const options = {
+        method: 'DELETE',
+        credentials: 'include',
     };
 
-    return fetchAllData();
+    return await fetchWrapper(url, options);
 };
 
+// Example: Check session
 export const checkSession = async () => {
+    const url = `${api}/check-type`;
+    const options = {
+        method: 'GET',
+        credentials: 'include',
+    };
+
     try {
-        const response = await fetch(`${api}/check-type`, {
-            method: 'GET',
-            credentials: 'include' // Include cookies in the request
-        });
-
-        const responseText = await response.text();
-        const loggedInType = responseText.replaceAll('"', '');
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        if (response && response.error) {
-            console.error('Error checking session:', userData.error);
-            return false;
-        }
-
-        // Check if user is logged in as DOCENT
-        return loggedInType === 'DOCENT' ? true : false;
-
+        const response = await fetchWrapper(url, options);
+        const loggedInType = response.replaceAll('"', '');
+        return loggedInType === 'DOCENT';
     } catch (error) {
         console.error('Error checking session:', error);
         return false;
     }
-}
+};
+
+// Fetch all data for groups
+const dataLayer = async () => {
+    try {
+        const groups = await getGroups();
+
+        if (groups.length === 0) {
+            console.warn('No groups found.');
+            return [];
+        }
+
+        const groupsData = await Promise.all(
+            groups.map(async (group) => {
+                const students = await getStudents(group.id);
+                const challenges = await getChallenges(group.id);
+
+                const detailedChallenges = await Promise.all(
+                    challenges.map(async (challenge) => {
+                        try {
+                            const [data] = await getChallenge(challenge.challenge_id);
+                            return {
+                                ...challenge,
+                                name: data.name,
+                                minimum_points: data.minimum_points,
+                                time_limit: data.time_limit,
+                            };
+                        } catch (error) {
+                            console.error(`Error fetching challenge ${challenge.challenge_id}:`, error);
+                            return challenge;
+                        }
+                    })
+                );
+
+                return {
+                    ...group,
+                    students,
+                    challenges: detailedChallenges,
+                };
+            })
+        );
+
+        return groupsData;
+    } catch (error) {
+        console.error('Error fetching data layer:', error);
+        return [];
+    }
+};
 
 export default dataLayer;

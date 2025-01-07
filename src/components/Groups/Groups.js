@@ -15,7 +15,7 @@ const Groups = ({
     const [openModal, setOpenModal] = useState(null);
     const [visibleCodes, setVisibleCodes] = useState([]);
 
-    const closeModal = () => setOpenModal(null)
+    const closeModal = () => setOpenModal(null);
     const openSpecificModal = (modalName) => setOpenModal(modalName);
 
     const toggleCode = (event, code) => {
@@ -40,12 +40,12 @@ const Groups = ({
 
     const removeGroup = (e, group, classTitle, groupId) => {
         e.stopPropagation();
-        if(confirm(`Weet je zeker dat je groep ${group} uit klas ${classTitle} wilt verwijderen?`)) {
+        if (confirm(`Weet je zeker dat je groep ${group} uit klas ${classTitle} wilt verwijderen?`)) {
             removeTeam(groupId).then(res => {
                 // Reload the page to show the updated group list
                 setTimeout(() => {
                     window.location.reload();
-                }, 0);
+                }, 500);
             });
         } else {
             // Do nothing

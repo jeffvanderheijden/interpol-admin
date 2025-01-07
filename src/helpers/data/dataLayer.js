@@ -96,10 +96,12 @@ export const createTeam = async (formData, setTeamSuccessfullyCreated) => {
         });
         const newTeam = await response.text();
         if (JSON.parse(newTeam).message) {
-            setTeamSuccessfullyCreated(true);
+            // setTeamSuccessfullyCreated(true);
+            return newTeam;
         }
     } catch (error) {
         console.error('Error creating team:', error);
+        return error;
     }
 }
 
@@ -120,7 +122,6 @@ export const removeTeam = async (groupId) => {
         return [];
     }
 }
-
 
 const dataLayer = async () => {
     let groupsData = [];

@@ -120,6 +120,7 @@ const EditGroup = ({
         formData.append('image', image);
         formData.append('name', e.target.elements.teamName.value);
         formData.append('class', e.target.elements.klas.value.toLowerCase());
+        formData.append('group_id', e.target.elements.group_id.value);
 
         // Log form data to ensure group_id is included
         console.log('FormData:', formData);

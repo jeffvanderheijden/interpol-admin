@@ -120,6 +120,9 @@ const EditGroup = ({
         formData.append('image', image);
         formData.append('name', e.target.elements.teamName.value);
         formData.append('class', e.target.elements.klas.value.toLowerCase());
+
+        // Log form data to ensure group_id is included
+        console.log('FormData:', formData);
         
         let students = [...group.students, ...newStudents];
         students = students.map(student => ({

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import ModalComponent from "../Modal/Modal";
 import Trashcan from "../../helpers/icons/Trashcan";
 import Camera from "../../helpers/icons/Camera";
-import { editGroup } from "./../../helpers/data/dataLayer"; // Assuming editGroup is defined in dataLayer
+import { editGroup } from "./../../helpers/data/dataLayer";
 import "./EditGroup.css";
 
 const EditGroup = ({
@@ -115,6 +115,7 @@ const EditGroup = ({
     }
 
     const saveGroupChanges = async (e) => {
+        console.log(e.target);
         e.preventDefault();
         const formData = new FormData();
         formData.append('image', image);

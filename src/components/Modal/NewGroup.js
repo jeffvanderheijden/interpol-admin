@@ -106,14 +106,19 @@ const NewGroup = ({
         });
         formData.append('students', JSON.stringify(students));
         
-        // do fetch request
-        createTeam(formData, setTeamSuccessfullyCreated).then((reponse) => {
-            // Reload the page to show the new team
-            console.log(response);
-            setTimeout(() => {
-                window.location.reload();
-            }, 500);
-        });
+        const handleCreateTeam = async (formData, setTeamSuccessfullyCreated) => {
+            await createTeam(formData, setTeamSuccessfullyCreated)
+                .then(() => {
+                    // Update the UI instead of reloading the page
+                    console.log('Team created successfully!');
+                })
+                .catch((error) => {
+                    console.error('Failed to create team:', error);
+                    // Optionally, show an error notification to the user
+                });
+        };
+
+        handleCreateTeam(formData, setTeamSuccessfullyCreated);
     };
 
     useEffect(() => {

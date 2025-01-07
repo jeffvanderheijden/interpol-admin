@@ -88,22 +88,44 @@ export const removeStudent = async (studentId) => {
     }
 }
 
+/**
+ * Creates a new team by sending form data to the server.
+ * @param {FormData} formData - The form data containing team information.
+ * @param {Function} setTeamSuccessfullyCreated - Callback to update the team creation status.
+ */
 export const createTeam = async (formData, setTeamSuccessfullyCreated) => {
     try {
         const response = await fetch(`${api}/create-team`, {
             method: 'POST',
             body: formData,
         });
-        const newTeam = await response.text();
-        if (JSON.parse(newTeam).message) {
-            // setTeamSuccessfullyCreated(true);
-            return newTeam;
+
+        // Check if the response status is OK
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status} ${response.statusText}`);
+        }
+
+        const responseText = await response.text();
+
+        // Safely parse JSON
+        let parsedData;
+        try {
+            parsedData = JSON.parse(responseText);
+        } catch (parseError) {
+            throw new Error('Failed to parse server response as JSON');
+        }
+
+        // Check if the message exists in the response
+        if (parsedData.message) {
+            setTeamSuccessfullyCreated(true);
+        } else {
+            throw new Error('Unexpected response format from the server');
         }
     } catch (error) {
         console.error('Error creating team:', error);
-        return error;
+        setTeamSuccessfullyCreated(false); // Optional: Notify the user about the failure
     }
-}
+};
 
 export const removeTeam = async (groupId) => {
     try {

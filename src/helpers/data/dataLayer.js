@@ -9,17 +9,25 @@ const api = "https://api.interpol.sd-lab.nl/api";
 const fetchWrapper = async (url, options = {}) => {
     try {
         const response = await fetch(url, options);
+        const contentType = response.headers.get("Content-Type");
+
+        // Only parse as JSON if the response is JSON
         const responseText = await response.text();
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
         }
 
-        try {
-            return JSON.parse(responseText);
-        } catch (error) {
-            throw new Error('Failed to parse response as JSON');
+        if (contentType && contentType.includes("application/json")) {
+            try {
+                return JSON.parse(responseText);
+            } catch (error) {
+                throw new Error('Failed to parse response as JSON');
+            }
         }
+
+        // If not JSON, return the raw response text (or handle as needed)
+        return responseText;
     } catch (error) {
         console.error(`Error in fetchWrapper: ${error.message}`);
         throw error; // Rethrow the error for higher-level handling
@@ -106,11 +114,17 @@ export const editGroup = async (formData) => {
     const url = `${api}/update-group`;
     const options = {
         method: 'PUT',
-        body: formData,
+        body: formData, // FormData will automatically set the correct Content-Type
         credentials: 'include',
     };
 
-    return await fetchWrapper(url, options);
+    try {
+        const response = await fetchWrapper(url, options);
+        return response; // Directly return the response from the fetchWrapper
+    } catch (error) {
+        console.error('Error updating group:', error);
+        throw error; // Propagate the error
+    }
 };
 
 // Example: Check session

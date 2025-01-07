@@ -101,6 +101,18 @@ export const removeTeam = async (groupId) => {
     return await fetchWrapper(url, options);
 };
 
+// Example: Edit a group
+export const editGroup = async (formData) => {
+    const url = `${api}/update-group`;
+    const options = {
+        method: 'PUT',
+        body: formData,
+        credentials: 'include',
+    };
+
+    return await fetchWrapper(url, options);
+};
+
 // Example: Check session
 export const checkSession = async () => {
     const url = `${api}/check-type`;

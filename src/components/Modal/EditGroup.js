@@ -166,35 +166,58 @@ const EditGroup = ({
             contentLabel="Edit group"
         >
             <div className="editGroup">
-                <section className="groupSection">
-                    <div className="groupImage">
-                        <img src={image ? image : `${apiUrl + group.image_url}`} alt={group.name} />
+                {camera ? (
+                    <div className="camera" ref={cameraRef}>
+                        <video ref={videoRef} id="video">Video stream not available.</video>
+                        <div className="buttonWrapper">
+                            <button onClick={(e) => { takePicture(e) }} ref={takePhotoRef} type="button" id="startbutton" className="btn"><span>Take photo</span></button>
+                            <button onClick={() => { setCamera(false) }} type="button" id="savebutton" className="btn"><span>Save photo</span></button>
+                        </div>
+                        <div className="output">
+                            <div className="imgWrapper">
+                                <img ref={photoRef} id="photo" alt="Team image" />
+                            </div>
+                            <canvas id="canvas" ref={canvasRef} />
+                        </div>
                     </div>
-                    <div>
-                        <input type="text" defaultValue={group.name} name="teamName" placeholder="Team naam" required />
-                        <input type="text" defaultValue={group.class} name="klas" placeholder="Klas" required />
-                    </div>
-                </section>
-                <ul className="editStudents">
-                    {group.students.map((student, idx) => (
-                        <li key={idx}>
-                            <input type="number" defaultValue={student.student_number} />
-                            <input type="text" defaultValue={student.name} />
-                            <Trashcan className={'trashcan'} onClick={() => { removeExistingStudent(student.student_number, student.name) }} />
-                        </li>
-                    ))}
-                    {newStudents.map((student, idx) => (
-                        <li key={idx}>
-                            <input type="number" placeholder={student.student_number} />
-                            <input type="text" placeholder={student.name} />
-                            <Trashcan className={'trashcan'} onClick={() => { setNewStudents(newStudents.filter((_, i) => i !== idx)) }} />
-                        </li>
-                    ))}
-                </ul>
-                <div className="editButtons">
-                    <button onClick={() => { setNewStudents([...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
-                    <button onClick={saveGroupChanges}>Opslaan</button>
-                </div>
+                ) : (
+                    <form onSubmit={saveGroupChanges}>
+                        <input type="hidden" id="image" name="image" value={image} required />
+                        <section className="groupSection">
+                            <div className="groupImage" onClick={() => { setCamera(true) }} onKeyDown={() => { setCamera(true) }}>
+                                {image ? (
+                                    <img src={image} alt="Team" />
+                                ) : (
+                                    <Camera />
+                                )}
+                            </div>
+                            <div>
+                                <input type="text" defaultValue={group.name} name="teamName" placeholder="Team naam" required />
+                                <input type="text" defaultValue={group.class} name="klas" placeholder="Klas" required />
+                            </div>
+                        </section>
+                        <ul className="editStudents">
+                            {group.students.map((student, idx) => (
+                                <li key={idx}>
+                                    <input type="number" defaultValue={student.student_number} />
+                                    <input type="text" defaultValue={student.name} />
+                                    <Trashcan className={'trashcan'} onClick={() => { removeExistingStudent(student.student_number, student.name) }} />
+                                </li>
+                            ))}
+                            {newStudents.map((student, idx) => (
+                                <li key={idx}>
+                                    <input type="number" placeholder={student.student_number} />
+                                    <input type="text" placeholder={student.name} />
+                                    <Trashcan className={'trashcan'} onClick={() => { setNewStudents(newStudents.filter((_, i) => i !== idx)) }} />
+                                </li>
+                            ))}
+                        </ul>
+                        <div className="editButtons">
+                            <button onClick={() => { setNewStudents([...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
+                            <button type="submit">Opslaan</button>
+                        </div>
+                    </form>
+                )}
             </div>
         </ModalComponent>
     );

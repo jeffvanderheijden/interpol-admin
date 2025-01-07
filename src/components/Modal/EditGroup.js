@@ -133,7 +133,7 @@ const EditGroup = ({
 
         formData.append('students', JSON.stringify(students));
 
-        // Assuming editGroup is the function that updates the group
+        // Updates the group
         await editGroup(group.id, formData)
             .then(() => {
                 // Update UI instead of reloading the page
@@ -192,7 +192,7 @@ const EditGroup = ({
                         </div>
                     </div>
                 ) : (
-                    <form onSubmit={saveGroupChanges}>
+                    <form onSubmit={(e) => { saveGroupChanges(e) }}>
                         <input type="hidden" id="image" name="image" value={image} required />
                         <input type="hidden" id="group_id" name="group_id" value={group.id} required />
                         <section className="groupSection">

@@ -18,15 +18,17 @@ const fetchWrapper = async (url, options = {}) => {
             throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
         }
 
-        // if (contentType && contentType.includes("application/json")) {
-        //     try {
-        //         return JSON.parse(responseText);
-        //     } catch (error) {
-        //         throw new Error('Failed to parse response as JSON', error);
-        //     }
-        // }
+        if (contentType && contentType.includes("application/json")) {
+            try {
+                console.log('aaaaa');
+                return JSON.parse(responseText);
+            } catch (error) {
+                throw new Error('Failed to parse response as JSON', error);
+            }
+        }
 
         // If not JSON, return the raw response text (or handle as needed)
+        console.log('bbbbb');
         return responseText;
     } catch (error) {
         console.error(`Error in fetchWrapper: ${error.message}`);

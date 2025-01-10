@@ -22,7 +22,7 @@ const fetchWrapper = async (url, options = {}) => {
             try {
                 return JSON.parse(responseText);
             } catch (error) {
-                throw new Error('Failed to parse response as JSON');
+                throw new Error('Failed to parse response as JSON', error);
             }
         }
 
@@ -34,7 +34,7 @@ const fetchWrapper = async (url, options = {}) => {
     }
 };
 
-// Example: Login function
+// Login functionality (uses session cookies)
 export const login = async (formData) => {
     const url = `${api}/create-session`;
     const options = {
@@ -46,27 +46,27 @@ export const login = async (formData) => {
     return await fetchWrapper(url, options);
 };
 
-// Example: Get students by group
+// Get students by group
 export const getStudents = async (groupId) => {
     return await fetchWrapper(`${api}/students-by-group?id=${groupId}`);
 };
 
-// Example: Get groups
+// Get groups
 export const getGroups = async () => {
     return await fetchWrapper(`${api}/groups`);
 };
 
-// Example: Get challenges by group
+// Get challenges by group
 export const getChallenges = async (groupId) => {
     return await fetchWrapper(`${api}/challenges-by-group?id=${groupId}`);
 };
 
-// Example: Get a specific challenge
+// Get a specific challenge
 export const getChallenge = async (challengeId) => {
     return await fetchWrapper(`${api}/challenge-by-id?id=${challengeId}`);
 };
 
-// Example: Remove a student
+// Remove a student from a group
 export const removeStudent = async (studentId) => {
     const url = `${api}/remove-student?id=${studentId}`;
     const options = {
@@ -77,7 +77,7 @@ export const removeStudent = async (studentId) => {
     return await fetchWrapper(url, options);
 };
 
-// Example: Create a team
+// Create a team
 export const createTeam = async (formData, setTeamSuccessfullyCreated) => {
     try {
         const url = `${api}/create-team`;
@@ -98,7 +98,7 @@ export const createTeam = async (formData, setTeamSuccessfullyCreated) => {
     }
 };
 
-// Example: Remove a team
+// Remove a team
 export const removeTeam = async (groupId) => {
     const url = `${api}/remove-group?group_id=${groupId}`;
     const options = {
@@ -109,25 +109,25 @@ export const removeTeam = async (groupId) => {
     return await fetchWrapper(url, options);
 };
 
-// Example: Edit a group
+// Edit a group
 export const editGroup = async (formData) => {
     const url = `${api}/update-group`;
     const options = {
         method: 'PUT',
-        body: formData, // FormData will automatically set the correct Content-Type
+        body: formData, // Error on server: cannot parse JSON body ???
         credentials: 'include',
     };
 
     try {
         const response = await fetchWrapper(url, options);
-        return response; // Directly return the response from the fetchWrapper
+        return response; 
     } catch (error) {
         console.error('Error updating group:', error);
-        throw error; // Propagate the error
+        throw error;
     }
 };
 
-// Example: Check session
+// Check session
 export const checkSession = async () => {
     const url = `${api}/check-type`;
     const options = {

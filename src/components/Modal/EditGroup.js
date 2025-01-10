@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import ModalComponent from "../Modal/Modal";
 import Trashcan from "../../helpers/icons/Trashcan";
 import Camera from "../../helpers/icons/Camera";
-import { editGroup } from "./../../helpers/data/dataLayer";
+import { editGroup, removeStudent } from "./../../helpers/data/dataLayer";
+import dataLayer from "./../../helpers/data/dataLayer";
 import "./EditGroup.css";
 
 const EditGroup = ({
@@ -95,7 +96,7 @@ const EditGroup = ({
     }
 
     const removeExistingStudent = (studentNumber, studentName) => {
-        if (confirm(`Weet je zeker dat je ${studentName} wilt verwijderen uit deze groep?`)) {
+        if (window.confirm(`Weet je zeker dat je ${studentName} wilt verwijderen uit deze groep?`)) {
             // Call the remove student function
             // Assuming removeStudent is imported from dataLayer
             removeStudent(studentNumber)
@@ -114,14 +115,7 @@ const EditGroup = ({
         }
     }
 
-    const logFormData = (formData) => {
-        formData.forEach((value, key) => {
-            console.log(`${key}: ${value}`);
-        });
-    };
-
     const saveGroupChanges = async (e) => {
-        console.log(e.target);
         e.preventDefault();
         const formData = new FormData();
         formData.append('image', image);
@@ -141,8 +135,6 @@ const EditGroup = ({
         }));
 
         formData.append('students', JSON.stringify(students));
-
-        logFormData(formData);
 
         // Updates the group
         await editGroup(group.id, formData)
@@ -192,7 +184,7 @@ const EditGroup = ({
                     <div className="camera" ref={cameraRef}>
                         <video ref={videoRef} id="video">Video stream not available.</video>
                         <div className="buttonWrapper">
-                            <button onClick={(e) => { takePicture(e) }} ref={takePhotoRef} type="button" id="startbutton" className="btn"><span>Take photo</span></button>
+                            <button onClick={(e) => { takePicture(e) }} type="button" id="startbutton" className="btn"><span>Take photo</span></button>
                             <button onClick={() => { setCamera(false) }} type="button" id="savebutton" className="btn"><span>Save photo</span></button>
                         </div>
                         <div className="output">

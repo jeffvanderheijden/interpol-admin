@@ -53,7 +53,7 @@ export const getStudents = async (groupId) => {
 
 // Get groups
 export const getGroups = async () => {
-    return await fetchWrapper(`${api}/groups`).json();
+    return await fetchWrapper(`${api}/groups`);
 };
 
 // Get challenges by group
@@ -150,7 +150,7 @@ const dataLayer = async () => {
     try {
         const groups = await getGroups();
 
-        console.log('Groups type:', typeof groups, Array.isArray(groups));
+        console.log('Groups type:', typeof groups.json(), Array.isArray(groups.json()));
 
         if (!Array.isArray(groups)) {
             throw new TypeError('Expected groups to be an array.');

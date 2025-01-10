@@ -20,7 +20,7 @@ const fetchWrapper = async (url, options = {}) => {
 
         if (contentType && contentType.includes("application/json")) {
             try {
-                return responseText;
+                return JSON.parse(responseText);
             } catch (error) {
                 throw new Error('Failed to parse response as JSON', error);
             }
@@ -53,7 +53,7 @@ export const getStudents = async (groupId) => {
 
 // Get groups
 export const getGroups = async () => {
-    return await fetchWrapper(`${api}/groups`);
+    return await fetchWrapper(`${api}/groups`).json();
 };
 
 // Get challenges by group

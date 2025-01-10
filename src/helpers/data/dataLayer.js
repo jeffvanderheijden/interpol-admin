@@ -14,6 +14,8 @@ const fetchWrapper = async (url, options = {}) => {
         // Only parse as JSON if the response is JSON
         const responseText = await response.text();
 
+        console.log('response', responseText);
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
         }
@@ -23,7 +25,7 @@ const fetchWrapper = async (url, options = {}) => {
                 console.log('aaaaa');
                 return JSON.parse(responseText);
             } catch (error) {
-                throw new Error('Failed to parse response as JSON', error);
+                throw new Error('Failed to parse response as JSON', 'Error: ' + error + ' Response: ' + response);
             }
         }
 

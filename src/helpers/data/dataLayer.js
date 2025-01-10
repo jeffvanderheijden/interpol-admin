@@ -155,15 +155,16 @@ const dataLayer = async () => {
             return [];
         }
 
-        console.log(groups);
+        console.log('Groups fetched:', groups);
+
+        if (!Array.isArray(groups)) {
+            throw new TypeError('Expected groups to be an array.');
+        }
 
         const groupsData = await Promise.all(
             groups.map(async (group) => {
-                console.log(groups)
                 const students = await getStudents(group.id);
                 const challenges = await getChallenges(group.id);
-                console.log(students);
-                console.log(challenges);
 
                 const detailedChallenges = await Promise.all(
                     challenges.map(async (challenge) => {

@@ -122,7 +122,7 @@ export const editGroup = async (formData) => {
         const response = await fetchWrapper(url, options);
         return response; 
     } catch (error) {
-        console.error('Error updating group:', error);
+        console.error('Error updating group:', 'error: ', + error + ' Response: ' + response);
         throw error;
     }
 };

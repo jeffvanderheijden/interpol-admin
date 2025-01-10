@@ -15,6 +15,7 @@ const fetchWrapper = async (url, options = {}) => {
         const responseText = await response.text();
 
         console.log('response', responseText);
+        console.log('contentType', contentType);
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);

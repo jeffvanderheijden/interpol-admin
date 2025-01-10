@@ -32,7 +32,6 @@ const DashboardPage = () => {
     if (isTeacher) {
       const fetchData = async () => {
         const data = await dataLayer();
-        console.log(data);
         setGroups(data);
         setFilteredGroups(data);
       };

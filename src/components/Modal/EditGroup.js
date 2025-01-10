@@ -122,11 +122,6 @@ const EditGroup = ({
         formData.append('name', e.target.elements.teamName.value);
         formData.append('class', e.target.elements.klas.value.toLowerCase());
         formData.append('group_id', e.target.elements.group_id.value);
-
-        console.log(image);
-        console.log(e.target.elements.teamName.value);
-        console.log(e.target.elements.klas.value.toLowerCase());
-        console.log(e.target.elements.group_id.value);
         
         let students = [...group.students, ...newStudents];
         students = students.map(student => ({

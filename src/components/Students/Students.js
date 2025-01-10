@@ -13,10 +13,6 @@ const Students = ({
             .catch(error => console.error(error));
     }, [groupId]);
 
-    useEffect(() => {
-        console.log(students)
-    }, [students])
-
     return (
         <section className="studentsSection">
             {students && students.map(student => (

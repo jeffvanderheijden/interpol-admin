@@ -150,8 +150,6 @@ const dataLayer = async () => {
     try {
         const groups = await getGroups();
 
-        console.log('Groups type:', typeof groups.json(), Array.isArray(groups.json()));
-
         if (!Array.isArray(groups)) {
             throw new TypeError('Expected groups to be an array.');
         }

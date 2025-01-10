@@ -159,6 +159,7 @@ const dataLayer = async () => {
 
         const groupsData = await Promise.all(
             groups.map(async (group) => {
+                console.log(groups)
                 const students = await getStudents(group.id);
                 const challenges = await getChallenges(group.id);
                 console.log(students);

@@ -194,7 +194,7 @@ const EditGroup = ({
                     </div>
                 ) : (
                     <form onSubmit={(e) => { saveGroupChanges(e) }}>
-                        <input type="hidden" id="image" name="image" value={image} required />
+                        {/* <input type="hidden" id="image" name="image" value={image} required /> */}
                         <input type="hidden" id="group_id" name="group_id" value={group.id} required />
                         <section className="groupSection">
                             <div className="groupImage" onClick={() => { setCamera(true) }} onKeyDown={() => { setCamera(true) }}>

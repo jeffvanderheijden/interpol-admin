@@ -20,6 +20,7 @@ const fetchWrapper = async (url, options = {}) => {
 
         if (contentType && contentType.includes("application/json")) {
             try {
+                console.log('responseText: ', responseText);
                 return JSON.parse(responseText);
             } catch (error) {
                 throw new Error('Failed to parse response as JSON', 'Error: ' + error + ' Response: ' + response);
@@ -111,21 +112,23 @@ export const removeTeam = async (groupId) => {
 
 // Edit a group
 export const editGroup = async (formData) => {
-    const url = `${api}/update-group`;
-    const options = {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: formData,
-        credentials: 'include'
-    };
+    console.log('editGroup formdata ', formData);
+    
+    // const url = `${api}/update-group`;
+    // const options = {
+    //     method: 'PUT',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: formData,
+    //     credentials: 'include'
+    // };
 
-    try {
-        const response = await fetchWrapper(url, options);
-        return response; 
-    } catch (error) {
-        console.error('Error updating group:', 'error: ', + error);
-        throw error;
-    }
+    // try {
+    //     const response = await fetchWrapper(url, options);
+    //     return response; 
+    // } catch (error) {
+    //     console.error('Error updating group: ', + error);
+    //     throw error;
+    // }
 };
 
 // Check session

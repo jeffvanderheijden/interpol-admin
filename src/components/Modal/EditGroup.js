@@ -124,7 +124,7 @@ const EditGroup = ({
         formData.append('class', e.target.elements.klas.value.toLowerCase());
         formData.append('group_id', e.target.elements.group_id.value);
 
-        let students = studentsRef.current.children;
+        let students = newStudentRef.current.children;
         students = Array.from(students).map(student => {
             return {
                 name: student.querySelector('input[type="text"]').value,

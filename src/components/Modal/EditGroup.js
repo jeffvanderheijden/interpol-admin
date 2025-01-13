@@ -132,7 +132,7 @@ const EditGroup = ({
             }
         });
 
-        console.log(students);
+        console.log([...group.students, ...students]);
 
         formData.append('students', JSON.stringify([...group.students, ...students]));
 

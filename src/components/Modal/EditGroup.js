@@ -199,7 +199,7 @@ const EditGroup = ({
                         <section className="groupSection">
                             <div className="groupImage" onClick={() => { setCamera(true) }} onKeyDown={() => { setCamera(true) }}>
                                 {image ? (
-                                    <img src={`https://admin.interpol.sd-lab.nl/${image}`} alt="Team" />
+                                    <img src={`https://api.interpol.sd-lab.nl/${image}`} alt="Team" />
                                 ) : (
                                     <Camera />
                                 )}

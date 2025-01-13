@@ -24,6 +24,7 @@ const EditGroup = ({
     const canvasRef = useRef(null);
     const videoRef = useRef(null);
     const photoRef = useRef(null);
+    const newStudentRef = useRef(null);
 
     // Reset new students when modal opens
     useEffect(() => {
@@ -216,6 +217,8 @@ const EditGroup = ({
                                     <Trashcan className={'trashcan'} onClick={() => { removeExistingStudent(student.student_number, student.name) }} />
                                 </li>
                             ))}
+                        </ul>
+                        <ul className="editStudents" ref={newStudentRef}>
                             {newStudents.map((student, idx) => (
                                 <li key={idx}>
                                     <input type="number" placeholder={student.student_number} />

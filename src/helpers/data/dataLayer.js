@@ -113,7 +113,11 @@ export const removeTeam = async (groupId) => {
 // Edit a group
 export const editGroup = async (formData) => {
     console.log('editGroup formdata ', formData);
-    
+
+    for (let [key, value] of formData.entries()) {
+        console.log(`${key}: ${value}`);
+    }
+
     // const url = `${api}/update-group`;
     // const options = {
     //     method: 'PUT',

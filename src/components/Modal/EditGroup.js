@@ -223,7 +223,7 @@ const EditGroup = ({
                             ))}
                         </ul>
                         <div className="editButtons">
-                            <button onClick={() => { setNewStudents([...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
+                            <button onClick={(e) => { e.preventDefault(); setNewStudents([...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
                             <button type="submit">Opslaan</button>
                         </div>
                     </form>

@@ -115,7 +115,16 @@ export const editGroup = async (formData) => {
     const url = `${api}/update-group`;
     const options = {
         method: 'PUT',
-        body: formData,
+        headers: {
+            'Content-Type': 'application/json', // Send JSON content
+        },
+        body: JSON.stringify({
+            name: formData.get('name'),
+            class: formData.get('class'),
+            group_id: formData.get('group_id'),
+            students: formData.get('students'),
+            image: formData.get('image'),
+        }),
         credentials: 'include'
     };
 

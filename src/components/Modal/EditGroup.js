@@ -227,7 +227,7 @@ const EditGroup = ({
                                 </li>
                             ))}
                         </ul>
-                        <ul className="editStudents" ref={newStudentRef}>
+                        <ul className="editStudents" ref={newStudentsRef}>
                             {newStudents.map((student, idx) => (
                                 <li key={idx}>
                                     <input type="number" placeholder={student.student_number} />

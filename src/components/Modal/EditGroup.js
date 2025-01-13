@@ -122,16 +122,16 @@ const EditGroup = ({
         formData.append('name', e.target.elements.teamName.value);
         formData.append('class', e.target.elements.klas.value.toLowerCase());
         formData.append('group_id', e.target.elements.group_id.value);
-        
-        let students = [...group.students, ...newStudents];
-        students = students.map(student => ({
-            name: student.name,
-            number: student.student_number
-        }));
 
-        console.log(students);
+        let students = studentsRef.current.children;
+        students = Array.from(students).map(student => {
+            return {
+                name: student.querySelector('input[type="text"]').value,
+                number: student.querySelector('input[type="number"]').value
+            }
+        });
 
-        formData.append('students', JSON.stringify(students));
+        formData.append('students', JSON.stringify([...group.students, ...students]));
 
         // Updates the group
         await editGroup(formData)

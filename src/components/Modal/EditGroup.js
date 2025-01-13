@@ -132,7 +132,7 @@ const EditGroup = ({
         formData.append('students', JSON.stringify(students));
 
         // Updates the group
-        await editGroup(group.id, formData)
+        await editGroup(formData)
             .then(() => {
                 // Update UI instead of reloading the page
                 const fetchData = async () => {

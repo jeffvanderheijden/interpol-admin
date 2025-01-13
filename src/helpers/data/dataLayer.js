@@ -112,27 +112,21 @@ export const removeTeam = async (groupId) => {
 
 // Edit a group
 export const editGroup = async (formData) => {
-    console.log('editGroup formdata ', formData);
+    const url = `${api}/update-group`;
+    const options = {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: formData,
+        credentials: 'include'
+    };
 
-    for (let [key, value] of formData.entries()) {
-        console.log(`${key}: ${value}`);
+    try {
+        const response = await fetchWrapper(url, options);
+        return response; 
+    } catch (error) {
+        console.error('Error updating group: ', + error);
+        throw error;
     }
-
-    // const url = `${api}/update-group`;
-    // const options = {
-    //     method: 'PUT',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: formData,
-    //     credentials: 'include'
-    // };
-
-    // try {
-    //     const response = await fetchWrapper(url, options);
-    //     return response; 
-    // } catch (error) {
-    //     console.error('Error updating group: ', + error);
-    //     throw error;
-    // }
 };
 
 // Check session

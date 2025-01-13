@@ -114,8 +114,7 @@ export const removeTeam = async (groupId) => {
 export const editGroup = async (formData) => {
     const url = `${api}/update-group`;
     const options = {
-        method: 'PUT',
-        // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        method: 'POST',
         body: formData,
         credentials: 'include'
     };

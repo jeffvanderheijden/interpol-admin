@@ -132,6 +132,8 @@ const EditGroup = ({
 
         formData.append('students', JSON.stringify(students));
 
+        console.log('formData: ', formData);
+
         // Updates the group
         await editGroup(formData)
             .then(() => {

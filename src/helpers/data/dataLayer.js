@@ -114,15 +114,16 @@ export const editGroup = async (formData) => {
     const url = `${api}/update-group`;
     const options = {
         method: 'PUT',
-        body: formData, // Error on server: cannot parse JSON body ???
-        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: formData,
+        credentials: 'include'
     };
 
     try {
         const response = await fetchWrapper(url, options);
         return response; 
     } catch (error) {
-        console.error('Error updating group:', 'error: ', + error + ' Response: ' + response);
+        console.error('Error updating group:', 'error: ', + error);
         throw error;
     }
 };

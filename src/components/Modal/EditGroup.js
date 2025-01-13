@@ -133,6 +133,9 @@ const EditGroup = ({
         formData.append('students', JSON.stringify(students));
 
         console.log('formData: ', formData);
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+        }
 
         // Updates the group
         await editGroup(formData)

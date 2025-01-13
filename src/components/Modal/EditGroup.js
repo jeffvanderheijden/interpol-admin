@@ -24,7 +24,8 @@ const EditGroup = ({
     const canvasRef = useRef(null);
     const videoRef = useRef(null);
     const photoRef = useRef(null);
-    const newStudentRef = useRef(null);
+    const newStudentsRef = useRef(null);
+    const oldStudentsRef = useRef(null);
 
     // Reset new students when modal opens
     useEffect(() => {
@@ -124,15 +125,23 @@ const EditGroup = ({
         formData.append('class', e.target.elements.klas.value.toLowerCase());
         formData.append('group_id', e.target.elements.group_id.value);
 
-        let students = newStudentRef.current.children;
-        students = Array.from(students).map(student => {
+        let oldStudents = oldStudentsRef.current.children;
+        oldStudents = Array.from(oldStudents).map(student => {
             return {
                 name: student.querySelector('input[type="text"]').value,
                 student_number: student.querySelector('input[type="number"]').value
             }
         });
 
-        formData.append('students', JSON.stringify([...group.students, ...students]));
+        let newStudents = newStudentsRef.current.children;
+        newStudents = Array.from(newStudents).map(student => {
+            return {
+                name: student.querySelector('input[type="text"]').value,
+                student_number: student.querySelector('input[type="number"]').value
+            }
+        });
+
+        formData.append('students', JSON.stringify([...oldStudents, ...newStudents]));
 
         // Updates the group
         await editGroup(formData)
@@ -209,7 +218,7 @@ const EditGroup = ({
                                 <input type="text" id="klas" defaultValue={group.class} name="klas" placeholder="Klas" required />
                             </div>
                         </section>
-                        <ul className="editStudents">
+                        <ul className="editStudents" ref={oldStudentsRef}>
                             {group.students.map((student, idx) => (
                                 <li key={idx}>
                                     <input type="number" defaultValue={student.student_number} />

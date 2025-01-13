@@ -26,8 +26,6 @@ const EditGroup = ({
     const photoRef = useRef(null);
     const newStudentRef = useRef(null);
 
-    {console.log(group.image_url)}
-
     // Reset new students when modal opens
     useEffect(() => {
         setNewStudents([]);
@@ -201,7 +199,7 @@ const EditGroup = ({
                         <section className="groupSection">
                             <div className="groupImage" onClick={() => { setCamera(true) }} onKeyDown={() => { setCamera(true) }}>
                                 {image ? (
-                                    <img src={image} alt="Team" />
+                                    <img src={`https://admin.interpol.sd-lab.nl/${image}`} alt="Team" />
                                 ) : (
                                     <Camera />
                                 )}

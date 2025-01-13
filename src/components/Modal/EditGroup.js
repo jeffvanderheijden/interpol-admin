@@ -128,7 +128,7 @@ const EditGroup = ({
         students = Array.from(students).map(student => {
             return {
                 name: student.querySelector('input[type="text"]').value,
-                number: student.querySelector('input[type="number"]').value
+                student_number: student.querySelector('input[type="number"]').value
             }
         });
 

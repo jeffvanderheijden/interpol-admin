@@ -132,6 +132,8 @@ const EditGroup = ({
             }
         });
 
+        console.log(students);
+
         formData.append('students', JSON.stringify([...group.students, ...students]));
 
         // Updates the group

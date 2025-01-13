@@ -117,7 +117,6 @@ const EditGroup = ({
 
     const saveGroupChanges = async (e) => {
         e.preventDefault();
-        console.log(e.target.elements.group_id.value);
         const formData = new FormData();
         formData.append('image', image);
         formData.append('name', e.target.elements.teamName.value);
@@ -129,6 +128,8 @@ const EditGroup = ({
             name: student.name,
             number: student.student_number
         }));
+
+        console.log(students);
 
         formData.append('students', JSON.stringify(students));
 

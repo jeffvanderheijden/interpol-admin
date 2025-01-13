@@ -202,8 +202,8 @@ const EditGroup = ({
                                 )}
                             </div>
                             <div>
-                                <input type="text" defaultValue={group.name} name="teamName" placeholder="Team naam" required />
-                                <input type="text" defaultValue={group.class} name="klas" placeholder="Klas" required />
+                                <input type="text" id="teamName" defaultValue={group.name} name="teamName" placeholder="Team naam" required />
+                                <input type="text" id="klas" defaultValue={group.class} name="klas" placeholder="Klas" required />
                             </div>
                         </section>
                         <ul className="editStudents">

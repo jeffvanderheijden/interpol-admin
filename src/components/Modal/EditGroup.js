@@ -26,6 +26,8 @@ const EditGroup = ({
     const photoRef = useRef(null);
     const newStudentRef = useRef(null);
 
+    {console.log(group.image_url)}
+
     // Reset new students when modal opens
     useEffect(() => {
         setNewStudents([]);
@@ -131,8 +133,6 @@ const EditGroup = ({
                 student_number: student.querySelector('input[type="number"]').value
             }
         });
-
-        console.log([...group.students, ...students]);
 
         formData.append('students', JSON.stringify([...group.students, ...students]));
 

@@ -117,6 +117,7 @@ const EditGroup = ({
 
     const saveGroupChanges = async (e) => {
         e.preventDefault();
+        console.log(e.target.elements.teamName)
         const formData = new FormData();
         formData.append('image', image);
         formData.append('name', e.target.elements.teamName.value);

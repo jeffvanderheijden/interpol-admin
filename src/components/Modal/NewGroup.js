@@ -3,11 +3,14 @@ import ModalComponent from "../Modal/Modal";
 import Trashcan from "../../helpers/icons/Trashcan";
 import Camera from "../../helpers/icons/Camera";
 import { createTeam } from "./../../helpers/data/dataLayer";
+import dataLayer from "./../../helpers/data/dataLayer";
 import "./NewGroup.css";
 
 const NewGroup = ({
     openModal,
-    closeModal
+    closeModal,
+    setGroups,
+    setFilteredGroups
 }) => {    
     const [camera, setCamera] = useState(false);
     const [streaming, setStreaming] = useState(false);
@@ -109,8 +112,14 @@ const NewGroup = ({
         const handleCreateTeam = async (formData, setTeamSuccessfullyCreated) => {
             await createTeam(formData, setTeamSuccessfullyCreated)
                 .then(() => {
-                    // Update the UI instead of reloading the page
-                    window.location.reload();
+                    // Update UI instead of reloading the page
+                    const fetchData = async () => {
+                        const data = await dataLayer();
+                        setGroups(data);
+                        setFilteredGroups(data);
+                    };
+                    fetchData();
+                    closeModal();
                 })
                 .catch((error) => {
                     // Optionally, show an error notification to the user

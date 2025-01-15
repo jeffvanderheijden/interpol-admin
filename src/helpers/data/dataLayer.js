@@ -20,7 +20,6 @@ const fetchWrapper = async (url, options = {}) => {
 
         if (contentType && contentType.includes("application/json")) {
             try {
-                console.log('responseText: ', responseText);
                 return JSON.parse(responseText);
             } catch (error) {
                 throw new Error('Failed to parse response as JSON', 'Error: ' + error + ' Response: ' + response);

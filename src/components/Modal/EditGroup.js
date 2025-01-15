@@ -110,6 +110,7 @@ const EditGroup = ({
                         setFilteredGroups(data);
                     };
                     fetchData();
+                    closeModal();
                 })
                 .catch((error) => {
                     console.error('Error removing student:', error);

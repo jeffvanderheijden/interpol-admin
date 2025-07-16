@@ -32,8 +32,7 @@ const EditGroup = ({
         setNewStudents([]);
     }, [openModal]);
 
-    // Function to initialize the video stream
-    const getVideoStream = async () => {
+     const getVideoStream = async () => {
         try {
             clearPicture();
             const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
@@ -53,6 +52,9 @@ const EditGroup = ({
             videoRef.current.addEventListener("canplay", () => {
                 if (!streaming) {
                     setHeight(videoRef.current.videoHeight / (videoRef.current.videoWidth / width));
+
+                    // Firefox currently has a bug where the height can't be read from
+                    // the video, so we will make assumptions if this happens.
 
                     if (isNaN(height)) {
                         setHeight(width / (4 / 3));

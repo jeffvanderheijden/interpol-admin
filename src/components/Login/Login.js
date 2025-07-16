@@ -3,6 +3,8 @@ import { navigate } from "@reach/router";
 import { checkSession, login } from "./../../helpers/data/dataLayer";
 import "./Login.css";
 
+const isMockAuth = process.env.GATSBY_ENABLE_MOCK_AUTH === 'true';
+
 const Login = () => {
     // LDAP login form
     const submitForm = async (e) => {
@@ -17,12 +19,16 @@ const Login = () => {
         }
     }
 
-    // Check if user is logged in as a teacher
     useEffect(() => {
-        checkSession().then(isTeacher => {
-            isTeacher && navigate('/dashboard');
-        });
+        if (isMockAuth) {
+            navigate('/dashboard');
+        } else {
+            checkSession().then(isTeacher => {
+                if (isTeacher) navigate('/dashboard');
+            });
+        }
     }, []);
+
 
     return (
         <div id="loginWrapper">

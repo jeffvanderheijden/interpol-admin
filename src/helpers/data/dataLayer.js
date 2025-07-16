@@ -1,3 +1,8 @@
+import * as mock from './mockData.js';
+const isMock = process.env.GATSBY_ENABLE_MOCK_AUTH === 'true';
+
+console.log(`Using ${isMock ? 'mock' : 'real'} data layer.`);
+
 const api = "https://api.interpol.sd-lab.nl/api";
 
 /**
@@ -36,6 +41,8 @@ const fetchWrapper = async (url, options = {}) => {
 
 // Login functionality (uses session cookies)
 export const login = async (formData) => {
+    if (isMock) return await mock.mockLogin();
+
     const url = `${api}/create-session`;
     const options = {
         method: 'POST',
@@ -48,21 +55,29 @@ export const login = async (formData) => {
 
 // Get students by group
 export const getStudents = async (groupId) => {
+    if (isMock) return await mock.mockStudents(groupId);
+
     return await fetchWrapper(`${api}/students-by-group?id=${groupId}`);
 };
 
 // Get groups
 export const getGroups = async () => {
+    if (isMock) return await mock.mockGroups();
+
     return await fetchWrapper(`${api}/groups`);
 };
 
 // Get challenges by group
 export const getChallenges = async (groupId) => {
+    if (isMock) return await mock.mockChallenges(groupId);
+
     return await fetchWrapper(`${api}/challenges-by-group?id=${groupId}`);
 };
 
 // Get a specific challenge
 export const getChallenge = async (challengeId) => {
+    if (isMock) return await mock.mockChallengeById(challengeId);
+
     return await fetchWrapper(`${api}/challenge-by-id?id=${challengeId}`);
 };
 
@@ -138,6 +153,8 @@ export const editGroup = async (formData) => {
 
 // Check session
 export const checkSession = async () => {
+    if (isMock) return await mock.mockCheckSession();
+
     const url = `${api}/check-type`;
     const options = {
         method: 'GET',

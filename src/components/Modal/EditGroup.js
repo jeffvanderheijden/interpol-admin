@@ -112,10 +112,13 @@ const EditGroup = ({
 
     const saveGroupChanges = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('name', e.target.elements.teamName.value);
-        formData.append('class', e.target.elements.klas.value.toLowerCase());
-        formData.append('group_id', e.target.elements.group_id.value);
+        const payload = {
+            name: e.target.elements.teamName.value,
+            class: e.target.elements.klas.value.toLowerCase(),
+            group_id: e.target.elements.group_id.value,
+            students: JSON.stringify([...oldStudents, ...newStudents]),
+            image, // base64 string
+        };
 
         let oldStudents = oldStudentsRef.current.children;
         oldStudents = Array.from(oldStudents).map(student => {

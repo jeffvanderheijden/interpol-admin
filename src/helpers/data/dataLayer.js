@@ -125,28 +125,22 @@ export const removeTeam = async (groupId) => {
 };
 
 // Edit a group
-export const editGroup = async (formData) => {
+export const editGroup = async (data) => {
     const url = `${api}/update-group`;
     const options = {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json', // Send JSON content
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            name: formData.get('name'),
-            class: formData.get('class'),
-            group_id: formData.get('group_id'),
-            students: formData.get('students'),
-            image: formData.get('image'),
-        }),
-        credentials: 'include'
+        body: JSON.stringify(data),
+        credentials: 'include',
     };
 
     try {
         const response = await fetchWrapper(url, options);
-        return response; 
+        return response;
     } catch (error) {
-        console.error('Error updating group: ', error);
+        console.error('Error updating group:', error);
         throw error;
     }
 };

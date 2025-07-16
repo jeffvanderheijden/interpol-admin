@@ -51,14 +51,19 @@ const EditGroup = ({
         if (videoRef && videoRef.current) {
             videoRef.current.addEventListener("canplay", () => {
                 if (!streaming) {
-                    setHeight(videoRef.current.videoHeight / (videoRef.current.videoWidth / width));
+                    const video = videoRef.current;
+                    const calculatedWidth = 320; // or video.videoWidth if you want dynamic
+                    const calculatedHeight = video.videoHeight / (video.videoWidth / calculatedWidth);
 
-                    // Firefox currently has a bug where the height can't be read from
-                    // the video, so we will make assumptions if this happens.
+                    setWidth(calculatedWidth);
+                    setHeight(calculatedHeight);
 
-                    if (isNaN(height)) {
-                        setHeight(width / (4 / 3));
-                    }
+                    video.setAttribute("width", calculatedWidth);
+                    video.setAttribute("height", calculatedHeight);
+                    canvasRef.current.setAttribute("width", calculatedWidth);
+                    canvasRef.current.setAttribute("height", calculatedHeight);
+
+                    setStreaming(true);
 
                     videoRef.current.setAttribute("width", width);
                     videoRef.current.setAttribute("height", height);

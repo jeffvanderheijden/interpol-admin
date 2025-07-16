@@ -146,10 +146,34 @@ export const editGroup = async (formData) => {
         const response = await fetchWrapper(url, options);
         return response; 
     } catch (error) {
-        console.error('Error updating group: ', + error);
+        console.error('Error updating group: ', error);
         throw error;
     }
 };
+
+export const updateGroupChallenge = async (formData) => {
+    const url = `${api}/update-group-challenge`;
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json', // Send JSON content
+        },
+        body: JSON.stringify({
+            group_id: formData.group_id,
+            challenge_id: formData.challenge_id,
+            points: formData.points,
+        }),
+        credentials: 'include'
+    };
+
+    try {
+        const response = await fetchWrapper(url, options);
+        return response; 
+    } catch (error) {
+        console.error('Error updating group: ', error);
+        throw error;
+    }
+}
 
 // Check session
 export const checkSession = async () => {

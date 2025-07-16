@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./Groups.css";
 import EditGroup from "./../Modal/EditGroup";
-import Close from "./../../helpers/icons/Close";
-import Check from "./../../helpers/icons/Check";
-import Copy from  "./../../helpers/icons/Copy";
+// import Close from "./../../helpers/icons/Close";
+// import Check from "./../../helpers/icons/Check";
+// import Copy from  "./../../helpers/icons/Copy";
 import { removeTeam } from "./../../helpers/data/dataLayer";
+import TimeScoring from "../TimeScoring/TimeScoring";
 
 const Groups = ({
     groups,
@@ -64,9 +65,10 @@ const Groups = ({
                 </div>
                 <div className="challengesHeader">
                     <h1>Uitdagingen</h1>
+                    <h1>Max score</h1>
                 </div>
-                <div className="challengeKeysHeader">
-                    <h1>Code</h1>
+                <div className="timeScoringHeader">
+                    <h1>Scores</h1>
                 </div>
             </section>
             <section id="groups">
@@ -105,29 +107,29 @@ const Groups = ({
                                                 {group.challenges.map((challenge, idx) => (
                                                     <li key={idx}>
                                                         <h3>{challenge.name}</h3>
-                                                        <div>
-                                                            {challenge.completed ? 
-                                                                <span><Check className={'green'} /></span> : 
-                                                                <span><Close className={'red'} /></span>
-                                                            }
-                                                        </div>
+                                                        <div>1000</div>
                                                     </li>
                                                 ))}
                                             </ul>
                                         </section>
 
-                                        <section className="challengeKeys">
+                                        <section className="timeScoring">
+                                            {group.challenges.map((challenge) => (                                        
+                                                <TimeScoring challenge={challenge} group_id={group.id} />
+                                            ))}                                            
+                                        </section>
+
+                                        {/* <section className="challengeKeys">
                                             <ul key={idx}>
                                                 {group.challenges.map((challenge, idx) => (                                        
                                                     <li key={idx}>
                                                         <h3 className={visibleCodes.includes(challenge.keycode) ? 'visible' : 'invisible'} onClick={(e) => { toggleCode(e, challenge.keycode)}}>{challenge.keycode}</h3>
-                                                        {/* Copy icon, animated when clicked: visual feedback that copy is successful */}
                                                         <Copy className={'copy'} onClick={(e) => { copyCode(e, challenge.keycode)} } />
                                                         <Check className={'checkmark green hide'} onClick={(e) => { copyCode(e, challenge.keycode)} } />
                                                     </li>
                                                 ))}
                                             </ul>
-                                        </section>
+                                        </section> */}
                                     </>
                                 )}
                             </li>

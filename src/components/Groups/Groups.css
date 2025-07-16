@@ -20,7 +20,8 @@
     justify-content: flex-start;
     padding: 0 12px;
 }
-#groupHeaders .studentsHeader {
+#groupHeaders .studentsHeader,
+#groupHeaders .challengesHeader {
     justify-content: space-between;
 }
 
@@ -83,8 +84,23 @@
 }
 
 #groups section.challengesSection,
-#groups section.challengeKeys {
+#groups section.challengeKeys,
+#groups section.timeScoring {
     font-size: 10px;
+}
+
+#groups section.timeScoring {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+#groups section.timeScoring > * {
+    margin: 0px 12px;
+}
+
+#groups section.timeScoring input {
+    margin-top: 4px;
 }
 
 #groups section.challengesSection ul,

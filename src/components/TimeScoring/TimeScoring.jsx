@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { updateGroupChallenge } from "../../helpers/data/dataLayer";
 
 // Converts HH:MM to minutes
@@ -18,19 +18,26 @@ const TimeScoring = ({
     challenge,
     group_id
 }) => {
-    const [allowedTimeStr, setAllowedTimeStr] = useState("00:00"); 
-    const [completionTimeStr, setCompletionTimeStr] = useState("00:00"); 
+    const firstRender = useRef(true);
+
+    const [allowedTimeStr, setAllowedTimeStr] = useState("00:00");
+    const [completionTimeStr, setCompletionTimeStr] = useState("00:00");
 
     const allowedTime = timeToMinutes(allowedTimeStr);
     const completionTime = timeToMinutes(completionTimeStr);
     const points = calculatePoints(completionTime, allowedTime, 1000);
 
     useEffect(() => {
-        updateGroupChallenge({group_id, challenge_id: challenge.id, points});
+        if (firstRender.current) {
+            firstRender.current = false;
+            return; // Skip first run
+        }
+
+        updateGroupChallenge({ group_id, challenge_id: challenge.id, points });
     }, [allowedTimeStr, completionTimeStr]);
 
     return (
-        <>
+        <div key={challenge.id}>
             <label>
                 Uitdaging duur:
                 <input
@@ -52,13 +59,13 @@ const TimeScoring = ({
             </label>
 
             <div>
-                {`Score: ${points ? points : '0'}`}
+                {`Score: ${challenge.points ? challenge.points : (points ? points : '0')}`}
             </div>
 
             {completionTime > allowedTime && (
                 <p style={{ color: "red" }}>Geen punten.</p>
             )}
-        </>
+        </div>
     );
 };
 

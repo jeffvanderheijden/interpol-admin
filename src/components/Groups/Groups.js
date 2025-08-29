@@ -5,7 +5,7 @@ import EditGroup from "./../Modal/EditGroup";
 // import Check from "./../../helpers/icons/Check";
 // import Copy from  "./../../helpers/icons/Copy";
 import { removeTeam } from "./../../helpers/data/dataLayer";
-import TimeScoring from "../TimeScoring/TimeScoring";
+// import TimeScoring from "../TimeScoring/TimeScoring";
 
 const Groups = ({
     groups,
@@ -113,11 +113,11 @@ const Groups = ({
                                             </ul>
                                         </section>
 
-                                        <section className="timeScoring">
+                                        {/* <section className="timeScoring">
                                             {group.challenges.map((challenge) => (                                        
                                                 <TimeScoring challenge={challenge} group_id={group.id} />
                                             ))}                                            
-                                        </section>
+                                        </section> */}
 
                                         {/* <section className="challengeKeys">
                                             <ul key={idx}>

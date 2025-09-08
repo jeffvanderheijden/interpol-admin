@@ -37,7 +37,6 @@ const AddPoints = ({
             challengeId: challenge.id,
             points: pointsState[idx]
         }));
-        console.log(pointsData);
 
         // Use the datalayer function
         updatePoints(group.id, pointsData)
@@ -47,7 +46,6 @@ const AddPoints = ({
             })
             .catch((error) => {
                 console.error('Error updating points:', error);
-                // Optionally, show an error message to the user
             });
     };
 
@@ -59,6 +57,7 @@ const AddPoints = ({
             contentLabel="Points"
             customStyles={customStyles}
         >
+            {console.log(group.challenges)}
             <form className="editPoints" onSubmit={submitPoints}>
                 {group.challenges.map((challenge, idx) => (
                     <li key={idx}>

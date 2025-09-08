@@ -57,6 +57,6 @@ export const mockChallengeById = async (challengeId) => {
             "name": "Introduction",
             "time_limit": 7600,
             "minimum_points": 500
-        }
+        },
     ];
 };

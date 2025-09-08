@@ -169,6 +169,33 @@ export const updateGroupChallenge = async (formData) => {
     }
 }
 
+// Update points for group
+export const updatePoints = async (groupId, pointsData) => {
+    if (isMock) return await mock.mockCheckSession();
+
+    const url = `${api}/update-points`;
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+            group_id: groupId,
+            points: pointsData, // [{ challengeId: 2, points: 10 }, ...]
+        }),
+    };
+
+    try {
+        const response = await fetchWrapper(url, options);
+        // Return the JSON response from your backend
+        return response;
+    } catch (error) {
+        console.error('Error updating points:', error);
+        return { error: true, message: error.message };
+    }
+};
+
 // Check session
 export const checkSession = async () => {
     if (isMock) return await mock.mockCheckSession();

@@ -1,0 +1,38 @@
+button.addPoints {
+    color: green;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 12px;
+    cursor: pointer;
+}
+
+.editPoints {
+    list-style-type: none;
+    font-family: "Roboto", sans-serif;
+}
+
+.editPoints li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    min-width: 400px;
+}
+
+.editPoints input {
+    padding: 10px 6px;
+    margin-bottom: 4px;
+    border-radius: 6px;
+    border: 1px solid #e8e8e8;
+}
+
+.editPoints button {
+    border: none;
+    border-radius: 10px;
+    color: #333;
+    cursor: pointer;
+    float: right;
+    padding: 9px 16px;
+}

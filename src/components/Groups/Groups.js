@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Groups.css";
 import EditGroup from "./../Modal/EditGroup";
+import AddPoints from "./../Modal/AddPoints";
 // import Close from "./../../helpers/icons/Close";
 // import Check from "./../../helpers/icons/Check";
 // import Copy from  "./../../helpers/icons/Copy";
@@ -14,30 +15,32 @@ const Groups = ({
 }) => {
     const apiUrl = "https://api.interpol.sd-lab.nl/";
     const [openModal, setOpenModal] = useState(null);
+    const [openPointsModal, setOpenOpointsModal] = useState(null);
     const [visibleCodes, setVisibleCodes] = useState([]);
 
     const closeModal = () => setOpenModal(null);
+    const closePointsModal = () => setOpenOpointsModal(null);
     const openSpecificModal = (modalName) => setOpenModal(modalName);
 
-    const toggleCode = (event, code) => {
-        if (visibleCodes.includes(code)) {
-            setVisibleCodes(visibleCodes.filter((c) => c !== code));
-        } else {
-            setVisibleCodes([...visibleCodes, code]);
-        }
-        event.stopPropagation();
-    }
+    // const toggleCode = (event, code) => {
+    //     if (visibleCodes.includes(code)) {
+    //         setVisibleCodes(visibleCodes.filter((c) => c !== code));
+    //     } else {
+    //         setVisibleCodes([...visibleCodes, code]);
+    //     }
+    //     event.stopPropagation();
+    // }
 
-    const copyCode = (event, code) => {
-        navigator.clipboard.writeText(code);
-        event.stopPropagation();
-        event.target.closest("li").querySelector('.checkmark').classList.add('show');
-        event.target.closest("li").querySelector('.copy').classList.add('hide');
-        setTimeout(() => {
-            event.target.closest("li").querySelector('.checkmark').classList.remove('show');
-            event.target.closest("li").querySelector('.copy').classList.remove('hide');
-        }, 2000);
-    }
+    // const copyCode = (event, code) => {
+    //     navigator.clipboard.writeText(code);
+    //     event.stopPropagation();
+    //     event.target.closest("li").querySelector('.checkmark').classList.add('show');
+    //     event.target.closest("li").querySelector('.copy').classList.add('hide');
+    //     setTimeout(() => {
+    //         event.target.closest("li").querySelector('.checkmark').classList.remove('show');
+    //         event.target.closest("li").querySelector('.copy').classList.remove('hide');
+    //     }, 2000);
+    // }
 
     const removeGroup = (e, group, classTitle, groupId) => {
         e.stopPropagation();
@@ -112,6 +115,7 @@ const Groups = ({
                                                 ))}
                                             </ul>
                                         </section>
+                                        
 
                                         {/* <section className="timeScoring">
                                             {group.challenges.map((challenge) => (                                        
@@ -132,6 +136,9 @@ const Groups = ({
                                         </section> */}
                                     </>
                                 )}
+                                <section className="pointsSection" >
+                                    <button className="addPoints" onClick={(e) => { e.stopPropagation(); setOpenOpointsModal(group.id); }}>Punten toevoegen</button>
+                                </section>
                             </li>
                             <EditGroup 
                                 group={group} 
@@ -140,6 +147,11 @@ const Groups = ({
                                 apiUrl={apiUrl}
                                 setGroups={setGroups}
                                 setFilteredGroups={setFilteredGroups}
+                            />
+                            <AddPoints 
+                                group={group} 
+                                openModal={openPointsModal} 
+                                closeModal={closePointsModal} 
                             />
                         </>
                     ))}

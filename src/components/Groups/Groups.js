@@ -81,7 +81,17 @@ const Groups = ({
                             <li className="group" key={idx} onClick={() => { openSpecificModal(group.id) }}>
                                 <section className="groupSection">
                                     <div className="groupImage">
-                                        {group.image_url && group.image_url !== '' && group.name && ( <img src={`${apiUrl + group.image_url}`} alt={group.name} /> )}
+                                        {group.image_url && group.image_url !== '' && group.name && (
+                                            <img
+                                                src={
+                                                    group.image_url.startsWith('http') ||
+                                                        group.image_url.startsWith('data:')
+                                                        ? group.image_url
+                                                        : `${apiUrl}${group.image_url}`
+                                                }
+                                                alt={group.name}
+                                            />
+                                        )}
                                     </div>
                                     <div>
                                         <h2>{group.name}</h2>
@@ -96,7 +106,7 @@ const Groups = ({
                                             {group.students.map((student, idx) => (
                                                 <li key={idx}>
                                                     <p>{student.student_number}</p>
-                                                    <p>{student.name}</p>                                        
+                                                    <p>{student.name}</p>
                                                 </li>
                                             ))}
                                         </ul>
@@ -115,7 +125,7 @@ const Groups = ({
                                                 ))}
                                             </ul>
                                         </section>
-                                        
+
 
                                         {/* <section className="timeScoring">
                                             {group.challenges.map((challenge) => (                                        
@@ -143,22 +153,22 @@ const Groups = ({
                                     </button>
                                 </section>
                             </li>
-                            <EditGroup 
-                                group={group} 
-                                openModal={openModal} 
-                                closeModal={closeModal} 
+                            <EditGroup
+                                group={group}
+                                openModal={openModal}
+                                closeModal={closeModal}
                                 apiUrl={apiUrl}
                                 setGroups={setGroups}
                                 setFilteredGroups={setFilteredGroups}
                             />
-                            <AddPoints 
-                                group={group} 
-                                openModal={openPointsModal} 
-                                closeModal={closePointsModal} 
+                            <AddPoints
+                                group={group}
+                                openModal={openPointsModal}
+                                closeModal={closePointsModal}
                             />
                         </>
                     ))}
-                </ul>                
+                </ul>
             </section>
         </>
     );

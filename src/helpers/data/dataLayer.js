@@ -219,26 +219,32 @@ export const checkSession = async () => {
 // Fetch all data for groups
 const dataLayer = async () => {
     try {
-        const groups = await getGroups();
-
+        let groups = await getGroups();
         if (!Array.isArray(groups)) {
-            throw new TypeError('Expected groups to be an array.');
+            console.warn('getGroups did not return an array:', groups);
+            groups = [];
         }
 
         const groupsData = await Promise.all(
             groups.map(async (group) => {
-                const students = await getStudents(group.id);
-                const challenges = await getChallenges(group.id);
+                let students = await getStudents(group.id);
+                if (!Array.isArray(students)) {
+                    console.warn(`getStudents for group ${group.id} did not return an array:`, students);
+                    students = [];
+                }
+
+                let challenges = await getChallenges(group.id);
+                if (!Array.isArray(challenges)) {
+                    console.warn(`getChallenges for group ${group.id} did not return an array:`, challenges);
+                    challenges = [];
+                }
 
                 const detailedChallenges = await Promise.all(
                     challenges.map(async (challenge) => {
                         try {
                             const challengeData = await getChallenge(challenge.challenge_id);
-
-                            // Make sure it’s an array
                             const data = Array.isArray(challengeData) ? challengeData[0] : challengeData;
 
-                            // If data has error, just return original challenge
                             if (!data || data.error) return challenge;
 
                             return {

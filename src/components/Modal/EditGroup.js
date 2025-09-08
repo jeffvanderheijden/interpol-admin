@@ -6,18 +6,11 @@ import { editGroup, removeStudent } from "./../../helpers/data/dataLayer";
 import dataLayer from "./../../helpers/data/dataLayer";
 import "./EditGroup.css";
 
-const EditGroup = ({
-    group,
-    openModal,
-    closeModal,
-    setGroups,
-    setFilteredGroups
-}) => {
+const EditGroup = ({ group, openModal, closeModal, setGroups, setFilteredGroups }) => {
     const [camera, setCamera] = useState(false);
     const [streaming, setStreaming] = useState(false);
-    const [hasTakenPicture, setHasTakenPicture] = useState(false);
     const [newStudents, setNewStudents] = useState([]);
-    const [width, setWidth] = useState(320);
+    const [width, setWidth] = useState(600);
     const [height, setHeight] = useState(0);
     const [image, setImage] = useState(group.image_url || null);
 
@@ -30,10 +23,8 @@ const EditGroup = ({
 
     useEffect(() => setNewStudents([]), [openModal]);
 
-    // Get webcam stream
     const getVideoStream = async () => {
         try {
-            clearPicture();
             const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
             const video = videoRef.current;
             if (video) {
@@ -41,14 +32,12 @@ const EditGroup = ({
                 video.play();
 
                 video.onloadedmetadata = () => {
-                    const calculatedWidth = 320;
-                    const calculatedHeight = video.videoHeight / (video.videoWidth / calculatedWidth);
-                    setWidth(calculatedWidth);
+                    const calculatedHeight = video.videoHeight / (video.videoWidth / width);
                     setHeight(calculatedHeight);
 
-                    video.setAttribute("width", calculatedWidth);
+                    video.setAttribute("width", width);
                     video.setAttribute("height", calculatedHeight);
-                    canvasRef.current.setAttribute("width", calculatedWidth);
+                    canvasRef.current.setAttribute("width", width);
                     canvasRef.current.setAttribute("height", calculatedHeight);
 
                     setStreaming(true);
@@ -59,29 +48,17 @@ const EditGroup = ({
         }
     };
 
-    const clearPicture = () => {
-        if (canvasRef.current && photoRef.current) {
-            const context = canvasRef.current.getContext("2d");
-            context.fillStyle = "#000";
-            context.fillRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-
-            const data = canvasRef.current.toDataURL("image/png");
-            photoRef.current.setAttribute("src", data);
-        }
-    };
-
     const takePicture = (e) => {
         e.preventDefault();
-        if (!canvasRef.current || !videoRef.current || !photoRef.current) return;
+        if (!canvasRef.current || !videoRef.current) return;
 
         const context = canvasRef.current.getContext("2d");
+        canvasRef.current.width = width;
+        canvasRef.current.height = height;
         context.drawImage(videoRef.current, 0, 0, width, height);
 
         const dataURL = canvasRef.current.toDataURL("image/png");
         setImage(dataURL);
-        photoRef.current.setAttribute("src", dataURL);
-        setHasTakenPicture(true);
-        setCamera(false); // close camera after taking photo
     };
 
     const removeExistingStudent = (studentNumber, studentName) => {
@@ -100,34 +77,26 @@ const EditGroup = ({
     const saveGroupChanges = async (e) => {
         e.preventDefault();
 
-        // Gather old students
-        const oldStudents = Array.from(oldStudentsRef.current.children).map(student => ({
+        let oldStudents = Array.from(oldStudentsRef.current.children).map(student => ({
             name: student.querySelector('input[type="text"]').value,
             student_number: student.querySelector('input[type="number"]').value
         }));
 
-        // Gather new students
-        const newStudentsData = Array.from(newStudentsRef.current.children).map(student => ({
+        let newStudentsData = Array.from(newStudentsRef.current.children).map(student => ({
             name: student.querySelector('input[type="text"]').value,
             student_number: student.querySelector('input[type="number"]').value
         }));
 
-        // Prepare FormData
-        const formData = new FormData();
-        formData.append("group_id", e.target.elements.group_id.value);
-        formData.append("name", e.target.elements.teamName.value);
-        formData.append("class", e.target.elements.klas.value.toLowerCase());
-        formData.append("students", JSON.stringify([...oldStudents, ...newStudentsData]));
-
-        // Convert base64 image to Blob if it's new
-        if (image && image.startsWith("data:image")) {
-            const res = await fetch(image);
-            const blob = await res.blob();
-            formData.append("image", blob, "group.png");
-        }
+        const payload = {
+            name: e.target.elements.teamName.value,
+            class: e.target.elements.klas.value.toLowerCase(),
+            group_id: e.target.elements.group_id.value,
+            students: JSON.stringify([...oldStudents, ...newStudentsData]),
+            image,
+        };
 
         try {
-            await editGroup(formData); // backend expects FormData
+            await editGroup(payload);
             const data = await dataLayer();
             setGroups(data);
             setFilteredGroups(data);
@@ -164,12 +133,17 @@ const EditGroup = ({
             <div className="editGroup">
                 {camera ? (
                     <div className="camera" ref={cameraRef}>
-                        <video ref={videoRef} id="video">Video stream not available.</video>
+                        <video ref={videoRef} id="video" autoPlay>Video stream not available.</video>
                         <div className="buttonWrapper">
                             <button onClick={takePicture} type="button" className="btn"><span>Take photo</span></button>
-                            <button onClick={() => setCamera(false)} type="button" className="btn"><span>Cancel</span></button>
+                            <button onClick={() => setCamera(false)} type="button" className="btn"><span>Close camera</span></button>
                         </div>
-                        <canvas id="canvas" ref={canvasRef} style={{ display: "none" }} />
+                        <div className="output">
+                            <div className="imgWrapper">
+                                {image && <img ref={photoRef} id="photo" alt="Captured preview" src={image} />}
+                            </div>
+                            <canvas id="canvas" ref={canvasRef} style={{ display: "none" }} />
+                        </div>
                     </div>
                 ) : (
                     <form onSubmit={saveGroupChanges}>
@@ -187,7 +161,6 @@ const EditGroup = ({
                                 <input type="text" id="klas" defaultValue={group.class} name="klas" placeholder="Klas" required />
                             </div>
                         </section>
-
                         <ul className="editStudents" ref={oldStudentsRef}>
                             {group.students.map((student, idx) => (
                                 <li key={idx}>
@@ -197,7 +170,6 @@ const EditGroup = ({
                                 </li>
                             ))}
                         </ul>
-
                         <ul className="editStudents" ref={newStudentsRef}>
                             {newStudents.map((student, idx) => (
                                 <li key={idx}>
@@ -207,16 +179,8 @@ const EditGroup = ({
                                 </li>
                             ))}
                         </ul>
-
                         <div className="editButtons">
-                            <button
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    setNewStudents([...newStudents, { name: '', student_number: '' }])
-                                }}
-                            >
-                                Student toevoegen
-                            </button>
+                            <button onClick={(e) => { e.preventDefault(); setNewStudents([...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
                             <button type="submit">Opslaan</button>
                         </div>
                     </form>

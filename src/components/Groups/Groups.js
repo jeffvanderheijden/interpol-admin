@@ -137,7 +137,10 @@ const Groups = ({
                                     </>
                                 )}
                                 <section className="pointsSection" >
-                                    <button className="addPoints" onClick={(e) => { e.stopPropagation(); setOpenOpointsModal(group.id); }}>Punten toevoegen</button>
+                                    <span>({group.challenges.reduce((sum, c) => sum + (c.points || 0), 0)})</span>
+                                    <button className="addPoints" onClick={(e) => { e.stopPropagation(); setOpenOpointsModal(group.id); }}>
+                                        Punten toevoegen
+                                    </button>
                                 </section>
                             </li>
                             <EditGroup 

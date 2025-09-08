@@ -80,19 +80,10 @@ const Groups = ({
                         <>
                             <li className="group" key={idx} onClick={() => { openSpecificModal(group.id) }}>
                                 <section className="groupSection">
-                                    <div className="groupImage">
-                                        {group.image_url && group.image_url !== '' && group.name && (
-                                            <img
-                                                src={
-                                                    group.image_url.startsWith('http') ||
-                                                        group.image_url.startsWith('data:')
-                                                        ? group.image_url
-                                                        : `${apiUrl}${group.image_url}`
-                                                }
-                                                alt={group.name}
-                                            />
-                                        )}
-                                    </div>
+                                    <img
+                                        src={group.image_url.startsWith("http") ? group.image_url : `${apiUrl}${group.image_url}`}
+                                        alt={group.name}
+                                    />
                                     <div>
                                         <h2>{group.name}</h2>
                                         <p>{group.class}</p>

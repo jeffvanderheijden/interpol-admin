@@ -12,7 +12,7 @@ const EditGroup = ({
     closeModal,
     setGroups,
     setFilteredGroups
-}) => {    
+}) => {
     const [camera, setCamera] = useState(false);
     const [streaming, setStreaming] = useState(false);
     const [hasTakenPicture, setHasTakenPicture] = useState(false);
@@ -104,29 +104,28 @@ const EditGroup = ({
             student_number: student.querySelector('input[type="number"]').value
         }));
 
-        let newStudentsArr = Array.from(newStudentsRef.current.children).map(student => ({
+        let newStudentsData = Array.from(newStudentsRef.current.children).map(student => ({
             name: student.querySelector('input[type="text"]').value,
             student_number: student.querySelector('input[type="number"]').value
         }));
 
         const payload = {
-            name: e.target.teamName.value,
-            class: e.target.klas.value.toLowerCase(),
-            group_id: group.id,
-            students: JSON.stringify([...oldStudents, ...newStudentsArr]),
-            image, // base64
+            name: e.target.elements.teamName.value,
+            class: e.target.elements.klas.value.toLowerCase(),
+            group_id: e.target.elements.group_id.value,
+            students: JSON.stringify([...oldStudents, ...newStudentsData]),
+            image,
         };
 
         try {
-            // editGroup returned value may not be JSON, so handle as text
-            await editGroup(payload);
-
+            await editGroup(payload); // geen JSON nodig
             const data = await dataLayer();
             setGroups(data);
             setFilteredGroups(data);
             closeModal();
-        } catch (err) {
-            console.error("Error updating group:", err);
+        } catch (error) {
+            console.error("Error updating group:", error);
+            alert("Er is een fout opgetreden bij het opslaan van de groep.");
         }
     };
 

@@ -14,14 +14,14 @@ const api = "https://api.interpol.sd-lab.nl/api";
 const fetchWrapper = async (url, options = {}) => {
     try {
         const response = await fetch(url, options);
-        const contentType = response.headers.get("Content-Type");
         const responseText = await response.text();
+        const contentType = response.headers.get("Content-Type");
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
         }
 
-        // Alleen JSON parsen als de response JSON is
+        // Alleen JSON parsen als de content-type JSON is
         if (contentType && contentType.includes("application/json")) {
             try {
                 return JSON.parse(responseText);
@@ -31,7 +31,7 @@ const fetchWrapper = async (url, options = {}) => {
             }
         }
 
-        // Als het geen JSON is, gewoon raw text teruggeven
+        // Anders gewoon raw text teruggeven
         return responseText;
     } catch (error) {
         console.error(`Error in fetchWrapper: ${error.message}`);
@@ -73,10 +73,9 @@ export const getChallenges = async (groupId) => {
 
     const result = await fetchWrapper(`${api}/challenges-by-group?id=${groupId}`);
 
-    // Zorg dat we altijd een array teruggeven
     if (!Array.isArray(result)) {
         console.warn(`getChallenges for group ${groupId} did not return an array:`, result);
-        return []; // fallback
+        return []; // fallback naar lege array
     }
 
     return result;

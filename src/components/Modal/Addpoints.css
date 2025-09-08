@@ -1,6 +1,6 @@
 #groups section.pointsSection {
     flex-direction: row;
-    justify-content: first baseline;
+    justify-content: flex-start;
     align-items: center;
 }
 #groups section.pointsSection > span {

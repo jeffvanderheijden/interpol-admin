@@ -30,12 +30,12 @@ const EditGroup = ({
 
     useEffect(() => setNewStudents([]), [openModal]);
 
+    // Get webcam stream
     const getVideoStream = async () => {
         try {
             clearPicture();
             const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
             const video = videoRef.current;
-
             if (video) {
                 video.srcObject = stream;
                 video.play();
@@ -81,6 +81,7 @@ const EditGroup = ({
         setImage(dataURL);
         photoRef.current.setAttribute("src", dataURL);
         setHasTakenPicture(true);
+        setCamera(false); // close camera after taking photo
     };
 
     const removeExistingStudent = (studentNumber, studentName) => {
@@ -99,26 +100,34 @@ const EditGroup = ({
     const saveGroupChanges = async (e) => {
         e.preventDefault();
 
-        let oldStudents = Array.from(oldStudentsRef.current.children).map(student => ({
+        // Gather old students
+        const oldStudents = Array.from(oldStudentsRef.current.children).map(student => ({
             name: student.querySelector('input[type="text"]').value,
             student_number: student.querySelector('input[type="number"]').value
         }));
 
-        let newStudentsData = Array.from(newStudentsRef.current.children).map(student => ({
+        // Gather new students
+        const newStudentsData = Array.from(newStudentsRef.current.children).map(student => ({
             name: student.querySelector('input[type="text"]').value,
             student_number: student.querySelector('input[type="number"]').value
         }));
 
-        const payload = {
-            name: e.target.elements.teamName.value,
-            class: e.target.elements.klas.value.toLowerCase(),
-            group_id: e.target.elements.group_id.value,
-            students: JSON.stringify([...oldStudents, ...newStudentsData]),
-            image,
-        };
+        // Prepare FormData
+        const formData = new FormData();
+        formData.append("group_id", e.target.elements.group_id.value);
+        formData.append("name", e.target.elements.teamName.value);
+        formData.append("class", e.target.elements.klas.value.toLowerCase());
+        formData.append("students", JSON.stringify([...oldStudents, ...newStudentsData]));
+
+        // Convert base64 image to Blob if it's new
+        if (image && image.startsWith("data:image")) {
+            const res = await fetch(image);
+            const blob = await res.blob();
+            formData.append("image", blob, "group.png");
+        }
 
         try {
-            await editGroup(payload); // geen JSON nodig
+            await editGroup(formData); // backend expects FormData
             const data = await dataLayer();
             setGroups(data);
             setFilteredGroups(data);
@@ -155,21 +164,12 @@ const EditGroup = ({
             <div className="editGroup">
                 {camera ? (
                     <div className="camera" ref={cameraRef}>
-                        {!hasTakenPicture ? (
-                            <video ref={videoRef} id="video">Video stream not available.</video>
-                        ) : (
-                            <img ref={photoRef} id="photo" alt="Captured photo" />
-                        )}
+                        <video ref={videoRef} id="video">Video stream not available.</video>
                         <div className="buttonWrapper">
                             <button onClick={takePicture} type="button" className="btn"><span>Take photo</span></button>
-                            <button onClick={() => setCamera(false)} type="button" className="btn"><span>Save photo</span></button>
+                            <button onClick={() => setCamera(false)} type="button" className="btn"><span>Cancel</span></button>
                         </div>
-                        <div className="output">
-                            <div className="imgWrapper">
-                                <img ref={photoRef} id="photo" alt="Team image" />
-                            </div>
-                            <canvas id="canvas" ref={canvasRef} />
-                        </div>
+                        <canvas id="canvas" ref={canvasRef} style={{ display: "none" }} />
                     </div>
                 ) : (
                     <form onSubmit={saveGroupChanges}>
@@ -187,6 +187,7 @@ const EditGroup = ({
                                 <input type="text" id="klas" defaultValue={group.class} name="klas" placeholder="Klas" required />
                             </div>
                         </section>
+
                         <ul className="editStudents" ref={oldStudentsRef}>
                             {group.students.map((student, idx) => (
                                 <li key={idx}>
@@ -196,6 +197,7 @@ const EditGroup = ({
                                 </li>
                             ))}
                         </ul>
+
                         <ul className="editStudents" ref={newStudentsRef}>
                             {newStudents.map((student, idx) => (
                                 <li key={idx}>
@@ -205,8 +207,16 @@ const EditGroup = ({
                                 </li>
                             ))}
                         </ul>
+
                         <div className="editButtons">
-                            <button onClick={(e) => { e.preventDefault(); setNewStudents([...newStudents, { name: '', student_number: '' }]) }}>Student toevoegen</button>
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    setNewStudents([...newStudents, { name: '', student_number: '' }])
+                                }}
+                            >
+                                Student toevoegen
+                            </button>
                             <button type="submit">Opslaan</button>
                         </div>
                     </form>

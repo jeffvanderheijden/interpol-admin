@@ -162,7 +162,7 @@ export const updateGroupChallenge = async (formData) => {
 
     try {
         const response = await fetchWrapper(url, options);
-        return response; 
+        return response;
     } catch (error) {
         console.error('Error updating group: ', error);
         throw error;
@@ -233,7 +233,14 @@ const dataLayer = async () => {
                 const detailedChallenges = await Promise.all(
                     challenges.map(async (challenge) => {
                         try {
-                            const [data] = await getChallenge(challenge.challenge_id);
+                            const challengeData = await getChallenge(challenge.challenge_id);
+
+                            // Make sure it’s an array
+                            const data = Array.isArray(challengeData) ? challengeData[0] : challengeData;
+
+                            // If data has error, just return original challenge
+                            if (!data || data.error) return challenge;
+
                             return {
                                 ...challenge,
                                 name: data.name,

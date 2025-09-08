@@ -1,6 +1,7 @@
-import React, { useState    } from "react";
+import React, { useState } from "react";
 import ModalComponent from "../Modal/Modal";
 import "./AddPoints.css";
+import { updatePoints } from "../../helpers/data/dataLayer";
 
 const AddPoints = ({
     group,
@@ -38,14 +39,16 @@ const AddPoints = ({
         }));
         console.log(pointsData);
 
-        // Example: send to backend
-        fetch('/update-points.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ group_id: group.id, points: pointsData })
-        })
-            .then(res => res.json())
-            .then(data => console.log(data));
+        // Use the datalayer function
+        updatePoints(group.id, pointsData)
+            .then((response) => {
+                console.log('Server response:', response);
+                // Optionally, show a success message or close modal
+            })
+            .catch((error) => {
+                console.error('Error updating points:', error);
+                // Optionally, show an error message to the user
+            });
     };
 
     return (
@@ -59,10 +62,10 @@ const AddPoints = ({
             <form className="editPoints" onSubmit={submitPoints}>
                 {group.challenges.map((challenge, idx) => (
                     <li key={idx}>
-                        <h3>{challenge.name}</h3> 
+                        <h3>{challenge.name}</h3>
                         <input placeholder={0}
                             value={pointsState[idx]}
-                            onChange={(e) => handleChange(idx, e.target.value)} 
+                            onChange={(e) => handleChange(idx, e.target.value)}
                         />
                     </li>
                 ))}

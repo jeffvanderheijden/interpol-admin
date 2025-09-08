@@ -15,27 +15,27 @@ const fetchWrapper = async (url, options = {}) => {
     try {
         const response = await fetch(url, options);
         const contentType = response.headers.get("Content-Type");
-
-        // Only parse as JSON if the response is JSON
         const responseText = await response.text();
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}, body: ${responseText}`);
         }
 
+        // Alleen JSON parsen als de response JSON is
         if (contentType && contentType.includes("application/json")) {
             try {
                 return JSON.parse(responseText);
             } catch (error) {
-                throw new Error('Failed to parse response as JSON', 'Error: ' + error + ' Response: ' + response);
+                console.warn("Response was not valid JSON, returning raw text", error);
+                return responseText; // fallback
             }
         }
 
-        // If not JSON, return the raw response text (or handle as needed)
+        // Als het geen JSON is, gewoon raw text teruggeven
         return responseText;
     } catch (error) {
         console.error(`Error in fetchWrapper: ${error.message}`);
-        throw error; // Rethrow the error for higher-level handling
+        throw error;
     }
 };
 
@@ -71,7 +71,15 @@ export const getGroups = async () => {
 export const getChallenges = async (groupId) => {
     if (isMock) return await mock.mockChallenges(groupId);
 
-    return await fetchWrapper(`${api}/challenges-by-group?id=${groupId}`);
+    const result = await fetchWrapper(`${api}/challenges-by-group?id=${groupId}`);
+
+    // Zorg dat we altijd een array teruggeven
+    if (!Array.isArray(result)) {
+        console.warn(`getChallenges for group ${groupId} did not return an array:`, result);
+        return []; // fallback
+    }
+
+    return result;
 };
 
 // Get a specific challenge

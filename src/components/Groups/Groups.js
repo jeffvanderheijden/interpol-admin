@@ -80,14 +80,38 @@ const Groups = ({
                         <>
                             <li className="group" key={idx} onClick={() => { openSpecificModal(group.id) }}>
                                 <section className="groupSection">
-                                    <img
-                                        src={group.image_url.startsWith("http") ? group.image_url : `${apiUrl}${group.image_url}`}
-                                        alt={group.name}
-                                    />
-                                    <div>
-                                        <h2>{group.name}</h2>
-                                        <p>{group.class}</p>
-                                        <button className="deleteGroup" onClick={(e) => { removeGroup(e, group.name, group.class, group.id) }}>Verwijder groep</button>
+                                    <div className="groupImage" onClick={() => setCamera(true)}>
+                                        {image ? (
+                                            <img
+                                                className="teamPhoto"
+                                                src={
+                                                    typeof image === "string"
+                                                        ? image.startsWith("http") || image.startsWith("data:")
+                                                            ? image
+                                                            : `${apiUrl}${image}`
+                                                        : URL.createObjectURL(image)
+                                                }
+                                                alt="Team foto"
+                                            />
+                                        ) : (
+                                            <Camera className="teamPhoto" />
+                                        )}
+                                    </div>
+                                    <div className="groupDetails">
+                                        <input
+                                            type="text"
+                                            id="teamName"
+                                            defaultValue={group.name}
+                                            placeholder="Team naam"
+                                            required
+                                        />
+                                        <input
+                                            type="text"
+                                            id="klas"
+                                            defaultValue={group.class}
+                                            placeholder="Klas"
+                                            required
+                                        />
                                     </div>
                                 </section>
                                 {/* Students */}

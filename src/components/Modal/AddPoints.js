@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ModalComponent from "../Modal/Modal";
 import "./AddPoints.css";
 import { updatePoints } from "../../helpers/data/dataLayer";
@@ -8,6 +8,8 @@ const AddPoints = ({
     openModal,
     closeModal,
 }) => {
+    const [pointsState, setPointsState] = useState([]);
+
     const customStyles = {
         content: {
             top: '50%',
@@ -19,9 +21,11 @@ const AddPoints = ({
         }
     };
 
-    const [pointsState, setPointsState] = useState(
-        group.challenges.map(challenge => '')
-    );
+    useEffect(() => {
+        if (group && group.challenges) {
+            setPointsState(group.challenges.map(c => c.points || ''));
+        }
+    }, [group]);
 
     const handleChange = (idx, value) => {
         setPointsState(prev => {
@@ -33,20 +37,19 @@ const AddPoints = ({
 
     const submitPoints = (e) => {
         e.preventDefault();
+
         const pointsData = group.challenges.map((challenge, idx) => ({
             challengeId: challenge.id,
             points: pointsState[idx]
         }));
 
-        // Use the datalayer function
         updatePoints(group.id, pointsData)
-            .then((response) => {
+            .then(response => {
                 console.log('Server response:', response);
-                // Optionally, show a success message or close modal
+                // Optionally: close modal or show success message
+                closeModal();
             })
-            .catch((error) => {
-                console.error('Error updating points:', error);
-            });
+            .catch(error => console.error('Error updating points:', error));
     };
 
     return (
@@ -57,18 +60,18 @@ const AddPoints = ({
             contentLabel="Points"
             customStyles={customStyles}
         >
-            {console.log(group.challenges)}
             <form className="editPoints" onSubmit={submitPoints}>
                 {group.challenges.map((challenge, idx) => (
-                    <li key={idx}>
+                    <li key={challenge.id}>
                         <h3>{challenge.name}</h3>
-                        <input placeholder={0}
+                        <input
+                            placeholder={pointsState[idx] || 0} // show current points
                             value={pointsState[idx]}
                             onChange={(e) => handleChange(idx, e.target.value)}
                         />
                     </li>
                 ))}
-                <div class="editButtons">
+                <div className="editButtons">
                     <button type="submit">Opslaan</button>
                 </div>
             </form>

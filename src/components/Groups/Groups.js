@@ -80,38 +80,13 @@ const Groups = ({
                         <>
                             <li className="group" key={idx} onClick={() => { openSpecificModal(group.id) }}>
                                 <section className="groupSection">
-                                    <div className="groupImage" onClick={() => setCamera(true)}>
-                                        {image ? (
-                                            <img
-                                                className="teamPhoto"
-                                                src={
-                                                    typeof image === "string"
-                                                        ? image.startsWith("http") || image.startsWith("data:")
-                                                            ? image
-                                                            : `${apiUrl}${image}`
-                                                        : URL.createObjectURL(image)
-                                                }
-                                                alt="Team foto"
-                                            />
-                                        ) : (
-                                            <Camera className="teamPhoto" />
-                                        )}
+                                    <div className="groupImage">
+                                        {group.image_url && group.image_url !== '' && group.name && ( <img src={`${apiUrl + group.image_url}`} alt={group.name} /> )}
                                     </div>
-                                    <div className="groupDetails">
-                                        <input
-                                            type="text"
-                                            id="teamName"
-                                            defaultValue={group.name}
-                                            placeholder="Team naam"
-                                            required
-                                        />
-                                        <input
-                                            type="text"
-                                            id="klas"
-                                            defaultValue={group.class}
-                                            placeholder="Klas"
-                                            required
-                                        />
+                                    <div>
+                                        <h2>{group.name}</h2>
+                                        <p>{group.class}</p>
+                                        <button className="deleteGroup" onClick={(e) => { removeGroup(e, group.name, group.class, group.id) }}>Verwijder groep</button>
                                     </div>
                                 </section>
                                 {/* Students */}
@@ -121,7 +96,7 @@ const Groups = ({
                                             {group.students.map((student, idx) => (
                                                 <li key={idx}>
                                                     <p>{student.student_number}</p>
-                                                    <p>{student.name}</p>
+                                                    <p>{student.name}</p>                                        
                                                 </li>
                                             ))}
                                         </ul>
@@ -140,7 +115,7 @@ const Groups = ({
                                                 ))}
                                             </ul>
                                         </section>
-
+                                        
 
                                         {/* <section className="timeScoring">
                                             {group.challenges.map((challenge) => (                                        
@@ -168,22 +143,22 @@ const Groups = ({
                                     </button>
                                 </section>
                             </li>
-                            <EditGroup
-                                group={group}
-                                openModal={openModal}
-                                closeModal={closeModal}
+                            <EditGroup 
+                                group={group} 
+                                openModal={openModal} 
+                                closeModal={closeModal} 
                                 apiUrl={apiUrl}
                                 setGroups={setGroups}
                                 setFilteredGroups={setFilteredGroups}
                             />
-                            <AddPoints
-                                group={group}
-                                openModal={openPointsModal}
-                                closeModal={closePointsModal}
+                            <AddPoints 
+                                group={group} 
+                                openModal={openPointsModal} 
+                                closeModal={closePointsModal} 
                             />
                         </>
                     ))}
-                </ul>
+                </ul>                
             </section>
         </>
     );
